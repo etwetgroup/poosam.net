@@ -1,0 +1,197 @@
+{% load static %}
+<!--start sidebar -->
+<aside class="sidebar-wrapper">
+    <div class="iconmenu">
+        <div class="nav-toggle-box">
+            <div class="nav-toggle-icon"><i class="bi bi-list"></i></div>
+        </div>
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="داشبورد">
+                <button class="nav-link {% if request.path == '/home/' %} active {% endif %}" data-bs-toggle="pill"
+                        data-bs-target="#pills-dashboards" type="button"><i class="bi bi-house-door-fill"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="مدیریت لینک ها">
+                <button class="nav-link {% if request.path == '/urlCategories/' or request.path == '/urlCategoryInsert/' or '/urlCategoryEditSave/' in request.path or '/urlCategoryDatasource/'  in request.path%} active {% endif %}" data-bs-toggle="pill"
+                        data-bs-target="#pills-manual-links" type="button"><i class="lni lni-direction"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="مدیریت منوها">
+                <button class="nav-link {% if request.path == '/mainMenu/' or request.path == '/menuAdd/' or '/menuEdit/' in request.path or '/subMenuEdit/' in request.path or '/subMenuAdd/' in request.path %} active {% endif %}" data-bs-toggle="pill"
+                        data-bs-target="#pills-menus" type="button"><i class="lni lni-menu"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="مدیریت وب سایت">
+                <button class="nav-link {% if request.path == '/website/' or request.path == '/hostPrice/' or request.path == '/domainPrice/' or request.path == '/sslPrice/' or request.path == '/sitePrice/' %} active {% endif %}" data-bs-toggle="pill"
+                        data-bs-target="#pills-website" type="button"><i class="lni lni-pencil-alt"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="اطلاع رسانی">
+                <button class="nav-link {% if request.path == '/newscategory/' or '/news/' in  request.path or '/newsAdd/' in request.path or '/newsEdit/' in request.path %} active {% endif %}"
+                        data-bs-toggle="pill" data-bs-target="#pills-newscategory" type="button"><i
+                        class="lni lni-popup"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="تصاویر متحرک">
+                <button class="nav-link {% if request.path == '/carousels/' %} active {% endif %}" data-bs-toggle="pill"
+                        data-bs-target="#pills-carousels" type="button"><i class="lni lni-gallery"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="پرسش و پاسخ - دیدگاه ها">
+                <button class="nav-link {% if request.path == '/faq/' or request.path == '/survey/' %} active {% endif %}" data-bs-toggle="pill"
+                        data-bs-target="#pills-faq" type="button"><i class="lni lni-question-circle"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="نمونه کارها">
+                <button class="nav-link {% if request.path == '/portfolio/' %} active {% endif %}" data-bs-toggle="pill"
+                        data-bs-target="#pills-portfolio" type="button"><i class="lni lni-wordpress-filled"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="محصولات">
+                <button class="nav-link {% if request.path == '/detailsTitle/' or request.path == '/productsList/' or request.path == '/productsAdd/' or request.path == '/detailsAdd/' or '/productsEdit/' in request.path %} active {% endif %}" data-bs-toggle="pill"
+                        data-bs-target="#pills-products" type="button"><i class="lni lni-package"></i></button>
+            </li>
+            <li class="nav-item" data-bs-toggle="tooltip" data-bs-placement="right" title="تنظیمات">
+                <button class="nav-link {% if request.path == '/profileChange/' or request.path == '/ProfileChangeSave/' or request.path == '/PasswordChange/' or request.path == '/PasswordChangeSave/' or request.path == '/userMgmt/' or request.path == '/userAdd/' or request.path == '/userInsert/' or '/userEdit/' in request.path %} active {% endif %}"
+                        data-bs-toggle="pill" data-bs-target="#pills-settings" type="button"><i
+                        class="bi bi-gear-fill"></i></button>
+            </li>
+        </ul>
+    </div>
+    <div class="textmenu">
+        <div class="brand-logo">
+            <img src="{% static 'images/brand-logo-2.png' %}" width="140" alt=""/>
+        </div>
+        <div class="tab-content">
+            <div class="tab-pane fade {% if request.path == '/home/' %} active show {% endif %}" id="pills-dashboards">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">داشبورد</h5>
+                        </div>
+                        <!--            <small class="mb-0">شامل محتوای زیر می باشد</small>-->
+                    </div>
+                    <a href="/home/"
+                       class="list-group-item {% if request.path == '/home/' %} active show {% endif %}"><i
+                            class="bi bi-bar-chart-line"></i>آمار سایت</a>
+                </div>
+            </div>
+            <div class="tab-pane fade {% if request.path == '/newscategory/' or '/news/' in  request.path or '/newsAdd/' in request.path or '/newsEdit/' in request.path %} active show {% endif %}"
+                 id="pills-newscategory">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">اطلاع رسانی</h5>
+                        </div>
+                        <!--            <small class="mb-0">شامل محتوای زیر می باشد</small>-->
+                    </div>
+                    <a href="/newscategory/"
+                       class="list-group-item {% if request.path == '/newscategory/' or '/news/' in  request.path or '/newsAdd/' in request.path or '/newsEdit/' in request.path %} active show {% endif %}"><i
+                            class="bi bi-back"></i>تنظیمات</a>
+                </div>
+            </div>
+            <div class="tab-pane fade {% if request.path == '/profileChange/' or request.path == '/ProfileChangeSave/' or request.path == '/PasswordChange/' or request.path == '/PasswordChangeSave/' or request.path == '/userMgmt/' or request.path == '/userAdd/' or request.path == '/userInsert/' or '/userEdit/' in request.path %} active show {% endif %}"
+                 id="pills-settings">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">تنظیمات</h5>
+                        </div>
+                        <!--            <small class="mb-0">شامل محتوای زیر می باشد</small>-->
+                    </div>
+                    <a href="/profileChange/"
+                       class="list-group-item {% if request.path == '/profileChange/' or request.path == '/ProfileChangeSave/' %} active {% endif %}"><i
+                            class="bi bi-person"></i>پروفایل</a>
+                    <a href="/PasswordChange/"
+                       class="list-group-item {% if request.path == '/PasswordChange/' or request.path == '/PasswordChangeSave/' %} active {% endif %}"><i
+                            class="bi bi-key"></i>تغییر رمز عبور</a>
+                    <a href="/userMgmt/"
+                       class="list-group-item {% if request.path == '/userMgmt/' or request.path == '/userAdd/' or request.path == '/userInsert/' or '/userEdit/' in request.path %} active {% endif %}"><i
+                            class="lni lni-users"></i>لیست کاربران</a>
+                </div>
+            </div>
+            <div class="tab-pane fade  {% if request.path == '/urlCategories/' or request.path == '/urlCategoryInsert/' or '/urlCategoryEditSave/' in request.path or '/urlCategoryDatasource/'  in request.path%} active show {% endif %}" id="pills-manual-links">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">مدیریت لینک ها</h5>
+                        </div>
+                        <!--            <small class="mb-0">Some placeholder content</small>-->
+                    </div>
+                    <a href="/urlCategories/"
+                       class="list-group-item {% if request.path == '/urlCategories/' or request.path == '/urlCategoryInsert/' or '/urlCategoryEditSave/' in request.path or '/urlCategoryDatasource/'  in request.path%} active show {% endif %}"><i
+                            class="lni lni-line-spacing"></i>لیست لینک ها</a>
+                </div>
+            </div>
+            <div class="tab-pane fade {% if request.path == '/mainMenu/' or request.path == '/menuAdd/' or '/menuEdit/' in request.path or '/subMenuEdit/' in request.path or '/subMenuAdd/' in request.path %} active show {% endif %}" id="pills-menus">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">مدیریت منوها</h5>
+                        </div>
+                        <!--            <small class="mb-0">Some placeholder content</small>-->
+                    </div>
+                    <a href="/mainMenu/"
+                       class="list-group-item {% if request.path == '/mainMenu/' or request.path == '/menuAdd/' or '/menuEdit/' in request.path or '/subMenuEdit/' in request.path or '/subMenuAdd/' in request.path %} active show {% endif %}"><i
+                            class="lni lni-line-spacing"></i>تنظیمات</a>
+                </div>
+            </div>
+            <div class="tab-pane fade {% if request.path == '/website/' %} active show {% endif %}" id="pills-website">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">مدیریت وب سایت</h5>
+                        </div>
+                    </div>
+                    <a href="/website/" target="_blank"
+                       class="list-group-item {% if request.path == '/website/' %} active show {% endif %}"><i
+                            class="lni lni-line-spacing"></i>ویرایش صفحه اصلی</a>
+                    <a href="/pages/" target="_blank"
+                       class="list-group-item {% if request.path == '/pages/' %} active show {% endif %}"><i
+                            class="lni lni-line-spacing"></i>ویرایش صفحه نمایش</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-carousels">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">تصاویر محترک</h5>
+                        </div>
+                        <!--            <small class="mb-0">Some placeholder content</small>-->
+                    </div>
+                    <a href="/carousels/"
+                       class="list-group-item {% if request.path == '/carousels/' %} active show {% endif %}"><i
+                            class="bx bx-slider-alt"></i>اسلایدر اصلی</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-portfolio">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">نمونه کارها</h5>
+                        </div>
+                        <!--            <small class="mb-0">Some placeholder content</small>-->
+                    </div>
+                    <a href="/portfolio/" class="list-group-item {% if request.path == '/portfolio/' %} active show {% endif %}"><i class="bx bx-slider-alt"></i>تنظیمات</a>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="pills-faq">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">تنظیمات</h5>
+                        </div>
+                        <!--            <small class="mb-0">Some placeholder content</small>-->
+                    </div>
+                    <a href="/faq/" class="list-group-item {% if request.path == '/faq/' %} active show {% endif %}"><i class="bx bx-slider-alt"></i>پرسش و پاسخ</a>
+                    <a href="/survey/" class="list-group-item {% if request.path == '/survey/' %} active show {% endif %}"><i class="bx bx-slider-alt"></i>دیدگاه ها</a>
+                </div>
+            </div>
+            <div class="tab-pane fade {% if request.path == '/productsAdd/' or request.path == '/detailsAdd/' or '/productsEdit/' in request.path  %} active show {% endif %}" id="pills-products">
+                <div class="list-group list-group-flush">
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-0">تنظیمات</h5>
+                        </div>
+                        <!--            <small class="mb-0">Some placeholder content</small>-->
+                    </div>
+                    <a href="/detailsTitle/" class="list-group-item {% if request.path == '/detailsTitle/' or request.path == '/detailsAdd/' %} active show {% endif %}"><i class="bx bx-slider-alt"></i>عناوین جزییات</a>
+                    <a href="/productsList/" class="list-group-item {% if request.path == '/productsList/' or request.path == '/productsAdd/' or '/productsEdit/' in request.path %} active show {% endif %}"><i class="bx bx-slider-alt"></i>محصولات</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>
+<!--start sidebar -->

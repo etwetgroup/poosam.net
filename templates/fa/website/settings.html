@@ -1,0 +1,808 @@
+{% load static %}
+{% load website_tags %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="description" content=""/>
+	<meta property="og:title" content="" />
+	<meta property="og:description" content="" />
+	<meta property="og:image" content="" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- FAVICONS ICON -->
+	<link rel="icon" href="{% static 'website/assets/images/favicon.ico' %}" type="image/x-icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'website/assets/images/favicon.png' %}" />
+
+	<!-- PAGE TITLE HERE -->
+	<title> ویرایش صفحه اصلی سایت </title>
+
+	<!-- MOBILE SPECIFIC -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!--[if lt IE 9]>
+	<script src="{% static 'website/assets/js/html5shiv.min.js' %}"></script>
+	<script src="{% static 'website/assets/js/respond.min.js' %}"></script>
+	<![endif]-->
+
+	<!-- STYLESHEETS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/css/plugins.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/css/style.css' %}">
+	<link class="skin" rel="stylesheet" type="text/css" href="{% static 'website/assets/css/skin/skin-11.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/css/templete.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/css/rtl.css' %}">
+
+	<!-- Google Font -->
+	<style>
+	@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Playfair+Display:400,400i,700,700i,900,900i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap');
+	</style>
+
+	<!-- REVOLUTION SLIDER CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/plugins/revolution/revolution/css/revolution.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/parastoo.css' %}"/>
+
+    <style>
+        /** {*/
+        /*    font-family: parastoo !important;*/
+        /*}*/
+    </style>
+
+</head>
+<body id="bg">
+<div class="page-wraper">
+<div id="loading-area"></div>
+    <!-- header -->
+    <header class="site-header mo-left header-transparent header navstyle3">
+		<!-- main header -->
+        <div class="sticky-header main-bar-wraper navbar-expand-lg">
+            <div class="main-bar clearfix ">
+                <div class="container clearfix">
+                    <!-- website logo -->
+                    <div class="logo-header mostion logo-white">
+						<a href="/"><img src="{% static 'website/assets/images/logo-white-2.png' %}" alt=""></a>
+					</div>
+                    <!-- nav toggle button -->
+                    <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+                    <!-- extra nav -->
+                    <div class="extra-nav">
+                        <div class="extra-cell">
+                            <button id="quik-search-btn" type="button" class="site-button-link"><i class="la la-search"></i></button>
+						</div>
+                    </div>
+                    <!-- Quik search -->
+                    <div class="dlab-quik-search ">
+                        <form action="#">
+                            <input name="search" value="" type="text" class="form-control" placeholder="جستجو کنید ...">
+                            <span id="quik-search-remove"><i class="ti-close"></i></span>
+                        </form>
+                    </div>
+                    <!-- main nav -->
+                    <div class="header-nav navbar-collapse collapse justify-content-end" id="navbarNavDropdown">
+						<div class="logo-header d-md-block d-lg-none">
+							<a href="/"><img src="{% static 'website/assets/images/logo-2.png' %}" alt=""></a>
+						</div>
+                        <a href="/mainMenu/" target="_blank" class="site-button btnhover14 mt-2">برای ویرایش منو کلیک کنید</a>
+						<div class="dlab-social-icon">
+							<ul>
+								<li><a class="site-button facebook sharp-sm fab fa-facebook-f" href="javascript:void(0);"></a></li>
+								<li><a class="site-button twitter sharp-sm fab fa-twitter" href="javascript:void(0);"></a></li>
+								<li><a class="site-button linkedin sharp-sm fab fa-linkedin-in" href="javascript:void(0);"></a></li>
+								<li><a class="site-button instagram sharp-sm fab fa-instagram" href="javascript:void(0);"></a></li>
+							</ul>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main header END -->
+    </header>
+    <!-- header END -->
+    <!-- Content -->
+    <div class="page-content bg-white">
+		<!-- Slider -->
+        <div class="main-slider rev-slider style-two default-banner" id="home">
+            <div class="tp-banner-container">
+                <div class="tp-banner">
+					<div id="rev_slider_1175_1_wrapper" class="rev_slider_wrapper fullscreen-container" data-alias="duotone192" data-source="gallery" style="background-color:transparent;padding:0px;">
+						<!-- START REVOLUTION SLIDER 5.3.0.2 fullscreen mode -->
+						<div id="rev_slider_1175_1" class="rev_slider fullscreenbanner" style="display:none;" data-version="5.3.0.2">
+							<ul>
+								<!-- SLIDE  -->
+								<li data-index="rs-3239" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-thumb="{% static 'website/assets/images/main-slider/slide20.jpg' %}"  data-rotate="0"  data-fstransition="fade" data-fsmasterspeed="300" data-fsslotamount="7" data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+									<!-- MAIN IMAGE -->
+									<img src="{% static 'website/assets/images/main-slider/slide20.jpg' %}"  alt=""  data-lazyload="{% static 'website/assets/images/main-slider/slide20.jpg' %}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
+									<!-- LAYERS -->
+									<div class="tp-caption tp-shape tp-shapewrapper " id="slide-100-layer"
+										data-x="['center','center','center','center']"
+										data-hoffset="['0','0','0','0']"
+										data-y="['middle','middle','middle','middle']"
+										data-voffset="['0','0','0','0']"
+										data-width="full" data-height="full"
+										data-whitespace="nowrap"
+										data-type="shape"
+										data-basealign="slide"
+										data-responsive_offset="off"
+										data-responsive="off"
+										data-frames='[{"from":"opacity:0;","speed":1000,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1000,"to":"opacity:0;","ease":"Power4.easeOut"}]'
+										data-textAlign="['left','left','left','left']"
+										data-paddingtop="[0,0,0,0]"
+										data-paddingright="[0,0,0,0]"
+										data-paddingbottom="[0,0,0,0]"
+										data-paddingleft="[0,0,0,0]"
+										style="z-index: 2;background-color:rgba(0, 0, 0, 0.1);border-color:rgba(0, 0, 0, 0);border-width:0px; background-image:url({% static 'website/assets/images/overlay/rrdiagonal-line.png' %})"> </div>
+									        <!-- BACKGROUND VIDEO LAYER -->
+									<div class="rs-background-video-layer"
+										data-forcerewind="on"
+										data-volume="mute"
+										data-videowidth="100%"
+										data-videoheight="100%"
+										data-videomp4="{% static 'website/assets/video/video.mp4' %}"
+										data-videopreload="auto"
+										data-videoloop="none"
+										data-aspectratio="16:9"
+										data-autoplay="true"
+										data-autoplayonlyfirsttime="false"
+										data-forceCover="1"
+										data-nextslideatend="true"
+									></div>
+									<!-- LAYER NR. 1 -->
+									<div class="tp-caption   rs-parallaxlevel-4"
+										id="slide-3239-layer-1"
+										data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+										data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+										data-fontsize="['60','60','40','20']"
+										data-lineheight="['75','70','50','30']"
+										data-width="['720','640','480','300']"
+										data-height="none"
+										data-whitespace="normal"
+
+										data-type="text"
+										data-responsive_offset="off"
+										data-responsive="off"
+										data-frames='[{"from":"y:20px;sX:0.9;sY:0.9;opacity:0;","speed":1000,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+										data-textAlign="['center','center','center','center']"
+										data-paddingtop="[0,0,0,0]"
+										data-paddingright="[0,0,0,0]"
+										data-paddingbottom="[0,0,0,0]"
+										data-paddingleft="[0,0,0,0]"
+
+										style="z-index: 5; min-width: 720px; max-width: 720px; white-space: normal; font-size: 60px; line-height: 70px;  color: rgba(255, 255, 255, 1.00);font-family:Poppins;border-width:0px; font-weight:600;"><a style="font-size: 25px; !important;" href="/carousels/" target="_blank" class="site-button btnhover14">برای ویرایش اسلایدر کلیک کنید</a>
+									</div>
+								</li>
+								<!-- SLIDE  -->
+								<li data-index="rs-3240" data-transition="fade" data-slotamount="default" data-hideafterloop="0" data-hideslideonmobile="off"  data-easein="default" data-easeout="default" data-masterspeed="default"  data-thumb="{% static 'website/assets/images/main-slider/slide21.jpg' %}"  data-rotate="0"  data-saveperformance="off"  data-title="Slide" data-param1="" data-param2="" data-param3="" data-param4="" data-param5="" data-param6="" data-param7="" data-param8="" data-param9="" data-param10="" data-description="">
+									<!-- MAIN IMAGE -->
+									<img src="{% static 'website/assets/images/main-slider/slide21.jpg' %}"  alt=""  data-lazyload="{% static 'website/assets/images/main-slider/slide21.jpg' %}" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat" data-bgparallax="3" class="rev-slidebg" data-no-retina>
+									<!-- LAYERS -->
+									<div class="tp-caption tp-shape tp-shapewrapper " id="slide-200-layer"
+										data-x="['center','center','center','center']"
+										data-hoffset="['0','0','0','0']"
+										data-y="['middle','middle','middle','middle']"
+										data-voffset="['0','0','0','0']"
+										data-width="full" data-height="full"
+										data-whitespace="nowrap"
+										data-type="shape"
+										data-basealign="slide"
+										data-responsive_offset="off"
+										data-responsive="off"
+										data-frames='[{"from":"opacity:0;","speed":1000,"to":"o:1;","delay":0,"ease":"Power4.easeOut"},{"delay":"wait","speed":1000,"to":"opacity:0;","ease":"Power4.easeOut"}]'
+										data-textAlign="['left','left','left','left']"
+										data-paddingtop="[0,0,0,0]"
+										data-paddingright="[0,0,0,0]"
+										data-paddingbottom="[0,0,0,0]"
+										data-paddingleft="[0,0,0,0]"
+										style="z-index: 2;background-color:rgba(0, 0, 0, 0.1);border-color:rgba(0, 0, 0, 0);border-width:0px; background-image:url({% static 'website/assets/images/overlay/rrdiagonal-line.png' %})"></div>
+									<!-- LAYER NR. 4 -->
+									<div class="tp-caption   rs-parallaxlevel-4"
+										id="slide-3239-layer-2"
+										data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+										data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
+										data-fontsize="['60','60','40','20']"
+										data-lineheight="['75','70','50','30']"
+										data-width="['720','640','480','300']"
+										data-height="none"
+										data-whitespace="normal"
+
+										data-type="text"
+										data-responsive_offset="off"
+										data-responsive="off"
+										data-frames='[{"from":"y:20px;sX:0.9;sY:0.9;opacity:0;","speed":1000,"to":"o:1;","delay":500,"ease":"Power4.easeOut"},{"delay":"wait","speed":300,"to":"opacity:0;","ease":"nothing"}]'
+										data-textAlign="['center','center','center','center']"
+										data-paddingtop="[0,0,0,0]"
+										data-paddingright="[0,0,0,0]"
+										data-paddingbottom="[0,0,0,0]"
+										data-paddingleft="[0,0,0,0]"
+
+										style="z-index: 5; min-width: 720px; max-width: 720px; white-space: normal; font-size: 60px; line-height: 70px;  color: rgba(255, 255, 255, 1.00);font-family:Poppins;border-width:0px; font-weight:600;"><a style="font-size: 25px; !important;" href="/carousels/" target="_blank" class="site-button btnhover14">برای ویرایش اسلایدر کلیک کنید</a>
+									</div>
+								</li>
+								<!-- SLIDE  -->
+							</ul>
+							<div class="tp-bannertimer" style="height: 8px; background-color: rgba(255, 255, 255, 0.25);"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Slider END -->
+        <!-- contact area -->
+        <div class="content-block">
+			<!-- Features -->
+			<div class="section-full content-inner bg-gray">
+				<div class="container">
+					<div class="row">
+						<a href="/mainMenu/" target="_blank" class="site-button btnhover14 mt-2">برای ویرایش این قسمت کلیک کنید</a>
+					</div>
+				</div>
+			</div>
+			<!-- Features End -->
+			<!-- Service Info Head -->
+			<div class="section-full content-inner-2 bg-primary wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s" style="background-image:url({% static 'website/assets/images/background/map-bg.png' %});">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-center service-info">
+							{% get_website_info 'main_service_title' as info %}
+							<div class="editor" id="main_service_title" contenteditable="true">
+								<h2 class="title text-white">{{ info.value }}</h2>
+							</div>
+							{% get_website_info 'main_service_desc' as info %}
+							<div class="editor" id="main_service_desc" contenteditable="true">
+								<p>{{ info.value }}</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Service Info Head End -->
+			<!-- About Us -->
+			<div class="section-full content-inner bg-white">
+				<div class="container">
+					<div class="row align-items-center">
+						<div class="col-lg-6 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.3s">
+							<div class="our-story">
+								{% get_website_info 'main_about_short_title' as info %}
+								<div class="editor" id="main_about_short_title" contenteditable="true">
+									<span>{{ info.value }}</span>
+								</div>
+								{% get_website_info 'main_about_big_title' as info %}
+								<div class="editor" id="main_about_big_title" contenteditable="true">
+									<h2 class="title text-primary">{{ info.value }}</h2>
+								</div>
+								{% get_website_info 'main_about_desc_title' as info %}
+								<div class="editor" id="main_about_desc_title" contenteditable="true">
+									<h4 class="title">{{ info.value }}</h4>
+								</div>
+								{% get_website_info 'main_about_desc' as info %}
+								<div class="editor" id="main_about_desc" contenteditable="true">
+									<p>{{ info.value }}</p>
+								</div>
+								<div class="row">
+									<div class="col-2">
+										{% get_website_info 'main_btn_about' as info %}
+										<div class="editor" id="main_btn_about" contenteditable="true">
+											<a class="site-button btnhover14">{{ info.value }}</a>
+										</div>
+									</div>
+									<div class="col-10" style="cursor: pointer;">
+										<span id="btn_about" class="icon-sm link-icon"><i class="ti-link"></i></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6 col-md-6 m-b30 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.6s">
+							<div class="dlab-media dlab-img-overlay1 dlab-img-effect portbox3">
+								{% get_website_info 'main_about_image' as img %}
+								<img id="about_image" src="https://cms.poosam.ir/media/{{ img.value }}" class="radius-sm" alt="">
+								<div class="overlay-bx">
+									<div class="portinner">
+										<div class="port-up">
+											<span class="text-primary">ویرایش تصویر</span>
+										</div>
+										<div class="port-down">
+											<a href="#" class="btn-link" id="main_about_image"> کلیک کنید <i class="la la-arrow-left"></i></a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- About Us End -->
+			<!-- Call To Action -->
+			<div class="section-full call-action style1 bg-primary wow fadeIn" data-wow-duration="2s" data-wow-delay="0.2s">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-9 text-white">
+							{% get_website_info 'main_call_title' as info %}
+							<div class="editor" id="main_call_title" contenteditable="true">
+								<h2 class="title">{{ info.value }}</h2>
+							</div>
+						</div>
+						<div class="col-lg-3 d-flex">
+							<div class="row">
+								<div class="col-8">
+									{% get_website_info 'main_btn_call' as info %}
+									<div class="editor" id="main_btn_call" contenteditable="true">
+										<a class="site-button black align-self-center ml-auto btnhover14">{{ info.value }}</a>
+									</div>
+								</div>
+								<div class="col-4" style="cursor: pointer;">
+									<span id="btn_call" class="icon-sm link-icon"><i class="ti-link"></i></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Call To Action End -->
+			<div class="section-full content-inner-2 bg-gray wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
+				<div class="container">
+					<div class="section-head text-black text-center">
+						{% get_website_info 'main_project_title' as info %}
+						<div class="editor" id="main_project_title" contenteditable="true">
+							<h2 class="title">{{ info.value }}</h2>
+						</div>
+						{% get_website_info 'main_project_desc' as info %}
+						<div class="editor" id="main_project_desc" contenteditable="true">
+							<p>{{ info.value }}</p>
+						</div>
+					</div>
+					<div class="row">
+						<a href="/mainMenu/" target="_blank" class="site-button btnhover14 mt-2">برای ویرایش منو کلیک کنید</a>
+					</div>
+				</div>
+			</div>
+			<!-- Our Project END -->
+			<!-- Our Project -->
+			<div class="section-full bg-white content-inner">
+				<div class="container">
+					<div class="section-head text-black text-center">
+						{% get_website_info 'main_team_title' as info %}
+						<div class="editor" id="main_team_title" contenteditable="true">
+							<h2 class="title">{{ info.value }}</h2>
+						</div>
+						{% get_website_info 'main_team_desc' as info %}
+						<div class="editor" id="main_team_desc" contenteditable="true">
+							<p>{{ info.value }}</p>
+						</div>
+					</div>
+					<div class="row dlab-team10-area">
+						<div class="col-lg-3 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.2s">
+							<div class="dlab-box m-b30 dlab-team10">
+								<div class="dlab-media dlab-img-overlay1 dlab-img-effect portbox3">
+									{% get_website_info 'main_project_box_1_image' as img %}
+									<img id="project_box_1_image" src="https://cms.poosam.ir/media/{{ img.value }}" class="radius-sm" alt="">
+									<div class="overlay-bx">
+										<div class="portinner">
+											<div class="port-up">
+												<span class="text-primary">ویرایش تصویر</span>
+											</div>
+											<div class="port-down">
+												<a href="#" class="btn-link" id="main_project_box_1_image"> کلیک کنید <i class="la la-arrow-left"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mt-3">
+									{% get_website_info 'main_project_box_1_title' as info %}
+									<div class="editor" id="main_project_box_1_title" contenteditable="true">
+										<h4 class="dlab-title"><a href="">{{ info.value }}</a></h4>
+									</div>
+									{% get_website_info 'main_project_box_1_desc' as info %}
+									<div class="editor" id="main_project_box_1_desc" contenteditable="true">
+										<span class="dlab-position">{{ info.value }}</span>
+									</div>
+<!--									<ul class="dlab-social-icon">-->
+<!--										<li><a class="site-button fab fa-facebook-f facebook" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-twitter twitter" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-linkedin-in linkedin" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-pinterest-p pinterest" href="javascript:void(0);"></a></li>-->
+<!--									</ul>-->
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.4s">
+							<div class="dlab-box m-b30 dlab-team10">
+								<div class="dlab-media dlab-img-overlay1 dlab-img-effect portbox3">
+									{% get_website_info 'main_project_box_2_image' as img %}
+									<img id="project_box_2_image" src="https://cms.poosam.ir/media/{{ img.value }}" class="radius-sm" alt="">
+									<div class="overlay-bx">
+										<div class="portinner">
+											<div class="port-up">
+												<span class="text-primary">ویرایش تصویر</span>
+											</div>
+											<div class="port-down">
+												<a href="#" class="btn-link" id="main_project_box_2_image"> کلیک کنید <i class="la la-arrow-left"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mt-3">
+									{% get_website_info 'main_project_box_2_title' as info %}
+									<div class="editor" id="main_project_box_2_title" contenteditable="true">
+										<h4 class="dlab-title"><a href="">{{ info.value }}</a></h4>
+									</div>
+									{% get_website_info 'main_project_box_2_desc' as info %}
+									<div class="editor" id="main_project_box_2_desc" contenteditable="true">
+										<span class="dlab-position">{{ info.value }}</span>
+									</div>
+<!--									<ul class="dlab-social-icon">-->
+<!--										<li><a class="site-button fab fa-facebook-f facebook" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-twitter twitter" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-linkedin-in linkedin" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-pinterest-p pinterest" href="javascript:void(0);"></a></li>-->
+<!--									</ul>-->
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.6s">
+							<div class="dlab-box m-b30 dlab-team10">
+								<div class="dlab-media dlab-img-overlay1 dlab-img-effect portbox3">
+									{% get_website_info 'main_project_box_3_image' as img %}
+									<img id="project_box_3_image" src="https://cms.poosam.ir/media/{{ img.value }}" class="radius-sm" alt="">
+									<div class="overlay-bx">
+										<div class="portinner">
+											<div class="port-up">
+												<span class="text-primary">ویرایش تصویر</span>
+											</div>
+											<div class="port-down">
+												<a href="#" class="btn-link" id="main_project_box_3_image"> کلیک کنید <i class="la la-arrow-left"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mt-3">
+									{% get_website_info 'main_project_box_3_title' as info %}
+									<div class="editor" id="main_project_box_3_title" contenteditable="true">
+										<h4 class="dlab-title"><a href="">{{ info.value }}</a></h4>
+									</div>
+									{% get_website_info 'main_project_box_3_desc' as info %}
+									<div class="editor" id="main_project_box_3_desc" contenteditable="true">
+										<span class="dlab-position">{{ info.value }}</span>
+									</div>
+<!--									<ul class="dlab-social-icon">-->
+<!--										<li><a class="site-button fab fa-facebook-f facebook" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-twitter twitter" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-linkedin-in linkedin" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-pinterest-p pinterest" href="javascript:void(0);"></a></li>-->
+<!--									</ul>-->
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 col-md-6 col-sm-6 wow fadeInUp" data-wow-duration="2s" data-wow-delay="0.8s">
+							<div class="dlab-box m-b30 dlab-team10">
+								<div class="dlab-media dlab-img-overlay1 dlab-img-effect portbox3">
+									{% get_website_info 'main_project_box_4_image' as img %}
+									<img id="project_box_4_image" src="https://cms.poosam.ir/media/{{ img.value }}" class="radius-sm" alt="">
+									<div class="overlay-bx">
+										<div class="portinner">
+											<div class="port-up">
+												<span class="text-primary">ویرایش تصویر</span>
+											</div>
+											<div class="port-down">
+												<a href="#" class="btn-link" id="main_project_box_4_image"> کلیک کنید <i class="la la-arrow-left"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="mt-3">
+									{% get_website_info 'main_project_box_4_title' as info %}
+									<div class="editor" id="main_project_box_4_title" contenteditable="true">
+										<h4 class="dlab-title"><a href="">{{ info.value }}</a></h4>
+									</div>
+									{% get_website_info 'main_project_box_4_desc' as info %}
+									<div class="editor" id="main_project_box_4_desc" contenteditable="true">
+										<span class="dlab-position">{{ info.value }}</span>
+									</div>
+<!--									<ul class="dlab-social-icon">-->
+<!--										<li><a class="site-button fab fa-facebook-f facebook" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-twitter twitter" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-linkedin-in linkedin" href="javascript:void(0);"></a></li>-->
+<!--										<li><a class="site-button fab fa-pinterest-p pinterest" href="javascript:void(0);"></a></li>-->
+<!--									</ul>-->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Our Team -->
+			<!-- Testimonials -->
+			<div class="section-full content-inner-2 bg-gray wow fadeIn" data-wow-duration="2s" data-wow-delay="0.3s">
+				<div class="container">
+					<div class="section-head text-black text-center">
+						{% get_website_info 'main_testimonials_title' as info %}
+						<div class="editor" id="main_testimonials_title" contenteditable="true">
+							<h2 class="title">{{ info.value }}</h2>
+						</div>
+						{% get_website_info 'main_testimonials_desc' as info %}
+						<div class="editor" id="main_testimonials_desc" contenteditable="true">
+							<p>{{ info.value }}</p>
+						</div>
+					</div>
+					<div class="text-center">
+						<a href="/faq/" target="_blank" class="site-button btnhover14 mt-2">برای ویرایش پرسش و پاسخ کلیک کنید</a>
+					</div>
+				</div>
+			</div>
+			<!-- Testimonials END -->
+			<!-- Latests News -->
+			<div class="section-full content-inner bg-white wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
+				<div class="container">
+					<div class="section-head text-black text-center">
+						{% get_website_info 'main_news_title' as info %}
+						<div class="editor" id="main_news_title" contenteditable="true">
+							<h2 class="title">{{ info.value }}</h2>
+						</div>
+						{% get_website_info 'main_news_desc' as info %}
+						<div class="editor" id="main_news_desc" contenteditable="true">
+							<p>{{ info.value }}</p>
+						</div>
+					</div>
+					<div class="text-center">
+ 						<a href="/newscategory/" target="_blank" class="site-button btnhover14 mt-2">برای ویرایش اخبار و مقالات کلیک کنید</a>
+					</div>
+				</div>
+			</div>
+			<!-- Latest News End -->
+			<!-- Call To Action -->
+			<div class="section-full call-action bg-primary wow fadeIn" data-wow-duration="2s" data-wow-delay="0.9s">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-9 text-white">
+							{% get_website_info 'main_action_title' as info %}
+							<div class="editor" id="main_action_title" contenteditable="true">
+								<h2 class="title">{{ info.value }}</h2>
+							</div>
+							{% get_website_info 'main_action_desc' as info %}
+							<div class="editor" id="main_action_desc" contenteditable="true">
+								<p class="m-b0">{{ info.value }}</p>
+							</div>
+						</div>
+						<div class="col-lg-3 d-flex">
+							<div class="col-5">
+								{% get_website_info 'main_btn_action' as info %}
+								<div class="editor" id="main_btn_action" contenteditable="true">
+									<a class="site-button white align-self-center outline ml-auto outline-2 btnhover14">{{ info.value }}</a>
+								</div>
+							</div>
+							<div class="col-7" style="cursor: pointer;">
+								<span id="btn_action" class="icon-sm link-icon"><i class="ti-link"></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Call To Action End -->
+		</div>
+		<!-- contact area END -->
+    </div>
+    <!-- Content END -->
+	<!-- Footer -->
+    <footer class="site-footer footer-gray-1">
+		<div class="footer-top">
+            <div class="container">
+                <div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-12 wow fadeIn" data-wow-delay="0.2s">
+                        <div class="widget border-0">
+							{% get_website_info 'main_footer_links' as info %}
+							<div class="editor" id="main_footer_links" contenteditable="true">
+								<h6 class="m-b20 text-white font-weight-300 text-uppercase">{{ info.value }}</h6>
+							</div>
+                            <ul class="list-2">
+<!--								<li><a href="about-1.html">معلومات عنا</a></li>-->
+<!--                                <li><a href="blog-grid-2.html">مدونة</a></li>-->
+<!--                                <li><a href="services-1.html">خدمات</a></li>-->
+<!--                                <li><a href="privacy-policy.html">سياسة خاصة</a></li>-->
+<!--                                <li><a href="portfolio-details.html">المشاريع </a></li>-->
+<!--                                <li><a href="help-desk.html">مكتب المساعدة </a></li>-->
+<!--                                <li><a href="shop.html">متجر</a></li>-->
+<!--                                <li><a href="contact-1.html">اتصل</a></li>-->
+                            </ul>
+                        </div>
+                    </div>
+					<div class="col-lg-4 col-md-6 col-sm-12 wow fadeIn" data-wow-delay="0.4s">
+                        <div class="widget">
+							{% get_website_info 'main_footer_mail_title' as info %}
+							<div class="editor" id="main_footer_mail_title" contenteditable="true">
+								<h6 class="m-b20 text-white font-weight-300 text-uppercase">{{ info.value }}</h6>
+							</div>
+                            <div class="subscribe-form m-b20 m-t15">
+								<form class="dzSubscribe" action="" method="post">
+									<div class="dzSubscribeMsg"></div>
+									<div class="input-group">
+										<input name="dzEmail" required="required" class="form-control radius-no" placeholder="ایمیل شما" type="email">
+										<span class="input-group-btn">
+											<button name="submit" value="Submit" type="submit" class="site-button radius-no btnhover14">ارسال</button>
+										</span>
+									</div>
+								</form>
+							</div>
+							{% get_website_info 'main_footer_social_title' as info %}
+							<div class="editor" id="main_footer_social_title" contenteditable="true">
+								<h6 class="m-b10 text-white font-weight-300 text-uppercase">{{ info.value }}</h6>
+							</div>
+							<ul class="list-inline m-a0">
+								<li><a href="javascript:void(0);" class="site-button facebook sharp"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="javascript:void(0);" class="site-button google-plus sharp"><i class="fab fa-google-plus-g"></i></a></li>
+								<li><a href="javascript:void(0);" class="site-button linkedin sharp"><i class="fab fa-linkedin-in"></i></a></li>
+								<li><a href="javascript:void(0);" class="site-button instagram sharp"><i class="fab fa-instagram"></i></a></li>
+								<li><a href="javascript:void(0);" class="site-button twitter sharp"><i class="fab fa-twitter"></i></a></li>
+							</ul>
+                        </div>
+                    </div>
+					<div class="col-lg-5 col-md-12 col-sm-12 wow fadeIn" data-wow-delay="0.6s">
+						<div class="icon-bx-wraper bx-style-1 p-a30 m-b15 radius-sm br-col-w1 bg-tpw1">
+							{% get_website_info 'main_footer_text_title' as info %}
+							<div class="editor" id="main_footer_text_title" contenteditable="true">
+								<h5 class="text-white font-weight-300">{{ info.value }}</h5>
+							</div>
+							{% get_website_info 'main_footer_text_desc' as info %}
+							<div class="editor" id="main_footer_text_desc" contenteditable="true">
+								<p>{{ info.value }}</p>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- footer bottom part -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 text-center">
+						{% get_website_info 'main_footer_copyright' as info %}
+						<div class="editor" id="main_footer_copyright" contenteditable="true">
+							<span>{{ info.value }}</span>
+						</div>
+					</div>
+<!--                    <div class="col-md-6 col-sm-6 text-right ">-->
+<!--						<div class="widget-link ">-->
+<!--							<ul>-->
+<!--								<li><a href="help-desk.html"> مكتب المساعدة</a></li>-->
+<!--								<li><a href="privacy-policy.html">  سياسة الاسترجاع</a></li>-->
+<!--							</ul>-->
+<!--						</div>-->
+<!--					</div>-->
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer END-->
+
+    <button class="scroltop style1 radius white" type="button"><i class="fas fa-arrow-up"></i></button>
+
+	<div class="d-none">
+		<input type="file" id="uplodfile" accept=".jpg, .jpeg"/>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="linkModal" tabindex="-1" aria-labelledby="linkModalLabel" aria-hidden="true" dir="rtl">
+		<div class="modal-dialog">
+			<form action="/saveLink/" method="post" enctype="multipart/form-data">
+				{% csrf_token %}
+				<input type="hidden" id="btnlink" name="btnlink" />
+				<div class="modal-content">
+					<div class="modal-header" style="background-color: #6a1a1f;">
+						<h6 class="modal-title" id="linkModalLabel">لینک مورد نظر را وارد نمایید.</h6>
+					</div>
+					<div class="modal-body">
+						<input type="text" class="form-control" id="txtLink" name="txtLink" />
+					</div>
+					<div class="modal-footer">
+						<button type="submit" class="site-button">ثبت</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">خروج</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+</div>
+<!-- JAVASCRIPT FILES ========================================= -->
+<script src="{% static 'website/assets/js/jquery.min.js' %}"></script><!-- JQUERY.MIN JS -->
+<script src="{% static 'website/assets/plugins/wow/wow.js' %}"></script><!-- WOW JS -->
+
+<script src="{% static 'website/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="{% static 'website/assets/plugins/bootstrap-select/bootstrap-select.min.js' %}"></script><!-- FORM JS -->
+<script src="{% static 'website/assets/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js' %}"></script><!-- FORM JS -->
+<script src="{% static 'website/assets/plugins/magnific-popup/magnific-popup.js' %}"></script><!-- MAGNIFIC POPUP JS -->
+<script src="{% static 'website/assets/plugins/counter/waypoints-min.js' %}"></script><!-- WAYPOINTS JS -->
+<script src="{% static 'website/assets/plugins/counter/counterup.min.js' %}"></script><!-- COUNTERUP JS -->
+<script src="{% static 'website/assets/plugins/imagesloaded/imagesloaded.js' %}"></script><!-- IMAGESLOADED -->
+<script src="{% static 'website/assets/plugins/masonry/masonry-3.1.4.js' %}"></script><!-- MASONRY -->
+<script src="{% static 'website/assets/plugins/masonry/masonry.filter.js' %}"></script><!-- MASONRY -->
+<script src="{% static 'website/assets/plugins/owl-carousel/owl.carousel.js' %}"></script><!-- OWL SLIDER -->
+<script src="{% static 'website/assets/plugins/lightgallery/js/lightgallery-all.min.js' %}"></script><!-- Lightgallery -->
+<script src="{% static 'website/assets/plugins/scroll/scrollbar.min.js' %}"></script><!-- scroll -->
+<script src="{% static 'website/assets/js/custom.js' %}"></script><!-- CUSTOM FUCTIONS  -->
+<script src="{% static 'website/assets/js/dz.carousel.min.js' %}"></script><!-- SORTCODE FUCTIONS  -->
+<script src="{% static 'website/assets/plugins/countdown/jquery.countdown.js' %}"></script><!-- COUNTDOWN FUCTIONS  -->
+<script src="{% static 'website/assets/js/dz.ajax.js' %}"></script><!-- CONTACT JS  -->
+<script src="{% static 'website/assets/js/jquery.lazy.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/rangeslider/rangeslider.js' %}" ></script><!-- Rangeslider -->
+
+
+<!-- REVOLUTION JS FILES -->
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/jquery.themepunch.tools.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/jquery.themepunch.revolution.min.js' %}"></script>
+<!-- Slider revolution 5.0 Extensions  (Load Extensions only on Local File Systems !  The following part can be removed on Server for On Demand Loading) -->
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/extensions/revolution.extension.actions.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+<script src="{% static 'website/assets/plugins/revolution/revolution/js/extensions/revolution.extension.video.min.js' %}"></script>
+<script src="{% static 'website/assets/js/rev.slider.js' %}"></script>
+<script>
+	jQuery(document).ready(function() {
+		'use strict';
+		dz_rev_slider_5();
+		$('.lazy').Lazy();
+	});	/*ready*/
+</script>
+
+<script src="{% static 'js/persianumber.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('body').persiaNumber();
+    });
+</script>
+
+<script>
+    $(".editor").mouseleave(function () {
+        var value = $('#' + this.id).text().trim();
+        $.ajax({
+            type: "POST",
+            url: "/changeWebSite/",
+            data: {key: this.id, value: value},
+        });
+    });
+	$(".link-icon").on('click', function () {
+        $("#btnlink").val(($(this)[0].id));
+        $("#linkModal").modal('show');
+    });
+	var img_field;
+    $(".btn-link").on('click', function () {
+        $("#uplodfile").click();
+        img_field = this.id;
+    });
+    $("#uplodfile").change(function () {
+
+        var data = new FormData();
+        var file = $(this)[0].files[0];
+        data.append("key", img_field);
+        data.append("file", file);
+
+        $.ajax({
+            url: '/uploadFile/',
+            data: data,
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'post',
+            success: function (response) {
+                img_field = img_field.replace('main_', '');
+                $("#" + img_field).attr("src", response);
+            },
+            error: function () {
+            }
+        });
+    });
+</script>
+</body>
+</html>

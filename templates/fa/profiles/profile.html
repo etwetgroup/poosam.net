@@ -1,0 +1,124 @@
+{% extends "fa/base.html" %}
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+    <!--start content-->
+    <main class="page-content">
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">پروفایل</div>
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">تغییر مشخصات کاربری</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="border p-3 rounded">
+                            <h6 class="mb-0 text-uppercase">تغییر مشخصات کاربری</h6>
+                            <hr/>
+                            <form action="/ProfileChangeSave/" class="row g-3 needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                                {% csrf_token %}
+                                <div class="col-12">
+                                    <label class="form-label">نام</label>
+                                    <input required type="text" class="form-control" id="name" name="name"
+                                           value="{{ user.first_name }}">
+                                    <div class="invalid-feedback">
+                                        نام اجباری میباشد.
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">نام خانوادگی</label>
+                                    <input required type="text" class="form-control" id="family" name="family"
+                                           value="{{ user.last_name }}">
+                                    <div class="invalid-feedback">
+                                        نام خانوادگی اجباری میباشد.
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="button" class="btn btn-outline-primary px-5 radius-30" value="انتخاب عکس"
+                                           onclick="document.getElementById('image').click();"/>
+                                    <input type="file" style="display:none;" id="image" name="image"/>
+                                </div>
+                                <div class="col-12">
+                                    <div class="d-grid">
+                                        <button type="submit" class="btn btn-primary">تغییر پروفایل</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!--end page main-->
+
+{% if messages %}
+    {% for message in messages %}
+        <input type="hidden" id="txt_messages" value="{{ message }}">
+    {% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+
+{% endblock body %}
+
+{% block script %}
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+    <script>
+        $(document).ready(function () {
+            var msg = $("#txt_messages").val();
+            if (msg !== undefined) {
+                if (msg.length > 0) {
+                    Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                }
+            }
+        });
+    </script>
+{% endblock script %}

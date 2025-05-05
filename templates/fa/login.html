@@ -1,0 +1,185 @@
+{% load static %}
+{% load i18n static persianfonts_tags %}
+
+<!doctype html>
+<html lang="fa" class="minimal-theme" dir="rtl">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{% static 'images/favicon-32x32.png' %}" type="image/png" />
+  <!-- Bootstrap CSS -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/bootstrap-extended.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/icons.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+  <!-- loader-->
+  <link href="{% static 'css/pace.min.css' %}" rel="stylesheet" />
+
+  <title>پنل مدیریت اختصاصی - شرکت هوش راز</title>
+
+  <!--plugins-->
+  <link rel="stylesheet" href="{% static 'plugins/notifications/css/lobibox.min.css' %}" />
+
+  {% get_persian_font as font %}
+  {% if font.name == 'sahel' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/sahel.css' %}"/>
+  {% elif font.name == 'yekan' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/yekan.css' %}"/>
+  {% elif font.name == 'samim' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/samim.css' %}"/>
+  {% elif font.name == 'parastoo' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/parastoo.css' %}"/>
+  {% elif font.name == 'shabnam' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/shabnam.css' %}"/>
+  {% elif font.name == 'tanha' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/tanha.css' %}"/>
+  {% elif font.name == 'vazir' %}
+      <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/vazir.css' %}"/>
+  {% endif %}
+
+    <style>
+        * { font-family: {{font.name}} !important; }
+    </style>
+</head>
+
+<body>
+
+  <!--start wrapper-->
+  <div class="wrapper">
+       <!--start content-->
+       <main class="authentication-content">
+        <div class="container-fluid">
+          <div class="authentication-card">
+            <div class="card shadow rounded-0 overflow-hidden">
+              <div class="row g-0">
+                <div class="col-lg-6 bg-login d-flex align-items-center justify-content-center">
+                  <img src="{% static 'images/login-img.jpg' %}" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-6">
+                  <div class="card-body p-4 p-sm-5">
+                    <h5 class="card-title">ورود</h5>
+                    <p class="card-text mb-5">برای محافظت از خود، لطفا هویت خود را تأیید کنید.</p>
+                    <form action="/auth/" method="POST" name="login_form" class="form-body needs-validation" novalidate>
+                      {% csrf_token %}
+                      <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+                      <div class="d-grid">
+                        <a class="btn btn-white radius-30" href="javascript:;"><span class="d-flex justify-content-center align-items-center">
+                            <img class="me-2" src="{% static 'images/search.svg' %}" width="16" alt="">
+                            <span>با گوگل وارد شوید</span>
+                          </span>
+                        </a>
+                      </div>
+                      <div class="login-separater text-center mb-4"> <span>یا با نام کاربری و رمز عبور وارد شوید</span>
+                        <hr>
+                      </div>
+                        <div class="row g-3">
+                          <div class="col-12">
+                            <label for="login_username" class="form-label">نام کاربری</label>
+                            <div class="ms-auto position-relative">
+                              <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-person-fill"></i></div>
+                              <input required type="text" class="form-control radius-30 ps-5" name="login_username" id="login_username" placeholder="نام کاربری را در این قسمت وارد نمایید">
+                              <div class="invalid-feedback">
+                                  نام کاربری اجباری میباشد.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12">
+                            <label for="login_password" class="form-label">رمز عبور</label>
+                            <div class="ms-auto position-relative">
+                              <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i class="bi bi-lock-fill"></i></div>
+                              <input required type="password" class="form-control radius-30 ps-5" name="login_password" id="login_password" placeholder="رمز عبور را در این قسمت وارد نمایید">
+                              <div class="invalid-feedback">
+									رمز عبور اجباری میباشد.
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="form-check form-switch">
+                              <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked="">
+                              <label class="form-check-label" for="flexSwitchCheckChecked">مرا به خاطر بسپار</label>
+                            </div>
+                          </div>
+                          <div class="col-6 text-end">	<a href="#">رمز عبور را فراموش کرده اید ؟</a>
+                          </div>
+                          <div class="col-12">
+                            <div class="d-grid">
+                              <button type="submit" class="btn btn-primary radius-30">ورود به پنل ادمین</button>
+
+                            </div>
+                          </div>
+<!--                          <div class="col-12">-->
+<!--                            <p class="mb-0">Don't have an account yet? <a href="authentication-signup.html">Sign up here</a></p>-->
+<!--                          </div>-->
+                        </div>
+                    </form>
+                 </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       </main>
+       <!--end page main-->
+  </div>
+  <!--end wrapper-->
+
+  {% if messages %}
+    {% for message in messages %}
+      <input type="hidden" id="txt_messages" value="{{ message }}">
+    {% endfor %}
+  {% endif %}
+
+  <!--plugins-->
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <!--notification js -->
+  <script src="{% static 'plugins/notifications/js/notifications.min.js' %}"></script>
+  <script src="{% static 'plugins/notifications/js/notification-custom-script.js' %}"></script>
+  <script src="{% static 'js/pace.min.js' %}"></script>
+
+  <script>
+    (function () {
+      'use strict'
+
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Loop over them and prevent submission
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+  </script>
+
+  <script>
+    $(document).ready(function() {
+        var msg = $("#txt_messages").val();
+        if (msg !== undefined) {
+          if (msg.length > 0) {
+            Lobibox.notify('error', {
+              pauseDelayOnHover: true,
+              continueDelayOnInactiveTab: false,
+              position: 'top right',
+              icon: 'bx bx-x-circle',
+              msg: msg
+            });
+          }
+        }
+    });
+  </script>
+
+</body>
+
+</html>

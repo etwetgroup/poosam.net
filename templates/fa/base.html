@@ -1,0 +1,103 @@
+{% load static %}
+{% load i18n static persianfonts_tags %}
+
+<!doctype html>
+<html lang="fa" class="minimal-theme" dir="rtl">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow,noarchive" />
+    <link rel="icon" href="{% static 'images/favicon-32x32.png' %}" type="image/png" />
+    <!--plugins-->
+    <link href="{% static 'plugins/simplebar/css/simplebar.css' %}" rel="stylesheet" />
+    <link href="{% static 'plugins/perfect-scrollbar/css/perfect-scrollbar.css' %}" rel="stylesheet" />
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap-extended.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/icons.css' %}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <!-- loader-->
+	<link href="{% static 'css/pace.min.css' %}" rel="stylesheet" />
+
+
+    <!--Theme Styles-->
+    <link href="{% static 'css/dark-theme.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/light-theme.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/semi-dark.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/header-colors.css' %}" rel="stylesheet" />
+
+    <!--plugins-->
+    <link rel="stylesheet" href="{% static 'plugins/notifications/css/lobibox.min.css' %}" />
+
+    <title>پنل مدیریت اختصاصی - شرکت هوش راز</title>
+
+    {% block js %}{% endblock js %}
+
+    {% block css %}{% endblock css %}
+
+    {% get_persian_font as font %}
+    {% if font.name == 'sahel' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/sahel.css' %}"/>
+    {% elif font.name == 'yekan' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/yekan.css' %}"/>
+    {% elif font.name == 'samim' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/samim.css' %}"/>
+    {% elif font.name == 'parastoo' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/parastoo.css' %}"/>
+    {% elif font.name == 'shabnam' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/shabnam.css' %}"/>
+    {% elif font.name == 'tanha' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/tanha.css' %}"/>
+    {% elif font.name == 'vazir' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/vazir.css' %}"/>
+    {% endif %}
+
+    <style>
+        * { font-family: {{font.name}}; }
+    </style>
+</head>
+
+<body>
+
+    <!--start wrapper-->
+    <div class="wrapper">
+        {% block body %}{% endblock body %}
+    </div>
+    <!--end wrapper-->
+
+    <!-- Bootstrap bundle JS -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <!--plugins-->
+<!--    <script src="{% static 'js/jquery.min.js' %}"></script>-->
+
+    <script src="{% static 'js/jquery-3.7.1.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.js' %}"></script>
+
+    <script src="{% static 'plugins/simplebar/js/simplebar.min.js' %}"></script>
+    <script src="{% static 'plugins/perfect-scrollbar/js/perfect-scrollbar.js' %}"></script>
+    <!--notification js -->
+    <script src="{% static 'plugins/notifications/js/notifications.min.js' %}"></script>
+    <script src="{% static 'plugins/notifications/js/notification-custom-script.js' %}"></script>
+    <script src="{% static 'js/pace.min.js' %}"></script>
+    <!--app-->
+    <script src="{% static 'js/app.js' %}"></script>
+
+    <script src="{% static 'js/persianumber.js' %}"></script>
+
+    <script>
+        $(document).ready(function() {
+			$("html").addClass("color-header headercolor1"), $("html").removeClass("headercolor2 headercolor3 headercolor4 headercolor5 headercolor6 headercolor7 headercolor8")
+            $('body').persiaNumber();              
+		});
+    </script>
+
+    {% block script %}{% endblock script %}
+
+</body>
+
+</html>

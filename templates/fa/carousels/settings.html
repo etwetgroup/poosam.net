@@ -1,0 +1,618 @@
+{% extends "fa/base.html" %}
+{% load static %}
+
+{% block css %}
+    <link href="{% static 'plugins/fancy-file-uploader/fancy_fileupload.css' %}" rel="stylesheet" />
+	<link href="{% static 'plugins/Drag-And-Drop/dist/imageuploadify.min.css' %}" rel="stylesheet" />
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+<!--start content-->
+<main class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">تصاویر محترک</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">اسلایدرها</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+    <div class="card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <h5>نمونه ای از اسلایدرهای زیر را انتخاب نمایید.</h5>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header py-3">
+            <div class="row g-3 align-items-center">
+                <div class="col-lg-3 col-md-6 me-auto">
+                    <h6>تنظیمات اسلایدر انتخابی</h6>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            {% if sliders %}
+                <div class="product-grid">
+                    <div id="mainSliderGrid" style="cursor: move;" class="row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3 gridSort">
+                        {% for slider in sliders %}
+                            <div class="col" id="slider-{{ slider.pk }}">
+                                <div class="card border shadow-none mb-0">
+                                    <div class="card-body text-center">
+                                        {% if 'mp4' in slider.image.url %}
+                                        <video class="img-fluid mb-3" controls>
+                                          <source src="{{ slider.image.url }}" type="video/mp4">
+                                        </video>
+                                        {% else %}
+                                            <img src="{{ slider.image.url }}" class="img-fluid mb-3" alt="{{ slider.title }}" style="width: 240px;height: 160px;"/>
+                                        {% endif %}
+                                        <h6 class="product-title title">{{ slider.title|default_if_none:"بدون عنوان" }}</h6>
+                                        <hr>
+                                        <div class="actions d-flex align-items-center justify-content-center gap-2 mt-3">
+
+                                            <a href="#modalEditSlider" class="btn btn-sm btn-primary"
+                                               data-bs-toggle="modal" onclick="get_pk_edit('{{ slider.pk }}');"><i class="bi bi-pencil-fill"></i></a>
+
+                                            <a class="btn btn-sm btn-warning"
+                                              onclick="active_change('{{ slider.pk }}');">
+                                                {% if slider.active %}
+                                                    <i class="bi bi-eye-fill"></i>
+                                                {% else %}
+                                                    <i class="bi bi-eye-slash-fill"></i>
+                                                {% endif %}
+                                            </a>
+
+                                            <a href="#modalDeleteSlider" class="btn btn-sm btn-danger"
+                                               data-bs-toggle="modal" onclick="delete_slider('{{ slider.pk }}');"><i class="bi bi-trash-fill"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!--end row-->
+                </div>
+            {% else %}
+                <div id="nothing_slider" class="text-center mt-3 mb-3">
+                    <h6>هیچ اسلایدری انتخاب نشده است.</h6>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col col-lg-9 mx-auto">
+            <div class="form-check">
+                <input class="form-check-input checkbox" type="checkbox" value="" id="just_slide">
+                <label class="form-check-label" for="just_slide">
+                  فقط اسلاید
+                </label>
+            </div>
+            <hr/>
+            <div class="card">
+                <div class="card-body">
+                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/gallery/carousels/example/17.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/18.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/19.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input checkbox" type="checkbox" value="" id="with_controls">
+                <label class="form-check-label" for="with_controls">
+                  با کنترل
+                </label>
+            </div>
+            <hr/>
+            <div class="card">
+                <div class="card-body">
+                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/gallery/carousels/example/26.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/27.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/28.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                           data-bs-slide="prev"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                           data-bs-slide="next"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <input class="form-check-input checkbox" type="checkbox" value="" id="with_indicators">
+            <label class="form-check-label" for="with_indicators">
+              با اندیکاتورها
+            </label>
+            <hr/>
+            <div class="card">
+                <div class="card-body">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/gallery/carousels/example/23.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/24.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/25.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                           data-bs-slide="prev"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                           data-bs-slide="next"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <input class="form-check-input checkbox" type="checkbox" value="" id="with_captions">
+            <label class="form-check-label" for="with_captions">
+              با زیرنویس
+            </label>
+            <hr/>
+            <div class="card">
+                <div class="card-body">
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/gallery/carousels/example/26.png' %}" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>First slide label</h5>
+                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/27.png' %}" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Second slide label</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/28.png' %}" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Third slide label</h5>
+                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button"
+                           data-bs-slide="prev"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button"
+                           data-bs-slide="next"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <input class="form-check-input checkbox" type="checkbox" value="" id="with_fade">
+            <label class="form-check-label" for="with_fade">
+              با افکت
+            </label>
+            <hr/>
+            <div class="card">
+                <div class="card-body">
+                    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <img src="{% static 'images/gallery/carousels/example/29.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/30.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/31.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-bs-slide="next">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <input class="form-check-input checkbox" type="checkbox" value="" id="with_interval">
+            <label class="form-check-label" for="with_interval">
+              فاصله فردی
+            </label>
+            <hr/>
+            <div class="card">
+                <div class="card-body">
+                    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="10000">
+                                <img src="{% static 'images/gallery/carousels/example/17.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item" data-bs-interval="2000">
+                                <img src="{% static 'images/gallery/carousels/example/18.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/19.png' %}" class="d-block w-100" alt="...">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button"
+                           data-bs-slide="prev"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleInterval" role="button"
+                           data-bs-slide="next"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <h6 class="mb-0 text-uppercase"></h6>
+            <input class="form-check-input checkbox" type="checkbox" value="" id="with_dark">
+            <label class="form-check-label" for="with_dark">
+              نوع تاریک
+            </label>
+            <hr/>
+            <div class="card">
+                <div class="card-body">
+                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" data-bs-interval="10000">
+                                <img src="{% static 'images/gallery/carousels/example/26.png' %}" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>First slide label</h5>
+                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item" data-bs-interval="2000">
+                                <img src="{% static 'images/gallery/carousels/example/25.png' %}" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Second slide label</h5>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <img src="{% static 'images/gallery/carousels/example/24.png' %}" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Third slide label</h5>
+                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!--end page main-->
+
+<!-- Modal -->
+    <div class="modal fade" id="modalAddSlider" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">افزودن اطلاعات اسلایدر</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/carouselsInsert/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" id="slider_type" name="slider_type">
+                    <div class="modal-body">
+                        <div class="col-12 mb-3">
+                            <label class="form-label">تصاویر اسلایدر</label>
+                            <input id="image-uploadify" name="files" type="file" accept=".jpg, .jpeg, .mp4" multiple>
+                        </div>
+<!--                        <div class="col-12 mb-3">-->
+<!--                            <label class="form-label">عنوان</label>-->
+<!--                            <input type="text" name="title" class="form-control" placeholder="عنوان ...">-->
+<!--                        </div>-->
+<!--                        <div class="col-12 mb-3">-->
+<!--                            <label class="form-label">توضیحات</label>-->
+<!--                            <textarea name="desc" class="form-control" rows="3" cols="3" placeholder="توضیحات"></textarea>-->
+<!--                        </div>-->
+<!--                        <div class="col-12 mb-3">-->
+<!--                            <label class="form-label">لینک</label>-->
+<!--                            <input type="text" style="direction: ltr" name="link" class="form-control" placeholder="https:\\www.google.com">-->
+<!--                        </div>-->
+                        <div class="col-12 mb-3">
+                            <label class="form-label">مشاهده در</label>
+                            <select name="view_in" class="form-select">
+                                <option value="0">همه صفحات</option>
+                                {% for page in pages %}
+                                    <option value="{{ page.pk }}">{{ page.title }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEditSlider" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تغییر اطلاعات اسلایدر</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/carouselsEditSave/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" id="pk_id_edit" name="pk_id_edit">
+                    <div class="modal-body">
+                        <div class="col-12 mb-3">
+                            <label class="form-label">عنوان</label>
+                            <input type="text" required id="title" name="title" class="form-control" placeholder="عنوان ...">
+                            <div class="invalid-feedback">
+                                عنوان اجباری میباشد.
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">متن کوتاه</label>
+                            <input type="text" required id="short_text" name="short_text" class="form-control" placeholder="متن کوتاه ...">
+                            <div class="invalid-feedback">
+                                متن کوتاه اجباری میباشد.
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">توضیحات</label>
+                            <textarea required name="desc" id="desc" class="form-control" rows="3" cols="3" placeholder="توضیحات"></textarea>
+                            <div class="invalid-feedback">
+                                توضیحات اجباری میباشد.
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">لینک</label>
+                            <input required type="text" id="link" style="direction: ltr" name="link" class="form-control" placeholder="https:\\www.google.com">
+                            <div class="invalid-feedback">
+                                لینک اجباری میباشد.
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <input type="button" class="btn btn-outline-primary px-5 radius-30"
+                                   value="تغییر تصویر" onclick="document.getElementById('image').click();"/>
+                            <input type="file" style="display:none;" id="image" name="image"/>
+                            <input type="hidden" id="edit_image" name="edit_image"/>
+                        </div>
+<!--                        <div class="col-12 mb-3">-->
+<!--                            <label class="form-label">مشاهده در</label>-->
+<!--                            <select name="view_in" class="form-select">-->
+<!--                                <option value="0">همه صفحات</option>-->
+<!--                                {% for page in pages %}-->
+<!--                                    <option value="{{ page.pk }}">{{ page.title }}</option>-->
+<!--                                {% endfor %}-->
+<!--                            </select>-->
+<!--                        </div>-->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalDeleteSlider" tabindex="-1" aria-hidden="true">
+        <form action="/DeleteSlider/" class="uk-form-stacked" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <input type="hidden" id="pk_id_del" name="pk_id_del">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content bg-danger">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white">پیغام هشدار !!!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-white">
+                        <p>آیا از حذف اطمینان دارید ؟</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">بله</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">خیر</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+<!--end Modal-->
+
+{% if messages %}
+    {% for message in messages %}
+        <input type="hidden" id="txt_messages" value="{{ message }}">
+        <input type="hidden" id="txt_extra_messages" value="{{ message.extra_tags }}">
+    {% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static 'plugins/fancy-file-uploader/jquery.ui.widget.js' %}"></script>
+	<script src="{% static 'plugins/fancy-file-uploader/jquery.fileupload.js' %}"></script>
+	<script src="{% static 'plugins/fancy-file-uploader/jquery.iframe-transport.js' %}"></script>
+    <script src="{% static 'plugins/fancy-file-uploader/jquery.fancy-fileupload.js' %}"></script>
+	<script src="{% static 'plugins/Drag-And-Drop/dist/imageuploadify.min.js' %}"></script>
+    <script src="{% static 'js/form-file-upload.js' %}"></script>
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+    <script>
+        $(document).ready(function () {
+            var msg = $("#txt_messages").val();
+            var msg_extra = $("#txt_extra_messages").val();
+            if (msg_extra !== undefined) {
+                if (msg_extra === 'error') {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                } else {
+                    Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                }
+            }
+        });
+    </script>
+    <script>
+        $('.checkbox').click(function () {
+            $("input:checkbox").prop('checked', false);
+            $(this).prop('checked', true);
+            $("#slider_type").val($(this).attr('id'));
+            $('#modalAddSlider').modal('show');
+        });
+
+        function delete_slider(val)
+        {
+            $("#pk_id_del").val(val);
+        }
+
+        function active_change(val)
+        {
+            $.ajax({
+                type: "POST",
+                url: "/ChangeActiveSlider/",
+                data: {id: val},
+                success: function() {
+                     window.location.href = "/carousels/"
+                }
+            });
+        }
+
+        function get_pk_edit(val)
+        {
+            $("#pk_id_edit").val(val);
+            $.ajax({
+                type: "GET",
+                url: "/carouselsEdit/",
+                data: {pk: val},
+                dataType: 'json',
+                success: function(data) {
+                    $("#title").val(data[0].title);
+                    $("#short_text").val(data[0].short_text);
+                    $("#desc").val(data[0].description);
+                    $("#link").val(data[0].link);
+                    $("#edit_image").val(data[0].image);
+                },
+                error: function(data) {
+
+                }
+           });
+        }
+
+        $("#image").change(function () {
+             $.each($("#image")[0].files, function (i, file) {
+                 $("#edit_image").val(file.name);
+             });
+         });
+
+        $( ".gridSort" ).sortable({
+           update: function (event, ui) {
+                ui.placeholder.height(ui.item.height());
+                if($(this).attr("id") =="mainSliderGrid"){
+                    var table = "main_slider";
+                }
+                var data = $(this).sortable('serialize');
+                $.ajax({
+                type: "POST",
+                url:"/saveOrder/",
+                data: {order:data,table:table},
+                success: function(theResponse) {},
+                    complete: function(){
+                    }
+                });
+            },
+           stop: function (event, ui) {}
+        });
+    </script>
+{% endblock script %}

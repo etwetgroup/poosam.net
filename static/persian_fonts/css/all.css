@@ -1,0 +1,65 @@
+@font-face {
+    font-family: parastoo;
+    src: url("/static/persian_fonts/fonts/parastoo/Parastoo.eot") format('eot');
+    src: url("/static/persian_fonts/fonts/parastoo/Parastoo.ttf") format('ttf');
+    src: url("/static/persian_fonts/fonts/parastoo/Parastoo.woff") format('woff');
+    src: url("/static/persian_fonts/fonts/parastoo/Parastoo.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: sahel;
+    src: url("/static/persian_fonts/fonts/sahel/Sahel.eot") format('eot');
+    src: url("/static/persian_fonts/fonts/sahel/Sahel.ttf") format('ttf');
+    src: url("/static/persian_fonts/fonts/sahel/Sahel.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: samim;
+    src: url("/static/persian_fonts/fonts/samim/Samim.eot") format('eot');
+    src: url("/static/persian_fonts/fonts/samim/Samim.ttf") format('ttf');
+    src: url("/static/persian_fonts/fonts/samim/Samim.woff") format('woff');
+    src: url("/static/persian_fonts/fonts/samim/Samim.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: shabnam;
+    src: url("/static/persian_fonts/fonts/shabnam/Shabnam.eot") format('eot');
+    src: url("/static/persian_fonts/fonts/shabnam/Shabnam.ttf") format('ttf');
+    src: url("/static/persian_fonts/fonts/shabnam/Shabnam.woff") format('woff');
+    src: url("/static/persian_fonts/fonts/shabnam/Shabnam.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: tanha;
+    src: url("/static/persian_fonts/fonts/tanha/Tanha.eot") format('eot');
+    src: url("/static/persian_fonts/fonts/tanha/Tanha.ttf") format('ttf');
+    src: url("/static/persian_fonts/fonts/tanha/Tanha.woff") format('woff');
+    src: url("/static/persian_fonts/fonts/tanha/Tanha.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: vazir;
+    src: url("/static/persian_fonts/fonts/vazir/Vazir.eot") format('eot');
+    src: url("/static/persian_fonts/fonts/vazir/Vazir.ttf") format('ttf');
+    src: url("/static/persian_fonts/fonts/vazir/Vazir.woff") format('woff');
+    src: url("/static/persian_fonts/fonts/vazir/Vazir.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: yekan;
+    src: url("/static/persian_fonts/fonts/yekan/Yekan.eot") format('eot');
+    src: url("/static/persian_fonts/fonts/yekan/Yekan.ttf") format('ttf');
+    src: url("/static/persian_fonts/fonts/yekan/Yekan.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: parastoo, sahel, samim, shabnam, tanha, vazir, yekan;
+    font-family: 'parastoo', 'sahel', 'samim', 'shabnam', 'tanha', 'vazir', 'yekan', Arial, sans-serif;
+}

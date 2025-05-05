@@ -1,0 +1,22 @@
+/*#gridContainer {*/
+/*    height: 440px;*/
+/*}*/
+.dx-datagrid-group-closed:before {
+   content: normal;
+}
+.dx-datagrid-group-opened:before {
+   content: normal ;
+}
+.master-detail-caption {
+    padding: 0 0 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.dx-link {
+    font-size: 25px !important;
+}
+
+.dx-toolbar .dx-texteditor {
+    width: 100%!important;
+}
+

@@ -1,0 +1,64 @@
+@font-face {
+    font-family: parastoo;
+    src: url("../fonts/parastoo/Parastoo.eot") format('eot');
+    src: url("../fonts/parastoo/Parastoo.ttf") format('ttf');
+    src: url("../fonts/parastoo/Parastoo.woff") format('woff');
+    src: url("../fonts/parastoo/Parastoo.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: sahel;
+    src: url("../fonts/sahel/Sahel.eot") format('eot');
+    src: url("../fonts/sahel/Sahel.ttf") format('ttf');
+    src: url("../fonts/sahel/Sahel.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: samim;
+    src: url("../fonts/samim/Samim.eot") format('eot');
+    src: url("../fonts/samim/Samim.ttf") format('ttf');
+    src: url("../fonts/samim/Samim.woff") format('woff');
+    src: url("../fonts/samim/Samim.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: shabnam;
+    src: url("../fonts/shabnam/Shabnam.eot") format('eot');
+    src: url("../fonts/shabnam/Shabnam.ttf") format('ttf');
+    src: url("../fonts/shabnam/Shabnam.woff") format('woff');
+    src: url("../fonts/shabnam/Shabnam.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: tanha;
+    src: url("../fonts/tanha/Tanha.eot") format('eot');
+    src: url("../fonts/tanha/Tanha.ttf") format('ttf');
+    src: url("../fonts/tanha/Tanha.woff") format('woff');
+    src: url("../fonts/tanha/Tanha.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: vazir;
+    src: url("../fonts/vazir/Vazir.eot") format('eot');
+    src: url("../fonts/vazir/Vazir.ttf") format('ttf');
+    src: url("../fonts/vazir/Vazir.woff") format('woff');
+    src: url("../fonts/vazir/Vazir.woff2") format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: yekan;
+    src: url("../fonts/yekan/Yekan.eot") format('eot');
+    src: url("../fonts/yekan/Yekan.ttf") format('ttf');
+    src: url("../fonts/yekan/Yekan.woff") format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+body {
+    font-family: parastoo, sahel, samim, shabnam, tanha, vazir, yekan;
+}

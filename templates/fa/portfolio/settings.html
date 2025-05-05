@@ -1,0 +1,341 @@
+{% extends "fa/base.html" %}
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+    <!--start content-->
+    <main class="page-content">
+        <!--breadcrumb-->
+        <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+            <div class="breadcrumb-title pe-3">نمونه کارها</div>
+            <div class="ps-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-0 p-0">
+                        <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                        </li>
+                        <li class="breadcrumb-item active" aria-current="page">تنظیمات</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <!--end breadcrumb-->
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-lg-3 col-xl-2">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddPortfolio"><i class="bi bi-plus-square-fill"></i> افزودن نمونه کار </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header py-3">
+                <div class="row g-3 align-items-center">
+                    <div class="col-lg-3 col-md-6 me-auto">
+                        <div class="ms-auto position-relative">
+                            <div class="position-absolute top-50 translate-middle-y search-icon px-3"><i
+                                    class="bi bi-search"></i></div>
+                            <input id="btnSearch" class="form-control ps-5" type="text" placeholder="جستجوی نمونه کار">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="product-grid">
+                    <div id="portfolioGrid" style="cursor: move;" class="row row-cols-1 row-cols-lg-4 row-cols-xl-4 row-cols-xxl-5 g-3 gridSort">
+                        {% for port in portfolio %}
+                            <div class="col" id="portfolio-{{ port.pk }}">
+                                <div class="card border shadow-none mb-0">
+                                    <div class="card-body text-center">
+                                        <a target="_blank" href="{{ port.link }}"><img src="{{ port.image.url }}" class="img-fluid mb-3" alt="{{ port.title }}" style="width: 240px;height: 160px;"/></a>
+                                        <h6 class="product-title title">{{ port.title }}</h6>
+                                        <hr>
+                                        <div class="actions d-flex align-items-center justify-content-center gap-2 mt-3">
+                                            <a href="#modalEditPortfolio" class="btn btn-sm btn-primary"
+                                               data-bs-toggle="modal" onclick="get_pk_edit('{{ port.pk }}');"><i class="bi bi-pencil-fill"></i></a>
+                                            <a class="btn btn-sm btn-warning"
+                                              onclick="active_change('{{ port.pk }}');">
+                                                {% if port.active %}
+                                                    <i class="bi bi-eye-fill"></i>
+                                                {% else %}
+                                                    <i class="bi bi-eye-slash-fill"></i>
+                                                {% endif %}
+                                            </a>
+                                            <a href="#modalDeletePortfolio" class="btn btn-sm btn-danger"
+                                               data-bs-toggle="modal" onclick="delete_notice('{{ port.pk }}');"><i class="bi bi-trash-fill"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!--end row-->
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <!--end page main-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalAddPortfolio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">افزودن نمونه کار</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/portfolioInsert/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="col-12 mb-3">
+                            <label class="form-label">عنوان</label>
+                            <input type="text" name="title" class="form-control" placeholder="عنوان ..." required>
+                            <div class="invalid-feedback">
+                            عنوان اجباری میباشد.
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">لینک</label>
+                            <input type="text" name="link" class="form-control" placeholder="لینک ..." required>
+                            <div class="invalid-feedback">
+                            لینک اجباری میباشد.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                                <input type="button" class="btn btn-outline-primary px-5 radius-30"
+                                       value="انتخاب تصویر" onclick="document.getElementById('add_image').click();"/>
+                                <input type="file" style="display:none;" id="add_image" name="image"/>
+                            </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEditPortfolio" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ویرایش نمونه کار</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/portfolioEditSave/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+                    <input type="hidden" id="pk_id_edit" name="pk_id_edit">
+                    <div class="modal-body">
+                        <div class="col-12 mb-3">
+                            <label class="form-label">عنوان</label>
+                            <input type="text" name="title" id="title" class="form-control" placeholder="عنوان ..." required>
+                            <div class="invalid-feedback">
+                            عنوان اجباری میباشد.
+                            </div>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label">لینک</label>
+                            <input type="text" name="link" id="link" class="form-control" placeholder="لینک ..." required>
+                            <div class="invalid-feedback">
+                            لینک اجباری میباشد.
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <input type="button" class="btn btn-outline-primary px-5 radius-30"
+                                   value="انتخاب تصویر" onclick="document.getElementById('image').click();"/>
+                            <input type="file" style="display:none;" id="image" name="image"/>
+                            <input type="hidden" id="edit_image" name="edit_image"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">ثبت</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalDeletePortfolio" tabindex="-1" aria-hidden="true">
+        <form action="/DeletePortfolio/" class="uk-form-stacked" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            <input type="hidden" id="pk_id_del" name="pk_id_del">
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+                <div class="modal-content bg-danger">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-white">پیغام هشدار !!!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-white">
+                        <p>آیا از حذف اطمینان دارید ؟</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-dark">بله</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">خیر</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!--end Modal-->
+
+{% if messages %}
+    {% for message in messages %}
+        <input type="hidden" id="txt_messages" value="{{ message }}">
+        <input type="hidden" id="txt_extra_messages" value="{{ message.extra_tags }}">
+    {% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+
+{% endblock body %}
+
+{% block script %}
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+    <script>
+        $(document).ready(function () {
+            var msg = $("#txt_messages").val();
+            var msg_extra = $("#txt_extra_messages").val();
+            if (msg_extra !== undefined) {
+                if (msg_extra === 'error') {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                } else {
+                    Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                }
+            }
+        });
+    </script>
+    <script>
+
+        function active_change(val)
+        {
+            $.ajax({
+                type: "POST",
+                url: "/ChangeActivePortfolio/",
+                data: {id: val},
+                success: function() {
+                     window.location.href = "/portfolio/"
+                }
+            });
+        }
+
+        function delete_notice(val)
+        {
+            $("#pk_id_del").val(val);
+        }
+
+        function get_pk_edit(val)
+        {
+            $("#pk_id_edit").val(val);
+            $.ajax({
+                type: "GET",
+                url: "/portfolioEdit/",
+                data: {pk: val},
+                dataType: 'json',
+                success: function(data) {
+                    $("#title").val(data[0].title);
+                    $("#link").val(data[0].link);
+                    $("#edit_image").val(data[0].image);
+                },
+                error: function(data) {
+
+                }
+           });
+        }
+
+        $("#image").change(function () {
+             $.each($("#image")[0].files, function (i, file) {
+                 $("#edit_image").val(file.name);
+             });
+         });
+
+    </script>
+    <script>
+        $( ".gridSort" ).sortable({
+           update: function (event, ui) {
+                ui.placeholder.height(ui.item.height());
+                if($(this).attr("id") =="portfolioGrid"){
+                    var table = "portfolio";
+                }
+                var data = $(this).sortable('serialize');
+
+                $.ajax({
+                type: "POST",
+                url:"/saveOrder/",
+                data: {order:data,table:table},
+                success: function(theResponse) {},
+                complete: function(){}
+                });
+            },
+           stop: function (event, ui) {}
+        });
+
+        $("#btnSearch").on("keyup", function() {
+
+            var $this = $(this);
+            var $cards = $('.card.border.shadow-none.mb-0');
+
+            $filteredCards = $cards.each(function(i, card) {
+              var $card = $(card);
+
+              var title = $card.find('.title').first();
+              title = title.text();
+
+              if(title.indexOf($this.val()) !== -1) {
+                $card.show();
+                $card.parent().show();
+              } else {
+                $card.hide();
+                $card.parent().hide();
+              }
+            });
+        });
+
+    </script>
+{% endblock script %}

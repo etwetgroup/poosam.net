@@ -1,0 +1,139 @@
+{% extends "fa/base.html" %}
+{% load static %}
+{% load jformat %}
+
+{% block css %}
+<link href="{% static 'devextreme/dx.material.blue.light.css' %}" rel="stylesheet"/>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link href="{% static 'devextreme/userMgmt/style.css' %}" rel="stylesheet"/>
+
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+<!--start content-->
+<main class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">تنظیمات</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">لیست کاربران</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-xl-2">
+                    <a href="/userAdd/">
+                        <button type="button" class="btn btn-primary">
+                           <i class="bi bi-plus-square-fill"></i> افزودن کاربر
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div id="gridContainer"></div>
+        </div>
+    </div>
+</main>
+<!--end page main-->
+
+{% if messages %}
+    {% for message in messages %}
+        <input type="hidden" id="txt_messages" value="{{ message }}">
+        <input type="hidden" id="txt_extra_messages" value="{{ message.extra_tags }}">
+    {% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static 'devextreme/dx.all.js' %}"></script>
+    <script src="{% static 'devextreme/userMgmt/script.js' %}"></script>
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+    <script>
+        $(document).ready(function () {
+            var msg = $("#txt_messages").val();
+            var msg_extra = $("#txt_extra_messages").val();
+            if (msg_extra !== undefined) {
+                if (msg_extra === 'error') {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                } else {
+                    Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                }
+            }
+        });
+    </script>
+    <script>
+
+        function active_change(val) {
+            $.ajax({
+                type: "POST",
+                url: "/noticeChangeActiveNews/",
+                data: {id: val},
+                success: function (response) {
+                    window.location.href = response
+                }
+            });
+        }
+
+        function delete_news(val) {
+            $("#pk_id_del").val(val);
+        }
+    </script>
+{% endblock script %}

@@ -1,0 +1,278 @@
+{% extends "fa/base.html" %}
+{% load static %}
+
+{% block css %}
+<script src="https://cdn.ckbox.io/ckbox/latest/ckbox.js"></script>
+<!--<script src="https://cdn.ckbox.io/CKBox/1.2.1/translations/fa.js"></script>-->
+<script src="{% static 'ckeditor5/build/ckeditor.js' %}"></script>
+<link rel="stylesheet" href="{% static 'persian_fonts/css/all.css' %}" type="text/css">
+<link href="{% static 'plugins/input-tags/css/tagsinput.css' %}" rel="stylesheet"/>
+<link href="{% static 'plugins/fancy-file-uploader/fancy_fileupload.css' %}" rel="stylesheet" />
+<link href="{% static 'plugins/Drag-And-Drop/dist/imageuploadify.min.css' %}" rel="stylesheet" />
+<style>
+    .ckbox-navbar-link {
+        display: none !important;
+    }
+    .ckbox {
+        direction: ltr;
+    }
+</style>
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+<!--start content-->
+<main class="page-content">
+
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">مدیریت منوها</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">ویرایش زیر منو</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <form action="/mainMenuEditSave/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <input type="hidden" id="pk_id_edit" name="pk_id_edit" value="{{ content.id }}">
+                <input type="hidden" id="img_delete" name="img_delete">
+                <div class="card">
+                    <div class="card-header py-3 bg-transparent">
+                        <div class="d-sm-flex align-items-center">
+                            <h5 class="mb-2 mb-sm-0">ویرایش زیر منوی <strong>"{{ content.title }}"</strong></h5>
+                            <div class="ms-auto">
+                                <button type="reset" id="btnreset" class="btn btn-secondary">فرم جدید</button>
+                                <button type="submit" class="btn btn-primary">ثبت</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-8">
+                                <div class="card shadow-none bg-light border">
+                                    <div class="card-body">
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">عنوان</label>
+                                            <input type="text" name="title" class="form-control" placeholder="عنوان ..." value="{{ content.title }}" required>
+                                            <div class="invalid-feedback">
+                                                عنوان اجباری میباشد.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">عنوان سئو</label>
+                                            <input type="text" name="titleseo" class="form-control" placeholder="عنوان سئو ..." value="{{ content.titleseo }}" required>
+                                            <div class="invalid-feedback">
+                                                عنوان سئو اجباری میباشد.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">کلمات کلیدی</label>
+                                            <input type="text" name="keywords" value="{{ content.keywords }}" class="form-control" data-role="tagsinput">
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">متن توضیحی</label>
+                                            <textarea name="desc" class="form-control" rows="3" cols="3" placeholder="متن توضیحی ...">{{ content.description }}</textarea>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <div id="editor" name="editor"></div>
+                                            <input type="hidden" name="text" id="text" value="{{ content.text }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-4">
+                                <div class="card shadow-none bg-light border">
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-12 mb-3">
+                                              <label class="form-label">آپلود تصاویر</label>
+                                              <input id="image-uploadify" name="files" type="file" accept=".jpg, .jpeg" multiple>
+                                              <input type="hidden" id="orgimg" name="orgimg" value="{{ content.image }}">
+                                              <input type="hidden" id="type" name="type" value="sub">
+                                           </div>
+                                            <div class="col-12 mb-3">
+                                                <label class="form-label">لینک canonical</label>
+                                                <input type="text" name="canonical" class="form-control" value="{{ content.canonical }}" placeholder="لینک canonical ...">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 form-check form-switch">
+                                                    <label class="form-check-label px-3">بدون ایندکس و فالو</label>
+                                                    <input class="form-check-input" type="checkbox" name="noindex" {% if content.noindexnofollow%} checked {% endif %}>
+                                                </div>
+                                                <div class="col-6 form-check form-switch">
+                                                    <label class="form-check-label px-3">نمایش نظرات</label>
+                                                    <input class="form-check-input" type="checkbox" name="showCmnt" {% if content.showCmnt%} checked {% endif %}>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                               <div class="col-6 form-check form-switch">
+                                                   <label class="form-check-label px-3">نمایش در صفحه اصلی</label>
+                                                   <input class="form-check-input" type="checkbox" name="showHome" {% if content.showHome%} checked {% endif %}>
+                                               </div>
+                                               <div class="col-6 form-check form-switch">
+                                                   <label class="form-check-label px-3">نمایش در پربازدیدترین ها</label>
+                                                   <input class="form-check-input" type="checkbox" name="mostVisited" {% if content.mostVisited%} checked {% endif %}>
+                                               </div>
+                                            </div>
+                                        </div><!--end row-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--end row-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!--end row-->
+
+</main>
+<!--end page main-->
+
+{% if messages %}
+    {% for message in messages %}
+        <input type="hidden" id="txt_messages" value="{{ message }}">
+        <input type="hidden" id="txt_extra_messages" value="{{ message.extra_tags }}">
+    {% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+
+{% endblock body %}
+
+{% block script %}
+<script src="{% static 'plugins/input-tags/js/tagsinput.js' %}"></script>
+<script src="{% static 'plugins/fancy-file-uploader/jquery.ui.widget.js' %}"></script>
+<script src="{% static 'plugins/fancy-file-uploader/jquery.fileupload.js' %}"></script>
+<script src="{% static 'plugins/fancy-file-uploader/jquery.iframe-transport.js' %}"></script>
+<script src="{% static 'plugins/fancy-file-uploader/jquery.fancy-fileupload.js' %}"></script>
+<script src="{% static 'plugins/Drag-And-Drop/dist/imageuploadify.min.js' %}"></script>
+<!--<script src="{% static 'js/form-file-upload.js' %}"></script>-->
+<script>
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+<script>
+    $(document).ready(function () {
+        var msg = $("#txt_messages").val();
+        var msg_extra = $("#txt_extra_messages").val();
+        if (msg_extra !== undefined) {
+            if (msg_extra === 'error') {
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    continueDelayOnInactiveTab: false,
+                    position: 'top right',
+                    icon: 'bx bx-x-circle',
+                    msg: msg
+                });
+            } else {
+                Lobibox.notify('success', {
+                    pauseDelayOnHover: true,
+                    continueDelayOnInactiveTab: false,
+                    position: 'top right',
+                    icon: 'bx bx-x-circle',
+                    msg: msg
+                });
+            }
+        }
+
+        $('#image-uploadify').imageuploadify();
+        var id_pk = $("#pk_id_edit").val();
+        var orgimg = $("#orgimg").val();
+        {{ img_list|safe }}.forEach(item => {
+            var tarr = item.split('/');
+            var name = tarr[tarr.length-1];
+            src = '/media/uploads/pages/' + id_pk + '/' + name;
+            if (/media/ + orgimg === src) {
+                var tmp = '<div class="imageuploadify-container" style="margin-right: 10px;">' +
+                    '<button id="' + name + '" type="button" class="btn btn-danger bx bx-x"></button>' +
+                    '<div class="imageuploadify-details" style="opacity: 1;">' +
+                    '<span id="' + name + '" class="original-image" style="margin-top: 20px; cursor: pointer;">عکس اصلی</span>' +
+                    '</div>' +
+                    '<img src="' + src + '">' +
+                    '</div>'
+            }
+            else
+            {
+                var tmp = '<div class="imageuploadify-container" style="margin-right: 10px;">' +
+                    '<button id="' + name + '" type="button" class="btn btn-danger bx bx-x"></button>' +
+                    '<div class="imageuploadify-details" style="opacity: 0;">' +
+                    '<span id="' + name + '" class="original-image" style="margin-top: 20px; cursor: pointer;">عکس اصلی</span>' +
+                    '</div>' +
+                    '<img src="' + src + '">' +
+                    '</div>'
+            }
+            $('.imageuploadify-images-list').append(tmp);
+        })
+        $(".imageuploadify-details").hover(function() {
+            $(this).css("opacity", "1");
+        }).mouseleave(function() {
+            // $(this).css("opacity", "0");
+        });
+    });
+</script>
+<script>
+    $( "#btnreset" ).on( "click", function() {
+      editor.setData('');
+    } );
+</script>
+<script>
+    $(document).on('click', '.original-image', function () {
+       $("#orgimg").val($(this).attr('id'));
+       Lobibox.notify('success', {
+            pauseDelayOnHover: true,
+            continueDelayOnInactiveTab: false,
+            position: 'top right',
+            icon: 'bx bx-x-circle',
+            msg: 'عکس ' + $(this).attr('id') + ' بعنوان عکس اصلی انتخاب شد.'
+       });
+       $(".imageuploadify-details").css("opacity", "0");
+       $(this.parentElement).css("opacity", "1");
+    });
+    $(document).on('click', '.btn-danger', function () {
+        $(this.parentElement).remove();
+        var img_delete = $("#img_delete").val() + ',' + $(this).attr('id');
+        $("#img_delete").val(img_delete);
+    });
+</script>
+<script src="{% static 'ckeditor5/edit/custome.js' %}"></script>
+{% endblock script %}

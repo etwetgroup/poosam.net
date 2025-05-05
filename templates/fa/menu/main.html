@@ -1,0 +1,435 @@
+{% extends "fa/base.html" %}
+{% load static %}
+{% load jformat %}
+
+{% block css %}
+<!--<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>-->
+<!--<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>-->
+
+<!--<script src="https://cdn.ckbox.io/ckbox/latest/ckbox.js"></script>-->
+<!--<script src="https://cdn.ckbox.io/CKBox/1.2.1/translations/fa.js"></script>-->
+<!--<script src="{% static 'ckeditor5/build/ckeditor.js' %}"></script>-->
+<!--<link rel="stylesheet" href="{% static 'persian_fonts/css/all.css' %}" type="text/css">-->
+<!--<style>-->
+<!--    .ckbox-navbar-link {-->
+<!--        display: none !important;-->
+<!--    }-->
+<!--    .ckbox {-->
+<!--        direction: ltr;-->
+<!--    }-->
+<!--</style>-->
+
+<!--<link href="{% static 'plugins/input-tags/css/tagsinput.css' %}" rel="stylesheet"/>-->
+
+<link href="{% static 'devextreme/dx.material.blue.light.css' %}" rel="stylesheet"/>
+<!--<link href="{% static 'devextreme/font-awesome.min.css' %}" rel="stylesheet"/>-->
+<!--<link rel='stylesheet' href='https://cdn3.devexpress.com/jslib/23.2.6/css/dx.material.blue.light.css'>-->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link href="{% static 'devextreme/mainmenu/style.css' %}" rel="stylesheet"/>
+
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+<!--start content-->
+<main class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">مدیریت منوها</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">تنظیمات</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-xl-2">
+                    <a href="/menuAdd/">
+                        <button type="button" class="btn btn-primary">
+                           <i class="bi bi-plus-square-fill"></i> افزودن منوی اصلی
+                        </button>
+                    </a>
+<!--                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"-->
+<!--                            data-bs-target="#modalAddMenus">-->
+<!--                        <i class="bi bi-plus-square-fill"></i> افزودن منوی اصلی-->
+<!--                    </button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+<!--        <div class="card-header py-3">-->
+<!--            <div class="row g-3 align-items-center">-->
+<!--                <div class="col-lg-3 col-md-6 me-auto">-->
+<!--                    <div class="ms-auto position-relative">-->
+<!--                        <div class="position-absolute top-50 translate-middle-y search-icon px-3">-->
+<!--                            <i class="bi bi-search"></i></div>-->
+<!--                        <input id="btnSearch" class="form-control ps-5" type="text" placeholder="جستجوی گروه">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="card-body">
+            <div id="gridContainer"></div>
+        </div>
+    </div>
+</main>
+<!--end page main-->
+
+<!-- Modal -->
+<div class="modal fade" id="modalAddMenus" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">افزودن منوی اصلی</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/mainMenuInsert/" class="needs-validation" method="post" enctype="multipart/form-data"
+                  novalidate>
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">عنوان</label>
+                        <input type="text" name="title" class="form-control" placeholder="عنوان ..."
+                               required>
+                        <div class="invalid-feedback">
+                            عنوان اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">عنوان سئو</label>
+                        <input type="text" name="titleseo" class="form-control" placeholder="عنوان سئو ..." required>
+                        <div class="invalid-feedback">
+                            عنوان سئو اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">کلمات کلیدی</label>
+                        <input type="text" name="keywords" class="form-control" data-role="tagsinput">
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">متن توضیحی</label>
+                        <textarea name="desc" class="form-control" rows="3" cols="3"
+                                  placeholder="متن توضیحی ..."></textarea>
+                    </div>
+                    <div class="col-12 mb-3">
+<!--                        <textarea name="text" id="text" class="form-control">-->
+<!--                        </textarea>-->
+                        <div id="editor" name="editor"></div>
+                        <input type="hidden" name="text" id="text">
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">لینک canonical</label>
+                        <input type="text" name="canonical" class="form-control" placeholder="لینک canonical ...">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-check form-switch">
+                            <label class="form-check-label px-3">بدون ایندکس و فالو</label>
+                            <input class="form-check-input" type="checkbox" name="noindex">
+                        </div>
+                        <div class="col-6 form-check form-switch">
+                            <label class="form-check-label px-3">نمایش نظرات</label>
+                            <input class="form-check-input" type="checkbox" name="showCmnt">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">ثبت</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalAddSubMenus" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"> افزودن زیر منو برای <span type="text" id="txt_submenu"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/mainSubMenuInsert/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <input type="hidden" id="pk_id_insert" name="pk_id_insert">
+                <div class="modal-body">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">عنوان</label>
+                        <input type="text" name="title" class="form-control" placeholder="عنوان ..."
+                               required>
+                        <div class="invalid-feedback">
+                            عنوان اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">عنوان سئو</label>
+                        <input type="text" name="titleseo" class="form-control" placeholder="عنوان سئو ..." required>
+                        <div class="invalid-feedback">
+                            عنوان سئو اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">کلمات کلیدی</label>
+                        <input type="text" name="keywords" class="form-control" data-role="tagsinput">
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">متن توضیحی</label>
+                        <textarea name="desc" class="form-control" rows="3" cols="3"
+                                  placeholder="متن توضیحی ..."></textarea>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <textarea name="text" id="sub_text" class="form-control">
+                        </textarea>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">لینک canonical</label>
+                        <input type="text" name="canonical" class="form-control" placeholder="لینک canonical ...">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-check form-switch">
+                            <label class="form-check-label px-3">بدون ایندکس و فالو</label>
+                            <input class="form-check-input" type="checkbox" name="noindex">
+                        </div>
+                        <div class="col-6 form-check form-switch">
+                            <label class="form-check-label px-3">نمایش نظرات</label>
+                            <input class="form-check-input" type="checkbox" name="showCmnt">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">ثبت</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalEditMenus" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><span type="text" id="txt_edit_menu"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/mainMenuEditSave/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <input type="hidden" id="pk_id_edit" name="pk_id_edit">
+                <div class="modal-body">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">عنوان</label>
+                        <input type="text" name="title" id="title" class="form-control" placeholder="عنوان ..."
+                               required>
+                        <div class="invalid-feedback">
+                            عنوان اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">عنوان سئو</label>
+                        <input type="text" name="titleseo" id="titleseo" class="form-control" placeholder="عنوان سئو ..." required>
+                        <div class="invalid-feedback">
+                            عنوان سئو اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">کلمات کلیدی</label>
+                        <input type="text" name="keywords" id="keywords" class="form-control" data-role="tagsinput">
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">متن توضیحی</label>
+                        <textarea name="desc" id="desc" class="form-control" rows="3" cols="3"
+                                  placeholder="متن توضیحی ..."></textarea>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <textarea name="text" id="edit_text" class="form-control">
+                        </textarea>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">لینک canonical</label>
+                        <input type="text" name="canonical" id="canonical" class="form-control" placeholder="لینک canonical ...">
+                    </div>
+                    <div class="row">
+                        <div class="col-6 form-check form-switch">
+                            <label class="form-check-label px-3">بدون ایندکس و فالو</label>
+                            <input class="form-check-input" type="checkbox" name="noindex" id="noindex">
+                        </div>
+                        <div class="col-6 form-check form-switch">
+                            <label class="form-check-label px-3">نمایش نظرات</label>
+                            <input class="form-check-input" type="checkbox" name="showCmnt" id="showCmnt">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">ثبت</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!--end Modal-->
+
+{% if messages %}
+    {% for message in messages %}
+        <input type="hidden" id="txt_messages" value="{{ message }}">
+        <input type="hidden" id="txt_extra_messages" value="{{ message.extra_tags }}">
+    {% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+
+{% endblock body %}
+
+{% block script %}
+    <script src="{% static 'plugins/input-tags/js/tagsinput.js' %}"></script>
+    <script src="{% static 'devextreme/dx.all.js' %}"></script>
+    <script src="{% static 'devextreme/mainmenu/script.js' %}"></script>
+    <script>
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
+    <script>
+        $(document).ready(function () {
+            var msg = $("#txt_messages").val();
+            var msg_extra = $("#txt_extra_messages").val();
+            if (msg_extra !== undefined) {
+                if (msg_extra === 'error') {
+                    Lobibox.notify('error', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                } else {
+                    Lobibox.notify('success', {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: 'top right',
+                        icon: 'bx bx-x-circle',
+                        msg: msg
+                    });
+                }
+            }
+
+            // CKEDITOR.replace('text', {
+            //     language: 'fa',
+            //     contentsCss: 'http://127.0.0.1:8000/static/persian_fonts/css/all.css',
+            //     font_names: 'sahel;samim;shabnam;tanha;vazir;yekan;parastoo;',
+            // });
+            //
+            // CKEDITOR.replace('edit_text', {
+            //     language: 'fa',
+            //     contentsCss: 'http://127.0.0.1:8000/static/persian_fonts/css/all.css',
+            //     font_names: 'sahel;samim;shabnam;tanha;vazir;yekan;parastoo;',
+            // });
+            //
+            // CKEDITOR.replace('sub_text', {
+            //     language: 'fa',
+            //     contentsCss: 'http://127.0.0.1:8000/static/persian_fonts/css/all.css',
+            //     font_names: 'sahel;samim;shabnam;tanha;vazir;yekan;parastoo;',
+            // });
+        });
+    </script>
+    <script>
+
+        function active_change(val) {
+            $.ajax({
+                type: "POST",
+                url: "/noticeChangeActiveNews/",
+                data: {id: val},
+                success: function (response) {
+                    window.location.href = response
+                }
+            });
+        }
+
+        function delete_news(val) {
+            $("#pk_id_del").val(val);
+        }
+
+        // function get_pk_edit(val) {
+        //     $("#pk_id_edit").val(val);
+        //     $.ajax({
+        //         type: "GET",
+        //         url: "/noticeNewsEdit/",
+        //         data: {pk: val},
+        //         dataType: 'json',
+        //         success: function (data) {
+        //             $("#title").val(data[0].title);
+        //             $("#titleseo").val(data[0].titleseo);
+        //             $("#short_text").val(data[0].short_text);
+        //             CKEDITOR.instances['edit_text'].setData(data[0].text);
+        //             if (data[0].hot)
+        //                 $('#edit_hot').prop("checked", true);
+        //             $("#edit_image").val(data[0].image);
+        //         },
+        //         error: function (data) {
+        //
+        //         }
+        //     });
+        // }
+        //
+        // $("#image").change(function () {
+        //     $.each($("#image")[0].files, function (i, file) {
+        //         $("#edit_image").val(file.name);
+        //     });
+        // });
+
+    </script>
+    <script>
+        $("#btnSearch").on("keyup", function () {
+
+            var $this = $(this);
+            var $cards = $('.sort');
+
+            $filteredCards = $cards.each(function (i, card) {
+                var $card = $(card);
+
+                var title = $card.find('.title').first();
+                title = title.text();
+
+                if (title.indexOf($this.val()) !== -1) {
+                    $card.show();
+                } else {
+                    $card.hide();
+                }
+            });
+        });
+    </script>
+
+<!--    <script src="{% static 'ckeditor5/add/custome.js' %}"></script>-->
+{% endblock script %}

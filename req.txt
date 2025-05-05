@@ -1,0 +1,12 @@
+
+Django==5.2
+django-js-asset==3.1.2
+django-mptt==0.17.0
+django-redis==5.4.0
+django-render-partial==0.4
+pillow==11.2.1
+psycopg2==2.9.10
+redis==5.2.1
+sorl-thumbnail==12.11.0
+sqlparse==0.5.3
+tzdata==2025.2

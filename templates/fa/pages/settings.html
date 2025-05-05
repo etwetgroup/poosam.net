@@ -1,0 +1,441 @@
+{% load static %}
+{% load website_tags %}
+
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="keywords" content="" />
+	<meta name="author" content="" />
+	<meta name="robots" content="" />
+	<meta name="description" content=""/>
+	<meta property="og:title" content="" />
+	<meta property="og:description" content="" />
+	<meta property="og:image" content="" />
+	<meta name="format-detection" content="telephone=no">
+
+	<!-- FAVICONS ICON -->
+	<link rel="icon" href="{% static 'website/assets/images/favicon.ico' %}" type="image/x-icon" />
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'website/assets/images/favicon.png' %}" />
+
+	<!-- PAGE TITLE HERE -->
+	<title> ویرایش صفحه نمایش سایت </title>
+
+	<!-- MOBILE SPECIFIC -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!--[if lt IE 9]>
+	<script src="{% static 'website/assets/js/html5shiv.min.js' %}"></script>
+	<script src="{% static 'website/assets/js/respond.min.js' %}"></script>
+	<![endif]-->
+
+	<!-- STYLESHEETS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/css/plugins.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/css/style.css' %}">
+	<link class="skin" rel="stylesheet" type="text/css" href="{% static 'website/assets/css/skin/skin-11.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/css/templete.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/css/rtl.css' %}">
+
+	<!-- Google Font -->
+	<style>
+	@import url('https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i|Playfair+Display:400,400i,700,700i,900,900i|Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i|Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap');
+	</style>
+
+	<!-- REVOLUTION SLIDER CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'website/assets/plugins/revolution/revolution/css/revolution.min.css' %}">
+
+	<link rel="stylesheet" type="text/css" href="{% static 'persian_fonts/css/parastoo.css' %}"/>
+
+    <style>
+        /** {*/
+        /*    font-family: parastoo !important;*/
+        /*}*/
+    </style>
+
+</head>
+<body id="bg">
+<div class="page-wraper">
+<div id="loading-area"></div>
+    <!-- header -->
+    <header class="site-header mo-left header header-curve ext-header">
+		<div class="middle-bar">
+			<div class="container-fluid">
+				<!-- website logo  -->
+				<div class="middle-area">
+					<div class="logo-header">
+						<a href="/"><img src="{% static 'website/assets/images/logo-light.png' %}" alt=""></a>
+					</div>
+					<div class="service-list">
+						<ul>
+							<li>
+								<i class="la la-phone"></i>
+								{% get_website_info 'page_tel_title' as info %}
+								<div class="editor" id="page_tel_title" contenteditable="true">
+									<h4 class="title">{{ info.value }}</h4>
+								</div>
+								{% get_website_info 'page_tel_desc' as info %}
+								<div class="editor" id="page_tel_desc" contenteditable="true">
+									<span>{{ info.value }}</span>
+								</div>
+							</li>
+							<li>
+								<i class="la la-clock-o"></i>
+								{% get_website_info 'page_time_title' as info %}
+								<div class="editor" id="page_time_title" contenteditable="true">
+									<h4 class="title">{{ info.value }}</h4>
+								</div>
+								{% get_website_info 'page_time_desc' as info %}
+								<div class="editor" id="page_time_desc" contenteditable="true">
+									<span>{{ info.value }}</span>
+								</div>
+							</li>
+							<li>
+								<i class="la la-map"></i>
+								{% get_website_info 'page_address_title' as info %}
+								<div class="editor" id="page_address_title" contenteditable="true">
+									<h4 class="title">{{ info.value }}</h4>
+								</div>
+								{% get_website_info 'page_address_desc' as info %}
+								<div class="editor" id="page_address_desc" contenteditable="true">
+									<span>{{ info.value }}</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!-- main header -->
+        <div class="sticky-header main-bar-wraper navbar-expand-lg">
+            <div class="main-bar clearfix ">
+                <div class="container-fluid clearfix">
+                    <!-- website logo -->
+                    <div class="logo-header mostion">
+						<a href="/"><img src="{% static 'website/assets/images/logo-light.png' %}" alt=""></a>
+					</div>
+                    <!-- nav toggle button -->
+                    <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+                    <!-- extra nav -->
+                    <div class="extra-nav">
+                        <div class="extra-cell">
+							<ul class="list-inline">
+								<li><a href="javascript:void(0);" class="site-button-link facebook hover"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="javascript:void(0);" class="site-button-link google-plus hover"><i class="fab fa-google-plus-g"></i></a></li>
+								<li><a href="javascript:void(0);" class="site-button-link linkedin hover"><i class="fab fa-linkedin-in"></i></a></li>
+								<li><a href="javascript:void(0);" class="site-button-link instagram hover"><i class="fab fa-instagram"></i></a></li>
+								<li><a href="javascript:void(0);" class="site-button-link twitter hover"><i class="fab fa-twitter"></i></a></li>
+							</ul>
+						</div>
+                    </div>
+                    <!-- Quik search -->
+                    <div class="dlab-quik-search ">
+                        <form action="#">
+                            <input name="search" value="" type="text" class="form-control" placeholder="جستجو کنید ...">
+                            <span id="quik-search-remove"><i class="ti-close"></i></span>
+                        </form>
+                    </div>
+                    <!-- main nav -->
+                    <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
+						<div class="logo-header d-md-block d-lg-none">
+							<a href="/"><img src="{% static 'website/assets/images/logo.png' %}" alt=""></a>
+						</div>
+                        <a href="/mainMenu/" target="_blank" class="site-button btnhover14 mt-2">برای ویرایش منو کلیک کنید</a>
+						<div class="dlab-social-icon">
+							<ul>
+								<li><a class="site-button circle fab fa-facebook-f" href="javascript:void(0);"></a></li>
+								<li><a class="site-button  circle fab fa-twitter" href="javascript:void(0);"></a></li>
+								<li><a class="site-button circle fab fa-linkedin-in" href="javascript:void(0);"></a></li>
+								<li><a class="site-button circle fab fa-instagram" href="javascript:void(0);"></a></li>
+							</ul>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- main header END -->
+    </header>
+    <!-- header END -->
+    <!-- Content -->
+    <div class="page-content">
+        <!-- inner page banner -->
+        <div class="dlab-bnr-inr dlab-bnr-inr-sm overlay-black-dark banner-content " style="background-image:url({% static 'website/assets/images/banner/bnr2.jpg' %});">
+            <div class="container">
+                <div class="dlab-bnr-inr-entry">
+                    <h3 class="text-white">زمان نمایش عنوان انتخابی در این قسمت قرار میگیرد</h3>
+					<!-- Breadcrumb row -->
+					<div class="breadcrumb-row">
+						<ul class="list-inline">
+							<li>در زمان نمایش آدرس صفحه در این قسمت قرار میگیرد</li>
+						</ul>
+					</div>
+					<!-- Breadcrumb row END -->
+                </div>
+            </div>
+        </div>
+        <!-- inner page banner END -->
+        <!-- contact area -->
+        <div class="content-block">
+            <!-- Code Box -->
+			<div class="section-full content-inner bg-white video-section" style="background-image:url('{% static 'website/assets/images/background/bg-video.png' %}');">
+				<div class="container">
+					در زمان نمایش محتویات ckeditor وارد شده در این قسمت قرار میگیرد
+				</div>
+			</div>
+			<!-- Code Box End -->
+        </div>
+        <!-- contact area END -->
+    </div>
+    <!-- Footer -->
+    <footer class="site-footer style1">
+		<!-- Footer Info -->
+		<div class="section-full p-t50 p-b20 bg-primary text-white overlay-primary-dark footer-info-bar">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+						<div class="icon-bx-wraper bx-style-1 p-a20 radius-sm br-col-w1">
+							<div class="icon-content">
+								{% get_website_info 'page_footer_box_1_title' as info %}
+								<h5 class="dlab-tilte">
+									<span class="icon-sm"><i class="ti-location-pin"></i></span>
+									<div class="editor" id="page_footer_box_1_title" contenteditable="true">
+										{{ info.value }}
+									</div>
+								</h5>
+								{% get_website_info 'page_footer_box_1_desc' as info %}
+								<div class="editor" id="page_footer_box_1_desc" contenteditable="true">
+									<p class="op7">{{ info.value }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+						<div class="icon-bx-wraper bx-style-1 p-a20 radius-sm br-col-w1">
+							<div class="icon-content">
+								{% get_website_info 'page_footer_box_2_title' as info %}
+								<h5 class="dlab-tilte">
+									<span class="icon-sm"><i class="ti-email"></i></span>
+									<div class="editor" id="page_footer_box_2_title" contenteditable="true">
+										{{ info.value }}
+									</div>
+								</h5>
+								{% get_website_info 'page_footer_box_2_desc' as info %}
+								<div class="editor" id="page_footer_box_2_desc" contenteditable="true">
+									<p class="op7">{{ info.value }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+						<div class="icon-bx-wraper bx-style-1 p-a20 radius-sm br-col-w1">
+							<div class="icon-content">
+								{% get_website_info 'page_footer_box_3_title' as info %}
+								<h5 class="dlab-tilte">
+									<span class="icon-sm"><i class="ti-mobile"></i></span>
+									<div class="editor" id="page_footer_box_3_title" contenteditable="true">
+										{{ info.value }}
+									</div>
+								</h5>
+								{% get_website_info 'page_footer_box_3_desc' as info %}
+								<div class="editor" id="page_footer_box_3_desc" contenteditable="true">
+									<p class="op7">{{ info.value }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+						<div class="icon-bx-wraper bx-style-1 p-a20 radius-sm br-col-w1">
+							<div class="icon-content">
+								{% get_website_info 'page_footer_box_4_title' as info %}
+								<h5 class="dlab-tilte">
+									<span class="icon-sm"><i class="ti-alarm-clock"></i></span>
+									<div class="editor" id="page_footer_box_4_title" contenteditable="true">
+										{{ info.value }}
+									</div>
+								</h5>
+								{% get_website_info 'page_footer_box_4_desc' as info %}
+								<div class="editor" id="page_footer_box_4_desc" contenteditable="true">
+									<p class="op7">{{ info.value }}</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- Footer Info End -->
+        <!-- Footer Top -->
+		<div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6">
+                        <div class="widget widget_about">
+							{% get_website_info 'page_footer_title_1' as info %}
+							<div class="editor" id="page_footer_title_1" contenteditable="true">
+								<h4 class="footer-title">{{ info.value }}</h4>
+							</div>
+							{% get_website_info 'page_footer_desc_1' as info %}
+							<div class="editor" id="page_footer_desc_1" contenteditable="true">
+								<p>{{ info.value }}</p>
+							</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="widget">
+                            {% get_website_info 'page_footer_title_2' as info %}
+							<div class="editor" id="page_footer_title_2" contenteditable="true">
+								<h4 class="footer-title">{{ info.value }}</h4>
+							</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="widget widget_subscribe">
+                            {% get_website_info 'page_footer_title_3' as info %}
+							<div class="editor" id="page_footer_title_3" contenteditable="true">
+								<h4 class="footer-title">{{ info.value }}</h4>
+							</div>
+							{% get_website_info 'page_footer_desc_3' as info %}
+							<div class="editor" id="page_footer_desc_3" contenteditable="true">
+								<p>{{ info.value }}</p>
+							</div>
+                            <form class="dzSubscribe" action="" method="post">
+								<div class="dzSubscribeMsg"></div>
+								<div class="form-group">
+									<div class="input-group">
+										<input name="dzEmail" required="required" type="email" class="form-control" placeholder="ایمیل شما">
+										<div class="input-group-addon">
+											<button name="submit" value="Submit" type="submit" class="site-button far fa-paper-plane"></button>
+										</div>
+									</div>
+								</div>
+							</form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- Footer Top End -->
+        <!-- Footer Bottom -->
+        <div class="footer-bottom footer-line">
+            <div class="container">
+                <div class="footer-bottom-in">
+                    <div class="footer-bottom-logo"><a href="/"><img src="{% static 'website/assets/images/logo-light.png' %}" alt=""/></a></div>
+					<div class="footer-bottom-social">
+						<ul class="dlab-social-icon dez-border">
+							<li><a class="fab fa-facebook-f" href="javascript:void(0);"></a></li>
+							<li><a class="fab fa-twitter" href="javascript:void(0);"></a></li>
+							<li><a class="fab fa-linkedin-in" href="javascript:void(0);"></a></li>
+							<li><a class="fab fa-pinterest-p" href="javascript:void(0);"></a></li>
+						</ul>
+					</div>
+                </div>
+            </div>
+        </div>
+		<!-- Footer Bottom End -->
+    </footer>
+    <!-- Footer End -->
+    <!-- scroll top button -->
+    <button class="scroltop fas fa-chevron-up" ></button>
+</div>
+<!-- JAVASCRIPT FILES ========================================= -->
+<script src="{% static 'website/assets/js/jquery.min.js' %}"></script><!-- JQUERY.MIN JS -->
+<script src="{% static 'website/assets/plugins/wow/wow.js' %}"></script><!-- WOW JS -->
+
+<script src="{% static 'website/assets/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script><!-- BOOTSTRAP.MIN JS -->
+<script src="{% static 'website/assets/plugins/bootstrap-select/bootstrap-select.min.js' %}"></script><!-- FORM JS -->
+<script src="{% static 'website/assets/plugins/bootstrap-touchspin/jquery.bootstrap-touchspin.js' %}"></script><!-- FORM JS -->
+<script src="{% static 'website/assets/plugins/magnific-popup/magnific-popup.js' %}"></script><!-- MAGNIFIC POPUP JS -->
+<script src="{% static 'website/assets/plugins/counter/waypoints-min.js' %}"></script><!-- WAYPOINTS JS -->
+<script src="{% static 'website/assets/plugins/counter/counterup.min.js' %}"></script><!-- COUNTERUP JS -->
+<script src="{% static 'website/assets/plugins/imagesloaded/imagesloaded.js' %}"></script><!-- IMAGESLOADED -->
+<script src="{% static 'website/assets/plugins/masonry/masonry-3.1.4.js' %}"></script><!-- MASONRY -->
+<script src="{% static 'website/assets/plugins/masonry/masonry.filter.js' %}"></script><!-- MASONRY -->
+<script src="{% static 'website/assets/plugins/owl-carousel/owl.carousel.js' %}"></script><!-- OWL SLIDER -->
+<script src="{% static 'website/assets/plugins/lightgallery/js/lightgallery-all.min.js' %}"></script><!-- Lightgallery -->
+<script src="{% static 'website/assets/plugins/scroll/scrollbar.min.js' %}"></script><!-- scroll -->
+<script src="{% static 'website/assets/js/custom.js' %}"></script><!-- CUSTOM FUCTIONS  -->
+<script src="{% static 'website/assets/js/dz.carousel.min.js' %}"></script><!-- SORTCODE FUCTIONS  -->
+<script src="{% static 'website/assets/plugins/countdown/jquery.countdown.js' %}"></script><!-- COUNTDOWN FUCTIONS  -->
+<script src="{% static 'website/assets/js/dz.ajax.js' %}"></script><!-- CONTACT JS  -->
+<script src="{% static 'website/assets/plugins/rangeslider/rangeslider.js' %}" ></script><!-- Rangeslider -->
+
+
+<script>
+document.getElementById("copyButton").addEventListener("click", function() {
+    $('#copyButton').addClass('active').text('Copied');
+    $('#copyTarget').addClass('active');
+	copyToClipboard(document.getElementById("copyTarget"));
+});
+function copyToClipboard(elem) {
+	  // create hidden text element, if it doesn't already exist
+    var targetId = "_hiddenCopyText_";
+    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+    var origSelectionStart, origSelectionEnd;
+    if (isInput) {
+        // can just use the original source element for the selection and copy
+        target = elem;
+        origSelectionStart = elem.selectionStart;
+        origSelectionEnd = elem.selectionEnd;
+    } else {
+        // must use a temporary form element for the selection and copy
+        target = document.getElementById(targetId);
+        if (!target) {
+            var target = document.createElement("textarea");
+            target.style.position = "absolute";
+            target.style.left = "-9999px";
+            target.style.top = "0";
+            target.id = targetId;
+            document.body.appendChild(target);
+        }
+        target.textContent = elem.textContent;
+    }
+    // select the content
+    var currentFocus = document.activeElement;
+    target.focus();
+    target.setSelectionRange(0, target.value.length);
+
+    // copy the selection
+    var succeed;
+    try {
+    	  succeed = document.execCommand("copy");
+    } catch(e) {
+        succeed = false;
+    }
+    // restore original focus
+    if (currentFocus && typeof currentFocus.focus === "function") {
+        currentFocus.focus();
+    }
+    if (isInput) {
+        // restore prior selection
+        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+    } else {
+        // clear temporary content
+        target.textContent = "";
+    }
+    return succeed;
+}
+</script>
+<script src="{% static 'js/persianumber.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        $('body').persiaNumber();
+    });
+</script>
+<script>
+    $(".editor").mouseleave(function () {
+        var value = $('#' + this.id).text().trim();
+        $.ajax({
+            type: "POST",
+            url: "/changeWebSite/",
+            data: {key: this.id, value: value},
+        });
+    });
+</script>
+</body>
+</html>

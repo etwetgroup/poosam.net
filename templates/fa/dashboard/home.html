@@ -1,0 +1,30 @@
+{% extends "fa/base.html" %}
+{% load static %}
+
+{% block css %}
+{% endblock css %}
+
+{% block body %}
+
+   {% include 'fa/header.html' %}
+
+   {% include 'fa/sidebar.html' %}
+
+   <!--start content-->
+   <main class="page-content">
+        <h1>داشبورد</h1>
+   </main>
+   <!--end page main-->
+
+   {% include 'fa/overlay.html' %}
+
+   {% include 'fa/back-to-top.html' %}
+
+   {% include 'fa/switcher-body.html' %}
+
+
+{% endblock body %}
+
+{% block script %}
+
+{% endblock script %}

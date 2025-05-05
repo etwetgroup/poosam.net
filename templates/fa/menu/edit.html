@@ -1,0 +1,257 @@
+{% extends "fa/base.html" %}
+{% load static %}
+
+{% block css %}
+    <!--<script src="https://cdn.ckbox.io/ckbox/latest/ckbox.js"></script>-->
+    <!--<script src="https://cdn.ckbox.io/CKBox/1.2.1/translations/fa.js"></script>-->
+    <!--<script src="{% static 'ckeditor5/build/ckeditor.js' %}"></script>-->
+    <!--<link rel="stylesheet" href="{% static 'persian_fonts/css/all.css' %}" type="text/css">-->
+    <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+    <link href="{% static 'plugins/input-tags/css/tagsinput.css' %}" rel="stylesheet"/>
+    <style>
+        /*.ckbox-navbar-link {*/
+        /*    display: none !important;*/
+        /*}*/
+        /*.ckbox {*/
+        /*    direction: ltr;*/
+        /*}*/
+        .cke_notification {
+            display: none !important;
+        }
+    </style>
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+<!--start content-->
+<main class="page-content">
+
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">مدیریت منوها</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">ویرایش منوی اصلی</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <form action="/mainMenuEditSave/" class="needs-validation" method="post" enctype="multipart/form-data"
+                  novalidate>
+                {% csrf_token %}
+                <input type="hidden" id="pk_id_edit" name="pk_id_edit" value="{{ content.id }}">
+                <input type="hidden" id="img_delete" name="img_delete">
+                <input type="hidden" id="type" name="type" value="main">
+                <div class="card">
+                    <div class="card-header py-3 bg-transparent">
+                        <div class="d-sm-flex align-items-center">
+                            <h5 class="mb-2 mb-sm-0">ویرایش منوی اصلی</h5>
+                            <div class="ms-auto">
+<!--                                <button type="reset" id="btnreset" class="btn btn-secondary">فرم جدید</button>-->
+                                <button type="submit" class="btn btn-primary">ثبت</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-8">
+                                <div class="card shadow-none bg-light border">
+                                    <div class="card-body">
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">عنوان</label>
+                                            <input type="text" name="title" class="form-control" placeholder="عنوان ..." value="{{ content.title }}" required>
+                                            <div class="invalid-feedback">
+                                                عنوان اجباری میباشد.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">عنوان سئو</label>
+                                            <input type="text" name="titleseo" class="form-control" placeholder="عنوان سئو ..." value="{{ content.titleseo }}" required>
+                                            <div class="invalid-feedback">
+                                                عنوان سئو اجباری میباشد.
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">کلمات کلیدی</label>
+                                            <input type="text" name="keywords" value="{{ content.keywords }}" class="form-control" data-role="tagsinput">
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label">متن توضیحی</label>
+                                            <textarea name="desc" class="form-control" rows="3" cols="3" placeholder="متن توضیحی ...">{{ content.description }}</textarea>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <div id="editor" name="editor">{{ content.text|safe }}</div>
+                                            <input type="hidden" name="text" id="text" value="{{ content.text }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-4">
+                                <div class="card shadow-none bg-light border">
+                                    <div class="card-body">
+                                        <div class="row g-3">
+
+                                            {% if content.sub_menu_id == None %}
+                                                <div class="col-12 mb-3">
+                                                    <label class="form-label">حالت نمایش</label>
+                                                    <select name="display" class="form-select">
+                                                        <option {% if not content.display  %} selected {% endif %} value="0">مگا منو</option>
+                                                        <option {% if content.display %} selected {% endif %} value="1">زیر شاخه ای</option>
+                                                    </select>
+                                                </div>
+                                            {% endif %}
+
+                                            <div class="col-12 mb-3">
+                                                <label class="form-label">لینک canonical</label>
+                                                <input type="text" name="canonical" class="form-control" value="{{ content.canonical }}" placeholder="لینک canonical ...">
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-6 form-check form-switch">
+                                                    <label class="form-check-label px-3">بدون ایندکس و فالو</label>
+                                                    <input class="form-check-input" type="checkbox" name="noindex" {% if content.noindexnofollow%} checked {% endif %}>
+                                                </div>
+                                                <div class="col-6 form-check form-switch">
+                                                    <label class="form-check-label px-3">نمایش نظرات</label>
+                                                    <input class="form-check-input" type="checkbox" name="showCmnt" {% if content.showCmnt%} checked {% endif %}>
+                                                </div>
+                                            </div>
+                                        </div><!--end row-->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!--end row-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!--end row-->
+
+</main>
+<!--end page main-->
+
+{% if messages %}
+{% for message in messages %}
+<input type="hidden" id="txt_messages" value="{{ message }}">
+<input type="hidden" id="txt_extra_messages" value="{{ message.extra_tags }}">
+{% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+
+{% endblock body %}
+
+{% block script %}
+<script>
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+<script>
+    $(document).ready(function () {
+        var msg = $("#txt_messages").val();
+        var msg_extra = $("#txt_extra_messages").val();
+        if (msg_extra !== undefined) {
+            if (msg_extra === 'error') {
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    continueDelayOnInactiveTab: false,
+                    position: 'top right',
+                    icon: 'bx bx-x-circle',
+                    msg: msg
+                });
+            } else {
+                Lobibox.notify('success', {
+                    pauseDelayOnHover: true,
+                    continueDelayOnInactiveTab: false,
+                    position: 'top right',
+                    icon: 'bx bx-x-circle',
+                    msg: msg
+                });
+            }
+        }
+
+        CKEDITOR.instances.editor.on('change', function () {
+            $('#text').val(CKEDITOR.instances.editor.getData());
+        });
+    });
+</script>
+<script>
+    $( "#btnreset" ).on( "click", function() {
+      // editor.setData('');
+        $('#text').val(CKEDITOR.instances.editor.setData(''));
+    } );
+</script>
+<!--<script src="{% static 'ckeditor5/edit/custome.js' %}"></script>-->
+<script>
+    CKEDITOR.replace('editor', {
+        language: 'fa',
+        notificationDuration: 0,
+        toolbar: 'Full',
+        extraPlugins: 'uploadimage',
+        filebrowserBrowseUrl: '/ckeditor/browse/',
+        filebrowserImageBrowseUrl: '/ckeditor/browse/',
+        filebrowserUploadUrl: '/ckeditor/upload/',
+        filebrowserImageUploadUrl: '/ckeditor/upload/',
+        filebrowserUploadMethod: 'form',
+        skin: 'moonoblue,/static/ckeditor/skins/moono_blue/',
+        // contentsCss: 'https://cms.poosam.ir/static/persian_fonts/css/all.css',
+        // font_names: 'sahel;samim;shabnam;tanha;vazir;yekan;parastoo;',
+        font_names: 'parastoo/parastoo;' +
+                        'sahel/sahel;' +
+                        'samim/samim;' +
+                        'shabnam/shabnam;' +
+                        'tanha/tanha;' +
+                        'vazir/vazir;' +
+                        'yekan/yekan;' +
+                        'Arial;Times New Roman;Verdana',
+        contentsCss: '/static/persian_fonts/css/all.css'
+    });
+    CKEDITOR.on('instanceReady', function (event) {
+        setTimeout(function () {
+            var notifications = document.querySelectorAll('.cke_notification');
+            notifications.forEach(function (notification) {
+                notification.remove();
+            });
+        }, 0);
+    });
+</script>
+{% endblock script %}

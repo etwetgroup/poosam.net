@@ -1,0 +1,366 @@
+{% extends "fa/base.html" %}
+{% load static %}
+{% load jformat %}
+
+{% block css %}
+<!--<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>-->
+<!--<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>-->
+
+<!--<script src="https://cdn.ckbox.io/ckbox/latest/ckbox.js"></script>-->
+<!--<script src="https://cdn.ckbox.io/CKBox/1.2.1/translations/fa.js"></script>-->
+<!--<script src="{% static 'ckeditor5/build/ckeditor.js' %}"></script>-->
+<!--<link rel="stylesheet" href="{% static 'persian_fonts/css/all.css' %}" type="text/css">-->
+<!--<style>-->
+<!--    .ckbox-navbar-link {-->
+<!--        display: none !important;-->
+<!--    }-->
+<!--    .ckbox {-->
+<!--        direction: ltr;-->
+<!--    }-->
+<!--</style>-->
+
+<!--<link href="{% static 'plugins/input-tags/css/tagsinput.css' %}" rel="stylesheet"/>-->
+
+<link href="{% static 'devextreme/dx.material.blue.light.css' %}" rel="stylesheet"/>
+<!--<link href="{% static 'devextreme/font-awesome.min.css' %}" rel="stylesheet"/>-->
+<!--<link rel='stylesheet' href='https://cdn3.devexpress.com/jslib/23.2.6/css/dx.material.blue.light.css'>-->
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
+<link href="{% static 'devextreme/mainmenu/style.css' %}" rel="stylesheet"/>
+
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+<!--start content-->
+<main class="page-content">
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">مدیریت لینک ها</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">لیست لینک ها</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="card">
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-lg-3 col-xl-2">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAddLink">
+                        <i class="bi bi-plus-square-fill"></i> افزودن لینک
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <div id="gridContainer"></div>
+        </div>
+    </div>
+</main>
+<!--end page main-->
+
+<!-- Modal Add -->
+<div class="modal fade" id="modalAddLink" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">افزودن لینک</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/urlCategoryInsert/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">عنوان</label>
+                        <input type="text" name="title" class="form-control" placeholder="عنوان ..." required>
+                        <div class="invalid-feedback">
+                            عنوان اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">لینک</label>
+                        <input type="text" name="url" class="form-control" placeholder="لینک ..." required>
+                        <div class="invalid-feedback">
+                            لینک اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 form-check form-switch">
+                            <label class="form-check-label px-3">فعال بودن</label>
+                            <input class="form-check-input" type="checkbox" name="is_active" checked>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">ثبت</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" id="modalEditLink" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ویرایش لینک</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/urlCategoryEditSave/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <input type="hidden" id="pk_id_edit" name="pk_id_edit">
+                <div class="modal-body">
+                    <div class="col-12 mb-3">
+                        <label class="form-label">عنوان</label>
+                        <input type="text" name="title" id="edit_title" class="form-control" placeholder="عنوان ..." required>
+                        <div class="invalid-feedback">
+                            عنوان اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label class="form-label">لینک</label>
+                        <input type="text" name="url" id="edit_url" class="form-control" placeholder="لینک ..." required>
+                        <div class="invalid-feedback">
+                            لینک اجباری میباشد.
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 form-check form-switch">
+                            <label class="form-check-label px-3">فعال بودن</label>
+                            <input class="form-check-input" type="checkbox" name="is_active" id="edit_is_active">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">ثبت</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <input type="hidden" id="txt_messages" value="{{ message }}">
+        <input type="hidden" id="txt_extra_messages" value="{{ message.extra_tags }}">
+    {% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+{% endblock body %}
+
+{% block script %}
+<script src="{% static 'devextreme/dx.all.js' %}"></script>
+<script>
+    $(function () {
+        var dataGrid = $("#gridContainer").dxDataGrid({
+            dataSource: "/urlCategoryDatasource/",
+            keyExpr: "ID",
+            rtlEnabled: true,
+            height: 600,
+            rowAlternationEnabled: true,
+            filterRow: {
+                visible: true,
+                applyFilter: "auto"
+            },
+            headerFilter: {
+                visible: true
+            },
+            hoverStateEnabled: true,
+            filterPanel: {visible: true},
+            searchPanel: {
+                visible: true,
+                width: 240,
+                placeholder: "جستجو..."
+            },
+            loadPanel: {
+                enabled: true,
+                text: "بارگذاری..."
+            },
+            paging: {
+                pageSize: 10
+            },
+            pager: {
+                showPageSizeSelector: true,
+                allowedPageSizes: [5, 10, 20, 50],
+                showInfo: true,
+                showNavigationButtons: true
+            },
+            columns: [
+                {
+                    dataField: "ID",
+                    caption: "ردیف",
+                    width: 80,
+                },
+                {
+                    dataField: "title",
+                    caption: "عنوان",
+                    width: 400,
+                },
+                {
+                    dataField: "url",
+                    caption: "لینک",
+                    width: 400,
+                },
+                {
+                    dataField: "is_active",
+                    caption: "وضعیت",
+                    width: 200,
+                    cellTemplate: function(container, options) {
+                        var data = options.data;
+                        var isChecked = data.is_active ? "checked" : "";
+                        $("<div class='form-check form-switch'>")
+                            .append($("<input class='form-check-input active-switch' type='checkbox' id='active_" + data.ID + "' " + isChecked + ">"))
+                            .appendTo(container);
+                    }
+                },
+                {
+                    dataField: "created_date",
+                    caption: "تاریخ ثبت",
+                    width: 140,
+                },
+                {
+                    caption: "عملیات",
+                    width: 150,
+                    cellTemplate: function (container, options) {
+                        container.addClass("icons-container");
+                        var data = options.data;
+                        container.append(
+                            $("<a href='javascript:;' id='edit_" + data.ID + "' class='edit-link' data-bs-toggle='modal' data-bs-target='#modalEditLink' data-toggle='tooltip' title='ویرایش'><i class='lni lni-pencil fa-lg'></i></a>")
+                        );
+                        container.append(
+                            $("<a href='javascript:;' id='delete_" + data.ID + "' data-toggle='tooltip' title='حذف'><i class='lni lni-trash fa-lg'></i></a>")
+                        );
+                    }
+                }
+            ]
+        }).dxDataGrid("instance");
+
+        $(document).on("click", ".active-switch", function () {
+            var id = this.id.split("_")[1];
+            $.ajax({
+                url: "/changeUrlCategoryActive/" + id,
+                type: "get",
+                dataType: "html",
+                success: function (data) {
+                    if (data === "ok") {
+                        Lobibox.notify('success', {
+                            pauseDelayOnHover: true,
+                            continueDelayOnInactiveTab: false,
+                            position: 'top right',
+                            icon: 'bx bx-check-circle',
+                            msg: 'وضعیت با موفقیت تغییر کرد.'
+                        });
+                    }
+                }
+            });
+        });
+
+        $(document).on("click", ".edit-link", function () {
+            var id = this.id.split("_")[1];
+            $("#pk_id_edit").val(id);
+
+            $.ajax({
+                url: "/urlCategoryDatasource/",
+                type: "get",
+                dataType: "json",
+                success: function (data) {
+                    var category = data.find(item => item.ID == id);
+                    if (category) {
+                        $("#edit_title").val(category.title);
+                        $("#edit_url").val(category.url);
+                        if (category.is_active) {
+                            $('#edit_is_active').prop("checked", true);
+                        } else {
+                            $('#edit_is_active').prop("checked", false);
+                        }
+                    }
+                }
+            });
+        });
+
+        $(document).on("click", "[id^='delete_']", function () {
+            var id = this.id.split("_")[1];
+            if (confirm("آیا از حذف این آیتم اطمینان دارید؟")) {
+                $.ajax({
+                    url: "/urlCategoryDelete/" + id,
+                    type: "get",
+                    dataType: "html",
+                    success: function (data) {
+                        if (data === "ok") {
+                            dataGrid.refresh();
+                            Lobibox.notify('success', {
+                                pauseDelayOnHover: true,
+                                continueDelayOnInactiveTab: false,
+                                position: 'top right',
+                                icon: 'bx bx-check-circle',
+                                msg: 'لینک با موفقیت حذف شد.'
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+
+    $(document).ready(function () {
+        var msg = $("#txt_messages").val();
+        var msg_extra = $("#txt_extra_messages").val();
+        if (msg_extra !== undefined) {
+            if (msg_extra === 'error') {
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    continueDelayOnInactiveTab: false,
+                    position: 'top right',
+                    icon: 'bx bx-x-circle',
+                    msg: msg
+                });
+            } else {
+                Lobibox.notify('success', {
+                    pauseDelayOnHover: true,
+                    continueDelayOnInactiveTab: false,
+                    position: 'top right',
+                    icon: 'bx bx-check-circle',
+                    msg: msg
+                });
+            }
+        }
+    });
+</script>
+{% endblock script %}

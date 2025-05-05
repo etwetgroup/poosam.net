@@ -1,0 +1,269 @@
+{% extends "fa/base.html" %}
+{% load static %}
+
+{% block css %}
+    <script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+    <style>
+        .cke_notification {
+            display: none !important;
+        }
+    </style>
+{% endblock css %}
+
+{% block body %}
+
+{% include 'fa/header.html' %}
+
+{% include 'fa/sidebar.html' %}
+
+<!--start content-->
+<main class="page-content">
+
+    <!--breadcrumb-->
+    <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
+        <div class="breadcrumb-title pe-3">تنظیمات</div>
+        <div class="ps-3">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-0 p-0">
+                    <li class="breadcrumb-item"><a href="/home/"><i class="bx bx-home-alt"></i></a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">افزودن کاریر</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <!--end breadcrumb-->
+
+    <div class="row">
+        <div class="col-lg-12 mx-auto">
+            <form action="/userInsert/" class="needs-validation" method="post" enctype="multipart/form-data"
+                  novalidate>
+                {% csrf_token %}
+                <div class="card">
+                    <div class="card-header py-3 bg-transparent">
+                        <div class="d-sm-flex align-items-center">
+                            <h5 class="mb-2 mb-sm-0">افزودن کاربر جدید</h5>
+                            <div class="ms-auto">
+                                <button type="reset" id="btnreset" class="btn btn-secondary">فرم جدید</button>
+                                <button type="submit" class="btn btn-primary">ثبت</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-8">
+                                <div class="card shadow-none bg-light border">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">رمز عبور</label>
+                                                <input type="password" name="password" class="form-control" placeholder="رمز عبور ..."
+                                                       required>
+                                                <div class="invalid-feedback">
+                                                    رمز عبور اجباری میباشد.
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">تکرار رمز عبور</label>
+                                                <input type="password" name="repeat_password" class="form-control" placeholder="تکرار رمز عبور ..."
+                                                       required>
+                                                <div class="invalid-feedback">
+                                                    تکرار رمز عبور اجباری میباشد.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">نام</label>
+                                                <input type="text" name="first_name" class="form-control" placeholder="نام ..." required>
+                                                <div class="invalid-feedback">
+                                                    نام اجباری میباشد.
+                                                </div>
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">نام خانوادگی</label>
+                                                <input type="text" name="last_name" class="form-control" placeholder="نام خانوادگی ..." required>
+                                                <div class="invalid-feedback">
+                                                    نام خانوادگی اجباری میباشد.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">ایمیل</label>
+                                                <input type="email" name="email" class="form-control" placeholder="ایمیل ...">
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">آدرس</label>
+                                                <input type="text" name="address" class="form-control" placeholder="آدرس ...">
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">شماره ثابت</label>
+                                                <input type="text" name="tel" class="form-control" placeholder="شماره ثابت ...">
+                                            </div>
+                                            <div class="col-6 mb-3">
+                                                <label class="form-label">شماره همراه</label>
+                                                <input type="text" name="mob" class="form-control" placeholder="شماره همراه ..." required>
+                                                <div class="invalid-feedback">
+                                                    شماره همراه اجباری میباشد.
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12 mb-3">
+                                            <div id="editor" name="editor"></div>
+                                            <input type="hidden" name="text" id="text">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-4">
+                                <div class="card shadow-none bg-light border">
+                                    <div class="card-body">
+                                        <div class="row g-3">
+                                            <div class="col-12 mb-3">
+                                                <input type="button" class="btn btn-outline-primary px-5 radius-30" value="انتخاب تصویر" onclick="document.getElementById('add_image').click();"/>
+                                                <input type="file" style="display:none;" id="add_image" name="image"/>
+                                            </div>
+                                            <div class="col-12 form-check form-switch">
+                                                <label class="form-check-label px-3">وضعیت کارمندی ( اجازه دسترسی به پنل مدیریت )</label>
+                                                <input class="form-check-input" type="checkbox" name="staff">
+                                            </div>
+                                            <div class="col-12 form-check form-switch">
+                                                <label class="form-check-label px-3">فعالیت ( به جای حذف کاربر این تیک را بردارید )</label>
+                                                <input class="form-check-input" type="checkbox" name="active">
+                                            </div>
+                                            <div class="col-12 form-check form-switch">
+                                                <label class="form-check-label px-3">مرد / زن ( فعال بودن = مرد )</label>
+                                                <input class="form-check-input" type="checkbox" name="gender">
+                                            </div>
+                                        </div><!--end row-->
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!--end row-->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div><!--end row-->
+
+</main>
+<!--end page main-->
+
+{% if messages %}
+{% for message in messages %}
+<input type="hidden" id="txt_messages" value="{{ message }}">
+<input type="hidden" id="txt_extra_messages" value="{{ message.extra_tags }}">
+{% endfor %}
+{% endif %}
+
+{% include 'fa/overlay.html' %}
+
+{% include 'fa/back-to-top.html' %}
+
+{% include 'fa/switcher-body.html' %}
+
+
+{% endblock body %}
+
+{% block script %}
+<script src="{% static 'plugins/input-tags/js/tagsinput.js' %}"></script>
+<script>
+    (function () {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
+</script>
+<script>
+    $(document).ready(function () {
+        var msg = $("#txt_messages").val();
+        var msg_extra = $("#txt_extra_messages").val();
+        if (msg_extra !== undefined) {
+            if (msg_extra === 'error') {
+                Lobibox.notify('error', {
+                    pauseDelayOnHover: true,
+                    continueDelayOnInactiveTab: false,
+                    position: 'top right',
+                    icon: 'bx bx-x-circle',
+                    msg: msg
+                });
+            } else {
+                Lobibox.notify('success', {
+                    pauseDelayOnHover: true,
+                    continueDelayOnInactiveTab: false,
+                    position: 'top right',
+                    icon: 'bx bx-x-circle',
+                    msg: msg
+                });
+            }
+        }
+
+        CKEDITOR.instances.editor.on('change', function () {
+            $('#text').val(CKEDITOR.instances.editor.getData());
+        });
+    });
+</script>
+<script>
+    $( "#btnreset" ).on( "click", function() {
+      // editor.setData('');
+      $('#text').val(CKEDITOR.instances.editor.setData(''));
+    } );
+</script>
+<!--<script src="{% static 'ckeditor5/add/custome.js' %}"></script>-->
+<script>
+    CKEDITOR.replace('editor', {
+        language: 'fa',
+        notificationDuration: 0,
+        toolbar: 'Full',
+        extraPlugins: 'uploadimage',
+        filebrowserBrowseUrl: '/ckeditor/browse/',
+        filebrowserImageBrowseUrl: '/ckeditor/browse/',
+        filebrowserUploadUrl: '/ckeditor/upload/',
+        filebrowserImageUploadUrl: '/ckeditor/upload/',
+        filebrowserUploadMethod: 'form',
+        skin: 'moonoblue,/static/ckeditor/skins/moono_blue/',
+        // contentsCss: '/static/persian_fonts/css/all.css',
+        // font_names: 'sahel;samim;shabnam;tanha;vazir;yekan;parastoo;',
+        font_names: 'parastoo/parastoo;' +
+                        'sahel/sahel;' +
+                        'samim/samim;' +
+                        'shabnam/shabnam;' +
+                        'tanha/tanha;' +
+                        'vazir/vazir;' +
+                        'yekan/yekan;' +
+                        'Arial;Times New Roman;Verdana',
+        contentsCss: '/static/persian_fonts/css/all.css'
+    });
+    CKEDITOR.on('instanceReady', function (event) {
+        setTimeout(function () {
+            var notifications = document.querySelectorAll('.cke_notification');
+            notifications.forEach(function (notification) {
+                notification.remove();
+            });
+        }, 0);
+    });
+</script>
+{% endblock script %}
