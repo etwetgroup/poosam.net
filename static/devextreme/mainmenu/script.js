@@ -83,6 +83,16 @@ $( document ).ready(function() {
                     caption: 'عنوان منوهای اصلی',
                   },
                   {
+                    dataField: 'show_id',
+                    caption: 'شناسه نمایش',
+                    width: 150,
+                  },
+                  {
+                    dataField: 'url_category',
+                    caption: 'دسته بندی لینک',
+                    width: 150,
+                  },
+                  {
                     type: 'buttons',
                     width: 150,
                     buttons: [{
@@ -232,6 +242,16 @@ $( document ).ready(function() {
                             caption: 'عنوان زیر منوها',
                           },
                           {
+                            dataField: 'show_id',
+                            caption: 'شناسه نمایش',
+                            width: 150,
+                          },
+                          {
+                            dataField: 'url_category',
+                            caption: 'دسته بندی لینک',
+                            width: 150,
+                          },
+                          {
                             type: 'buttons',
                             width: 150,
                             buttons: [{
@@ -379,6 +399,16 @@ $( document ).ready(function() {
                           {
                             dataField: 'title',
                             caption: 'عنوان زیر منو ها',
+                          },
+                          {
+                            dataField: 'show_id',
+                            caption: 'شناسه نمایش',
+                            width: 150,
+                          },
+                          {
+                            dataField: 'url_category',
+                            caption: 'دسته بندی لینک',
+                            width: 150,
                           },
                           {
                             type: 'buttons',

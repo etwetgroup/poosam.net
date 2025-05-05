@@ -111,7 +111,22 @@
                                                 <input type="text" name="canonical" class="form-control" placeholder="لینک canonical ...">
                                             </div>
 
-                                           <div class="row">
+                                            <div class="col-12 mb-3">
+                                                <label class="form-label">شناسه نمایش</label>
+                                                <input type="text" name="show_id" class="form-control" placeholder="شناسه نمایش ...">
+                                            </div>
+
+                                            <div class="col-12 mb-3">
+                                                <label class="form-label">دسته بندی لینک</label>
+                                                <select name="url_category" class="form-select">
+                                                    <option value="">انتخاب کنید</option>
+                                                    {% for category in url_categories %}
+                                                        <option value="{{ category.id }}">{{ category.title }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+
+                                            <div class="row">
                                                 <div class="col-6 form-check form-switch">
                                                     <label class="form-check-label px-3">بدون ایندکس و فالو</label>
                                                     <input class="form-check-input" type="checkbox" name="noindex">

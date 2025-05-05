@@ -25,7 +25,7 @@ class Main(models.Model):
     titleseo = models.CharField(max_length=200, verbose_name="عنوان سئو")
     slug = models.SlugField(max_length=250, allow_unicode=True, null=False, editable=False)
     text = RichTextUploadingField(null=True, blank=True, verbose_name="توضیحات")
-    url_category = models.ForeignKey(UrlCatergory, on_delete=models.CASCADE, verbose_name="دسته بندی لینک")
+    url_category = models.ForeignKey(UrlCatergory, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="دسته بندی لینک")
     show_id = models.CharField(max_length=200, null=True, blank=True, verbose_name='شناسه نمایش')
     position = models.PositiveIntegerField(default=0, verbose_name="موقعیت")
     active = models.BooleanField(default=True, verbose_name="فعالیت")

@@ -23,15 +23,22 @@ def main_menu(request):
 
 @login_required(login_url='/auth/')  # redirect when user is not logged in
 def menu_add(request):
-    return render(request, 'fa/menu/add.html')
+    url_categories = UrlCatergory.objects.filter(is_active=True).order_by('title')
+    
+    context = {
+        'url_categories': url_categories,
+    }
+    
+    return render(request, 'fa/menu/add.html', context)
 
 @login_required(login_url='/auth/')  # redirect when user is not logged in
 def sub_menu_add(request,id):
     content = Main.objects.get(pk=id)
-    # content = get_object_or_404(content, slug=slug)
-
+    url_categories = UrlCatergory.objects.filter(is_active=True).order_by('title')
+    
     context = {
         'content': content,
+        'url_categories': url_categories,
     }
     return render(request, 'fa/menu/sub.html', context)
 
@@ -44,6 +51,8 @@ def main_menu_insert(request):
         description = request.POST.get('desc')
         current_user = request.user.id
         canonical = request.POST.get('canonical')
+        show_id = request.POST.get('show_id')
+        url_category_id = request.POST.get('url_category')
 
         if request.POST.get('noindex') == 'on':
             noindex = True
@@ -64,7 +73,21 @@ def main_menu_insert(request):
         else:
             order = 1
 
-        obj = Main.objects.create(title=title, titleseo=titleseo, keywords=keywords, description=description, text=text, noindexnofollow=noindex, position=order, userId_id=current_user, canonical=canonical, showCmnt=showCmnt, image='uploads/pages/nopic.jpg')
+        obj = Main.objects.create(
+            title=title, 
+            titleseo=titleseo, 
+            keywords=keywords, 
+            description=description, 
+            text=text, 
+            noindexnofollow=noindex, 
+            position=order, 
+            userId_id=current_user, 
+            canonical=canonical, 
+            showCmnt=showCmnt, 
+            image='uploads/pages/nopic.jpg',
+            show_id=show_id,
+            url_category_id=url_category_id
+        )
         obj.save()
 
         messages.info(request, 'اطاعات منوی اصلی وارد شده با موفقیت ثبت شد.')
@@ -80,6 +103,8 @@ def main_submenu_insert(request):
         description = request.POST.get('desc')
         current_user = request.user.id
         canonical = request.POST.get('canonical')
+        show_id = request.POST.get('show_id')
+        url_category_id = request.POST.get('url_category')
 
         if request.POST.get('noindex') == 'on':
             noindex = True
@@ -100,7 +125,22 @@ def main_submenu_insert(request):
         else:
             order = 1
 
-        obj = Main.objects.create(sub_menu_id=sub_menu_id, title=title, titleseo=titleseo, keywords=keywords, description=description, text=text, noindexnofollow=noindex, position=order, userId_id=current_user, canonical=canonical, showCmnt=showCmnt, image='uploads/pages/nopic.jpg')
+        obj = Main.objects.create(
+            sub_menu_id=sub_menu_id, 
+            title=title, 
+            titleseo=titleseo, 
+            keywords=keywords, 
+            description=description, 
+            text=text, 
+            noindexnofollow=noindex, 
+            position=order, 
+            userId_id=current_user, 
+            canonical=canonical, 
+            showCmnt=showCmnt, 
+            image='uploads/pages/nopic.jpg',
+            show_id=show_id,
+            url_category_id=url_category_id
+        )
         obj.save()
 
         messages.info(request, 'اطاعات زیر منوی وارد شده با موفقیت ثبت شد.')
@@ -111,12 +151,15 @@ def main_submenu_insert(request):
 def main_menu_parent_datasource(request):
     objects = []
     for item in Main.objects.filter(sub_menu__isnull=True).order_by('position'):
+        url_category_name = item.url_category.title if item.url_category else "-"
         objects.append({
             'ID': item.id,
             'title': item.title,
             'slug': item.slug,
             'sub_menu_id': item.sub_menu_id,
             'active': item.active,
+            'show_id': item.show_id if item.show_id else "-",
+            'url_category': url_category_name,
         })
     return HttpResponse(json.dumps(objects), content_type='application/json; charset=utf8')
 
@@ -124,12 +167,15 @@ def main_menu_parent_datasource(request):
 def main_submenu_datasource(request):
     objects = []
     for item in Main.objects.filter(sub_menu__isnull=False).order_by('position'):
+        url_category_name = item.url_category.title if item.url_category else "-"
         objects.append({
             'ID': item.id,
             'title': item.title,
             'slug': item.slug,
             'sub_menu_id': item.sub_menu_id,
             'active': item.active,
+            'show_id': item.show_id if item.show_id else "-",
+            'url_category': url_category_name,
         })
     return HttpResponse(json.dumps(objects), content_type='application/json; charset=utf8')
 
@@ -142,30 +188,20 @@ def main_menu_delete(request, id):
 
 @login_required(login_url='/auth/')  # redirect when user is not logged in
 def main_menu_edit(request,id):
-    # objects = []
-    # for item in Main.objects.filter(pk=request.GET.get('pk')):
-    #     objects.append({
-    #         "title": item.title,
-    #         "titleseo": item.titleseo,
-    #         "keywords": item.keywords,
-    #         "description": item.description,
-    #         "text": item.text,
-    #         "canonical": item.canonical,
-    #         "noindex": item.noindexnofollow,
-    #         "showCmnt": item.showCmnt,
-    #     })
-    # return HttpResponse(json.dumps(objects), content_type='application/json; charset=utf8')
     content = Main.objects.get(pk=id)
-    # content = get_object_or_404(content, slug=slug)
-
+    url_categories = UrlCatergory.objects.filter(is_active=True).order_by('title')
+    
     context = {
         'content': content,
+        'url_categories': url_categories,
     }
     return render(request, 'fa/menu/edit.html', context)
 
 @login_required(login_url='/auth/')  # redirect when user is not logged in
 def sub_menu_edit(request,id):
     content = Main.objects.get(pk=id)
+    url_categories = UrlCatergory.objects.filter(is_active=True).order_by('title')
+    
     img_list = []
     path = 'media/uploads/pages/{0}'.format(id)
     if os.path.exists(path):
@@ -175,6 +211,7 @@ def sub_menu_edit(request,id):
     context = {
         'content': content,
         'img_list': img_list,
+        'url_categories': url_categories,
     }
     return render(request, 'fa/menu/sub-edit.html', context)
 @login_required(login_url='/auth/')  # redirect when user is not logged in
@@ -192,6 +229,8 @@ def main_menu_edit_save(request):
         orgimg = request.POST.get('orgimg')
         type = request.POST.get('type')
         img_delete = request.POST.get('img_delete')[1:]
+        show_id = request.POST.get('show_id')
+        url_category_id = request.POST.get('url_category')
 
         del_org_image = True
         if img_delete:
@@ -249,6 +288,9 @@ def main_menu_edit_save(request):
         member.display = display
         member.showHome = showHome
         member.mostVisited = mostVisited
+        member.show_id = show_id
+        if url_category_id:
+            member.url_category_id = url_category_id
         member.save()
 
         uploaded_files = request.FILES.getlist('files')
