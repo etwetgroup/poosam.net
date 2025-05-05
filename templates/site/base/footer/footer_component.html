@@ -1,0 +1,255 @@
+{% load static %}
+<!-- Footer -->
+<footer class="site-footer style2">
+    <!-- Footer Info -->
+    <div class="section-full p-t50 p-b20 bg-primary text-white overlay-primary-dark footer-info-bar wow fadeIn" data-wow-duration="2s" data-wow-delay="0.6s">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+                    <div class="icon-bx-wraper bx-style-1 p-a20 radius-sm br-col-w1">
+                        <div class="icon-content">
+                            <h5 class="dlab-tilte">
+                                <span class="icon-sm"><i class="ti-location-pin"></i></span> 
+                                آدرس شرکت
+                            </h5>
+                            <p class="op7">
+                                {{ footer_setting.city }}
+                                <br>
+                                {{ footer_setting.address }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+                    <div class="icon-bx-wraper bx-style-1 p-a20 radius-sm br-col-w1">
+                        <div class="icon-content">
+                            <h5 class="dlab-tilte">
+                                <span class="icon-sm"><i class="ti-email"></i></span> 
+                                ایمیل
+                            </h5>
+                            {% for email in footer_setting.email.all %}
+                                <p class="m-b0 op7">
+                                    <a href="mailto:someone@example.com">
+                                        {{ email.email}}
+                                    </a>
+                                </p>
+                            {% endfor %}                            
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+                    <div class="icon-bx-wraper bx-style-1 p-a20 radius-sm br-col-w1">
+                        <div class="icon-content">
+                            <h5 class="dlab-tilte">
+                                <span class="icon-sm"><i class="ti-mobile"></i></span> 
+                                شماره های تلفن
+                            </h5>
+                            {% for phone in footer_setting.phone.all %}
+                            <p class="m-b0 op7">
+                                <a href="">
+                                    {{ phone.phone}}
+                                </a>
+                            </p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 m-b30">
+                    <div class="icon-bx-wraper bx-style-1 p-a20 radius-sm br-col-w1">
+                        <div class="icon-content">
+                            <h5 class="dlab-tilte">
+                                <span class="icon-sm"><i class="ti-alarm-clock"></i></span> 
+                                ساعت کار
+                            </h5>
+                            
+                            <p class="m-b0 op7">
+                                {{ site_setting.work_time }}    
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Info End -->
+    <!-- Footer Top -->
+    <div class="footer-top">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-sm-12">
+                    <div class="widget widget_about">
+                        <div class="footer-logo">
+                            <a href="/"><img src="{{ site_setting.logo.url }}" alt=""></a>
+                        </div>
+                        <p class="p-footer">
+                            {{ footer_setting.description }}
+                        </p>							
+                        <div class="section-content box-sort-in button-example m-b30 pe-4 d-flex gap-3">
+                            
+                            {% for social_media in footer_setting.social_media.all %}
+                                <a href="{{ social_media.url}}" class="{{ social_media.class_html }}"><i class="{{ social_media.class_code}}"></i></a>
+                            {% endfor %}
+        
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="widget pe-4">
+                        <h4 class="footer-title">
+                            پرسش های متداول
+                        </h4>
+                        <ul class="list-2">
+                            <li>
+                                ضوابط نمک طعام
+                            </li>
+                            <li>
+                                آردی به غیر از پاستا
+                            </li>
+                            <li>
+                                ضوابط آدامس
+                            </li>
+                            <li>
+                                ضوابط قند و شکر
+                            </li>
+                            <li>
+                                ضوابط کنسرو									
+                            </li>
+                            <li>
+                                ضوابط عرقیجات								
+                            </li>
+                            <li>
+                                آبمیوه و نوشابه							
+                            </li>
+                            <li>
+                                ضوابط بسته بندی							
+                            </li>
+                        </ul>							
+                    </div>
+                    <div class="widget pe-4">
+                        <h4 class="footer-title mb-2">
+                            خبرنامه
+                        </h4>
+                        <p>
+                            {{ footer_setting.copyright_text }}
+                        </p>
+                        <div class="subscribe-form m-b20 m-t30">
+                            <form class="dzSubscribe" action="script/mailchamp.php" method="post">
+                                <div class="dzSubscribeMsg"></div>
+                                <div class="input-group">
+                                    <input name="dzEmail" required="required" class="form-control radius-no" placeholder="آدرس ایمیل شما" type="email">
+                                    <span class="input-group-btn">
+                                        <button name="submit" value="Submit" type="submit" class="site-button radius-no">
+                                            ارسال
+                                        </button>
+                                    </span> 
+                                </div>
+                            </form>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12">
+                    <!-- آخرین پست -->
+                    <div class="widget recent-posts-entry">
+                        <h4 class="footer-title">
+                            آخرین پست
+                        </h4>
+                        <div class="widget-post-bx">
+                            <div class="widget-post clearfix">
+                                <div class="dlab-post-media"> 
+                                    <img src="{% static 'images/poosam/hamlf.jpg' %}" width="200" height="143" alt=""> 
+                                </div>
+                                <div class="dlab-post-info pe-3">
+                                    <div class="dlab-post-meta">
+                                        <ul>
+                                            <li class="post-date">
+                                                <strong>
+                                                    13 بهمن
+                                                </strong>
+                                            </li>
+                                            <li class="post-author">
+                                                توسط
+                                                <a href="javascript:void(0);">
+                                                    پوصام
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dlab-post-header">
+                                        <h6 class="post-title">
+                                            <a href="">
+                                                لورم ایپسوم متن ساختگی با تولید
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-post clearfix">
+                                <div class="dlab-post-media"> 
+                                    <img src="{% static 'images/poosam/hamlf.jpg' %}" width="200" height="143" alt=""> 
+                                </div>
+                                <div class="dlab-post-info pe-3">
+                                    <div class="dlab-post-meta">
+                                        <ul>
+                                            <li class="post-date">
+                                                <strong>
+                                                    13 بهمن
+                                                </strong>
+                                            </li>
+                                            <li class="post-author">
+                                                توسط
+                                                <a href="javascript:void(0);">
+                                                    پوصام
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dlab-post-header">
+                                        <h6 class="post-title">
+                                            <a href="">
+                                                لورم ایپسوم متن ساختگی با تولید
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="widget-post clearfix">
+                                <div class="dlab-post-media"> 
+                                    <img src="{% static 'images/poosam/hamlf.jpg' %}" width="200" height="143" alt=""> 
+                                </div>
+                                <div class="dlab-post-info pe-3">
+                                    <div class="dlab-post-meta">
+                                        <ul>
+                                            <li class="post-date">
+                                                <strong>
+                                                    13 بهمن
+                                                </strong>
+                                            </li>
+                                            <li class="post-author">
+                                                توسط
+                                                <a href="javascript:void(0);">
+                                                    پوصام
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dlab-post-header">
+                                        <h6 class="post-title">
+                                            <a href="">
+                                                لورم ایپسوم متن ساختگی با تولید
+                                            </a>
+                                        </h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer Top End -->
+</footer>
+<!-- Footer End -->

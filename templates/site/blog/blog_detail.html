@@ -1,0 +1,171 @@
+{% extends "fa/base/base.html" %}
+{% load static %}
+{% load jalali_tags %}
+{% load thumbnail %}
+
+
+{% block meta %}
+<meta property="og:title" content="{{ blog_post.title }}" />
+<meta property="og:description" content="{{ blog_post.short_description }}" />
+{% if blog_post.image %}
+<meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{{ blog_post.image.url }}" />
+{% endif %}
+{% endblock meta %}
+	
+{% block title %}
+	{{ blog_post.title }}
+{% endblock title %}
+
+
+{% block STYLESHEETS %}
+
+{% endblock STYLESHEETS %}
+
+
+{% block font %}
+{% endblock font %}
+
+
+{% block body %}
+
+<!-- Content -->
+<div class="page-content bg-white">
+<!-- inner page banner -->
+<div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url({% static 'images/poosam/bgHeader.png' %});">
+	<div class="container">
+		<div class="dlab-bnr-inr-entry">
+			<h1 class="text-white">
+				{{ blog_post.title }}
+			</h1>
+			<!-- Breadcrumb row -->
+			<div class="breadcrumb-row">
+				<ul class="list-inline">
+					<li>
+						<a href="{% url 'home' %}">
+							صفحه اصلی
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'blog_list' %}">
+							وبلاگ
+						</a>
+					</li>
+					<li>
+						<a href="{% url 'blog_detail' slug=blog_post.slug %}">
+							{{ blog_post.title }}
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- Breadcrumb row END -->
+		</div>
+	</div>
+	</div>
+	<!-- inner page banner END -->
+
+	<!-- contact area -->
+	<div class="content-area">
+		<div class="container max-w900">
+			<!-- blog start -->
+			<div class="blog-post blog-single">
+				<div class="dlab-post-meta m-b20">
+					<ul>
+						<li class="post-date">
+							<strong>
+								{{ blog_post.created_date|to_jalali:'%d %B' }}
+							</strong>
+							<span>
+								{{ blog_post.created_date|to_jalali:'%Y' }}
+							</span>
+						</li>
+						<li class="post-author">
+							{% if blog_post.author %}{{ blog_post.author }}{% else %}پوصام{% endif %}
+						</li>
+						
+					</ul>
+				</div>
+				<div class="dlab-post-title">
+					<h4 class="post-title m-t0">
+						{{ blog_post.title }}
+					</h4>
+				</div>
+				<div class="dlab-post-media dlab-img-effect zoom-slow"> 
+					{% if blog_post.image %}
+					{% thumbnail blog_post.image "1200x675" crop="center" as im %}
+					<img src="{{ im.url }}" alt="{{ blog_post.title }}" width="{{ im.width }}" height="{{ im.height }}">
+					{% empty %}
+					<img src="{% static 'images/noimage.jpg' %}" alt="{{ blog_post.title }}">
+					{% endthumbnail %}
+					{% endif %}
+				</div>
+				<div class="dlab-post-text">
+					{{ blog_post.text|safe }}
+				</div>
+				
+				{% if blog_post.tags.exists %}
+				<div class="dlab-post-tags clear">
+					<div class="post-tags">
+						<span>برچسب ها:</span>
+						{% for tag in blog_post.tags.all %}
+						<a href="{% url 'blog_by_tag' tag_slug=tag.url_title %}">{{ tag.title }}</a>
+						{% endfor %}
+					</div>
+				</div>
+				{% endif %}
+			</div>
+			
+			{% if related_posts %}
+			<div class="clear" id="related-posts">
+				<div class="section-head text-center">
+					<h3 class="title-small">مطالب مرتبط</h3>
+				</div>
+				<div class="row">
+					{% for related in related_posts %}
+					<div class="col-lg-4 col-md-6 col-sm-12">
+						<div class="blog-post post-style-1">
+							<div class="dlab-post-media dlab-img-effect zoom-slow"> 
+								<a href="{% url 'blog_detail' slug=related.slug %}">
+									{% if related.image %}
+									{% thumbnail related.image "400x270" crop="center" as im %}
+									<img src="{{ im.url }}" alt="{{ related.title }}" width="{{ im.width }}" height="{{ im.height }}">
+									{% empty %}
+									<img src="{% static 'images/noimage.jpg' %}" alt="{{ related.title }}">
+									{% endthumbnail %}
+									{% endif %}
+								</a> 
+							</div>
+							<div class="dlab-post-info">
+								<div class="dlab-post-title">
+									<h5 class="post-title"><a href="{% url 'blog_detail' slug=related.slug %}">{{ related.title }}</a></h5>
+								</div>
+								<div class="dlab-post-meta">
+									<ul>
+										<li class="post-date">{{ related.created_date|to_jalali:'%Y/%m/%d' }}</li>
+									</ul>
+								</div>
+								<div class="dlab-post-text">
+									<p>{{ related.short_description|truncatechars:100 }}</p>
+								</div>
+								<div class="dlab-post-readmore"> 
+									<a href="{% url 'blog_detail' slug=related.slug %}" title="ادامه مطلب" rel="bookmark" class="site-button-link">ادامه مطلب <i class="ti-arrow-right"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+			
+			<div class="clear" id="comment-list">
+				<div class="comments-area" id="comments">
+					<!-- Comments functionality could be added here -->
+				</div>
+			</div>
+			<!-- blog END -->
+		</div>
+	</div>
+</div>
+<!-- Content END-->
+{% endblock body %}
+	

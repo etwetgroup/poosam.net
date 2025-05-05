@@ -1,0 +1,145 @@
+body,
+.demo-one,
+.intro-one,
+.team-one::before,
+.main-menu .main-menu__list > li > ul,
+.main-menu .main-menu__list > li > ul > li > ul,
+.stricky-header .main-menu__list > li > ul,
+.stricky-header .main-menu__list > li > ul > li > ul,
+.main-header-one__top {
+  background-color: var(--ontech-black);
+}
+
+.main-header-one__top-left-btn a:hover {
+  background-color: #fff;
+}
+
+.counter-one__bottom .btn-box .thm-btn,
+.main-menu .main-menu__list > li.current > a,
+.main-menu .main-menu__list > li:hover > a,
+.stricky-header .main-menu__list > li.current > a,
+.stricky-header .main-menu__list > li:hover > a,
+.main-menu .main-menu__list > li > a,
+.stricky-header .main-menu__list > li > a,
+.main-header-one__top-left-btn a:hover {
+  color: var(--ontech-black);
+}
+
+.about-one__content-text3-content p,
+.about-one__content-text2-single .content-box h3,
+.about-one__content-text1 h2,
+.counter-one__bottom h2,
+.team-one__single-content h2 a,
+.sec-title__title,
+.megamenu-popup .megamenu-clickable--close,
+.main-menu .main-menu__list > li > ul > li > a,
+.main-menu .main-menu__list > li > ul > li > ul > li > a,
+.stricky-header .main-menu__list > li > ul > li > a,
+.stricky-header .main-menu__list > li > ul > li > ul > li > a,
+.main-header__contact-info ul li .inner .text-box h4,
+.main-header__contact-info ul li .inner .text-box h4 a {
+  color: #fff;
+}
+
+.main-menu .main-menu__list > li > ul > li > a,
+.main-menu .main-menu__list > li > ul > li > ul > li > a,
+.stricky-header .main-menu__list > li > ul > li > a,
+.stricky-header .main-menu__list > li > ul > li > ul > li > a {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.services-one__top .sec-title__tagline .text p,
+.about-one__content-text2-single .content-box p,
+.projects-one .sec-title__tagline .text p,
+.team-one__single-content p,
+.sec-title__tagline .text p,
+.main-header__contact-info ul li .inner .text-box p {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.about-one__content-text3-content ul li p,
+.about-one__content-text1 {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.counter-one__bottom .btn-box .thm-btn,
+.stricky-header__one.stricky-header,
+.main-header-one__bottom-inner {
+  background-color: var(--ontech-base);
+}
+
+.about-one__content-text3-content ul li p span::before,
+.about-one__content-text2-single .icon-box span::before {
+  color: var(--ontech-base);
+}
+
+.main-menu__search {
+  background-color: #ffd38d;
+}
+
+.main-slider-one__single {
+  background-color: #2f2f2f;
+}
+
+.blog-one__bg {
+  background-color: #1f1405;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.team-one {
+  background-color: #170f04;
+}
+
+.team-one {
+  z-index: inherit;
+}
+.team-one .container {
+  position: relative;
+  z-index: 5;
+}
+
+.team-one::before {
+  z-index: 3;
+}
+
+.counter-one {
+  background-color: #16120b;
+}
+
+.counter-one__bg {
+  mix-blend-mode: overlay;
+}
+
+.counter-one__bg::before {
+  background: linear-gradient(0deg, rgb(11, 9, 6) 1%, rgba(19, 15, 7, 0.3490196078) 35%, rgba(27, 20, 9, 0.2705882353) 70%, rgba(35, 25, 10, 0) 100%);
+}
+
+.about-one__content-text2-single .icon-box .shape1 {
+  background-color: #271b0c;
+}
+
+.video-one {
+  background-color: #150e04;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  background-blend-mode: overlay;
+  z-index: inherit;
+}
+.video-one .shape1,
+.video-one .shape2 {
+  display: none;
+}
+
+.testimonial-one {
+  background-color: #150e04;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top center;
+  background-blend-mode: overlay;
+}
+
+.google-map-one__map {
+  filter: grayscale(100%) invert(92%) contrast(83%);
+}

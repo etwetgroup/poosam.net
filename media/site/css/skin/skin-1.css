@@ -1,0 +1,61 @@
+/*===================== Premery bg color =====================*/
+:root {
+	--color-primary: #ff5e14;
+	--color-secondry: #152332;
+	--color-hover: #ff8022;
+	--rgba-primary-1: rgba(255,94,20,0.1);
+	--rgba-primary-2: rgba(255,94,20,0.2);
+	--rgba-primary-3: rgba(255,94,20,0.3);
+	--rgba-primary-4: rgba(255,94,20,0.4);
+	--rgba-primary-5: rgba(255,94,20,0.5);
+	--rgba-primary-6: rgba(255,94,20,0.6);
+	--rgba-primary-7: rgba(255,94,20,0.7);
+	--rgba-primary-8: rgba(255,94,20,0.8);
+	--rgba-primary-9: rgba(255,94,20,0.9);
+	--text-sec:#2d3239;
+}
+:root {
+	--color-primary: #e79339  ;
+	--color-secondry: #e79339;
+	--color-hover: #e79339;
+	--rgba-primary-1: #e79339;
+	--rgba-primary-2: #e79339;
+	--rgba-primary-3: #e79339;
+	--rgba-primary-4: #e79339;
+	--rgba-primary-5: #e79339;
+	--rgba-primary-6: #e79339;
+	--rgba-primary-7: #e79339;
+	--rgba-primary-8: #e79339;
+	--rgba-primary-9: #e79339;
+	--text-sec:#2d3239;
+}
+:root {
+	--color-primary: #ffdd9c  ;
+	--color-secondry: #ffdd9c;
+	--color-hover: #ffdd9c;
+	--rgba-primary-1: #ffdd9c;
+	--rgba-primary-2: #ffdd9c;
+	--rgba-primary-3: #ffdd9c;
+	--rgba-primary-4: #ffdd9c;
+	--rgba-primary-5: #ffdd9c;
+	--rgba-primary-6: #ffdd9c;
+	--rgba-primary-7: #ffdd9c;
+	--rgba-primary-8: #ffdd9c;
+	--rgba-primary-9: #ffdd9c;
+	--text-sec:#2d3239;
+}
+:root {
+	--color-primary: #1b4166  ;
+	--color-secondry: #1b4166;
+	--color-hover: #1b4166;
+	--rgba-primary-1: #1b4166;
+	--rgba-primary-2: #1b4166;
+	--rgba-primary-3: #1b4166;
+	--rgba-primary-4: #1b4166;
+	--rgba-primary-5: #1b4166;
+	--rgba-primary-6: #1b4166;
+	--rgba-primary-7: #1b4166;
+	--rgba-primary-8: #1b4166;
+	--rgba-primary-9: #1b4166;
+	--text-sec:#2d3239;
+}

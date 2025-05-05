@@ -1,0 +1,123 @@
+.faliat01 {
+    height: 22.8rem;
+}
+
+.faliat03 {
+    height: 14.1rem;
+}
+
+.smallerFont {
+    font-size: 1.5rem ;
+    text-align: center;
+}
+
+.sizeimg{
+    height: 20px;
+    width: 30px;
+    border-radius: 6px;
+}
+
+.fontsizemtn{
+    color: black;
+    font-size: 18px;
+}
+
+.ranglink{
+    color: blue;
+}
+
+.sizesearch{
+    font-size: 2rem !important;
+  padding-top: 1.5rem;
+}
+
+.shop-details__tab-content-item .shop-details__tab-specifications .text-box1 .biarast{
+    text-align: start;
+    padding-right: 2rem;
+}
+/* .white{
+  color: white !important;
+} */
+.white:hover{
+  color: white !important;
+}
+.my-table{
+    background-color: #f0f1f2;
+    width: 6rem;
+}
+.sizeregister{
+    padding: .8rem 2rem ;
+}
+.sizeregister:hover{
+  background-color: #ff5e14;
+  border-radius: 8px;
+  color: #f0f1f2 !important;
+}
+
+.txt-color-footer{
+  color: #b0b0b0;
+}
+.txt-color-footer2{
+  color: #01c854 !important;
+  color: #d0ff00 !important;
+  /* color: #334eac;
+  color: #081f5c; */
+}
+.mg-top-footer{
+  margin-top: 5rem;
+}
+.p-footer{
+  text-align: justify;
+}
+/***
+=====================================================
+Custom Cursor
+=====================================================
+***/
+.custom-cursor__cursor {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    border: 1px solid var(--ontech-base, #d0807a);
+    -webkit-transition: all 200ms ease-out;
+    transition: all 200ms ease-out;
+    position: fixed;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+    -webkit-transform: translate(calc(-50% + 5px), -50%);
+    transform: translate(calc(-50% + 5px), -50%);
+    z-index: 999991;
+  }
+  
+  .custom-cursor__cursor-two {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: var(--ontech-base);
+    opacity: 0.3;
+    position: fixed;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    -webkit-transition: width 0.3s, height 0.3s, opacity 0.3s;
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
+    z-index: 999991;
+  }
+  
+  .custom-cursor__hover {
+    background-color: var(--ontech-base);
+    opacity: 0.4;
+  }
+  
+  .custom-cursor__innerhover {
+    width: 25px;
+    height: 25px;
+    opacity: 0.4;
+  }
+  @media(min-width:768px) {
+    .my-table{
+        background-color: #f0f1f2;
+        width: 13rem;
+    }
+  }

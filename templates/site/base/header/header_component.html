@@ -1,0 +1,116 @@
+    {% load static %}
+	{% load nav_tags %}
+
+	<!-- header -->
+
+
+    <header class="site-header mo-left header">
+		<!-- main header -->
+        <div class="sticky-header main-bar-wraper navbar-expand-lg">
+            <div class="main-bar clearfix dz-header">
+                <div class="container-fluid clearfix">
+                    <!-- website logo -->
+                    <div class="logo-header mostion logo-dark">
+						
+							<a href="/"><img src="{{ site_setting.logo.url }}" alt=""></a>
+						
+					</div>
+                    <!-- nav toggle button -->
+                    <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span></span>
+						<span></span>
+						<span></span>
+					</button>
+					<div class="header-nav navbar-collapse collapse justify-content-around" id="navbarNavDropdown">
+						<ul class="nav navbar-nav">
+							{% for menu in mains %}
+								<li class="{% if menu.main_set.all %}has-mega-menu{% endif %} {% if request.path|is_menu_active:menu %}active{% endif %}">
+									<a href="{% if menu.link.url %}{{ menu.link.url }}{% if menu.show_id %}/{{ menu.show_id }}{% endif %}{% else %}#{% endif %}">
+										{{ menu.title }}
+										{% if menu.main_set.all %}
+											<i class="fas fa-chevron-down"></i>
+										{% endif %}
+									</a>
+
+									{% if menu.main_set.all %}
+										<ul class="mega-menu">
+											{% for child in menu.main_set.all %}
+												{% if child.active %}
+													<li class="{% if request.path|is_menu_active:child %}active{% endif %}">
+														<a href="{% if child.link.url %}{{ child.link.url }}{% if child.show_id %}/{{ child.show_id }}{% endif %}{% else %}#{% endif %}">{{ child.title }}</a>
+
+														{% if child.main_set.all %}
+															<ul>
+																{% for sub in child.main_set.all %}
+																	{% if sub.active %}
+																		<li class="{% if request.path|is_menu_active:sub %}active{% endif %}">
+																			<a href="{% if sub.link.url %}{{ sub.link.url }}{% if sub.show_id %}/{{ sub.show_id }}{% endif %}{% else %}#{% endif %}">{{ sub.title }}</a>
+																		</li>
+																	{% endif %}
+																{% endfor %}
+															</ul>
+														{% endif %}
+													</li>
+												{% endif %}
+											{% endfor %}
+										</ul>
+									{% endif %}
+								</li>
+							{% endfor %}
+						</ul>
+					</div>
+				 </div>
+            </div>
+        </div>
+        <!-- main header END -->
+    </header>
+    <!-- header END -->
+    
+    <script>
+        // Fix duplicate paths in URLs
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get current location origin and pathname
+            var origin = window.location.origin;
+            var currentPath = window.location.pathname;
+            
+            // Process all links in the navigation
+            var navLinks = document.querySelectorAll('.navbar-nav a[href]');
+            navLinks.forEach(function(link) {
+                var href = link.getAttribute('href');
+                
+                // Skip # links
+                if (href === '#') return;
+                
+                // If href starts with origin, remove it
+                if (href.startsWith(origin)) {
+                    href = href.substring(origin.length);
+                }
+                
+                // Check if original URL had a trailing slash
+                var hadTrailingSlash = href.endsWith('/') && href !== '/';
+                
+                // Clean up any duplicate paths (like /fa/path/fa/path/)
+                var pathParts = href.split('/').filter(Boolean);
+                var cleanedParts = [];
+                
+                for (var i = 0; i < pathParts.length; i++) {
+                    // Add this part if it's not a duplicate of the next one
+                    if (i === pathParts.length - 1 || pathParts[i] !== pathParts[i + 1]) {
+                        cleanedParts.push(pathParts[i]);
+                    }
+                }
+                
+                // Rebuild the cleaned URL
+                var cleanedHref = '/' + cleanedParts.join('/');
+                
+                // Only add trailing slash if original had one
+                if (hadTrailingSlash && cleanedParts.length > 0) {
+                    cleanedHref += '/';
+                }
+                
+                // Update the href
+                link.setAttribute('href', cleanedHref);
+            });
+        });
+    </script>
+    

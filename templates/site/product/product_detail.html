@@ -1,0 +1,404 @@
+{% extends "fa/base/base.html" %}
+{% load static %}
+{% load thumbnail %}
+{% block meta %}
+{% endblock meta %}
+
+{% block title %}
+	مخازن استیل
+{% endblock title %}
+
+
+{% block STYLESHEETS %}
+        <!-- shop -->
+        <link rel="stylesheet" href="{% static "assets/vendors/bootstrap/css/bootstrap.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/animate/animate.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/animate/custom-animate.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/fontawesome/css/all.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/jarallax/jarallax.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/jquery-magnific-popup/jquery.magnific-popup.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/nouislider/nouislider.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/nouislider/nouislider.pips.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/odometer/odometer.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/swiper/swiper.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/flaticon/style.css" %}">
+        <link rel="stylesheet" href="{% static "assets/vendors/tiny-slider/tiny-slider.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/reey-font/stylesheet.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/owl-carousel/owl.carousel.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/owl-carousel/owl.theme.default.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/bxslider/jquery.bxslider.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/bootstrap-select/css/bootstrap-select.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/vegas/vegas.min.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/jquery-ui/jquery-ui.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/timepicker/timePicker.css" %}" />
+        <link rel="stylesheet" href="{% static "assets/vendors/polyglot-language-switcher/polyglot-language-switcher.css" %}" />
+
+        <!-- template styles -->
+        <link rel="stylesheet" href="{% static "assets/css/ontech.css" %}" />
+        <!-- shop END -->
+{% endblock STYLESHEETS %}
+
+
+
+{% block font %}
+{% endblock font %}
+
+
+
+{% block body %}
+
+        <!-- inner page banner -->
+    <div class="dlab-bnr-inr overlay-black-middle bg-pt" style="background-image:url(images/poosam/bgHeader.png);">
+        <div class="container">
+            <div class="dlab-bnr-inr-entry">
+                <h1 class="text-white">
+                    مخازن استیل
+                </h1>
+                <!-- Breadcrumb row -->
+                <div class="breadcrumb-row">
+                    <ul class="list-inline">
+                        <li>
+                            <a href="index-18.html">
+                                صفحه اصلی
+                            </a>
+                        </li>
+                        <li>
+                            <a href="products.html">
+                                مخازن استیل
+                            </a>
+                        </li>
+                        <li>
+                            مخزن استیل تک جداره
+                        </li>
+                    </ul>
+                </div>
+                <!-- Breadcrumb row END -->
+            </div>
+        </div>
+    </div>
+    <!-- inner page banner END -->
+
+{% for item in detail_products %}
+        <!--Start Shop Details-->
+            <section class="shop-details">
+        <div class="container">
+            <div class="row">
+                <!--Start Shop Details Img Box-->
+<div class="col-xl-6">
+    <div class="shop-details__img-box">
+        <div class="shop-details__img-box-inner">
+            <div class="shop-details__img-box-thumb">
+                <div class="swiper-container" id="shop-details-one__thumb">
+                    <div class="swiper-wrapper">
+                        {% if item.product_images.all %}
+                            {% for img in item.product_images.all %}
+                            
+                            <div class="swiper-slide">
+                                <div class="shop-details__img-box-thumb-img">
+                                    {% thumbnail img.image "122x122" crop="center" upscale=True as im %}
+                                    <img src="{{ im.url }}" style="width: {{ im.width }}px !important; height: {{ im.height }}px !important;" alt="{{ item.title }}">
+                                    {% endthumbnail %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            {% if item.image %}
+                            <div class="swiper-slide">
+                                <div class="shop-details__img-box-thumb-img">
+                                    {% thumbnail item.image "520x520" crop="center" upscale=True as im %}
+                                    <img src="{{ im.url }}" style="width: {{ im.width }}px !important; height: {{ im.height }}px !important;" alt="{{ item.title }}">
+                                    {% endthumbnail %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-details__img-box-img">
+                <div class="swiper-container" id="shop-details-one__carousel">
+                    <div class="swiper-wrapper">
+                        {% if item.product_images.all %}
+                            {% for img in item.product_images.all %}
+                            <div class="swiper-slide">
+                                <div class="img-box">
+                                    {% thumbnail img.image "535x535" crop="center" upscale=True as im %}
+                                    <img src="{{ im.url }}" style="width: {{ im.width }}px !important; height: {{ im.height }}px !important;" alt="{{ item.title }}">
+                                    {% endthumbnail %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            {% if item.image %}
+                            <div class="swiper-slide">
+                                <div class="img-box">
+                                    {% thumbnail item.image "535x535" crop="center" upscale=True as im %}
+                                    <img src="{{ im.url }}" style="width: {{ im.width }}px !important; height: {{ im.height }}px !important;" alt="{{ item.title }}">
+                                    {% endthumbnail %}
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="shop-details-top__nav">
+                    <div class="swiper-button-next" id="shop-details-top__swiper-button-prev">
+                        <i class="icon-down-arrow angle-right"></i>
+                    </div>
+                    <div class="swiper-button-prev" id="shop-details-top__swiper-button-next">
+                        <i class="icon-down-arrow angle-left"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End Shop Details Img Box-->
+
+
+                <!--Start Shop Details Content-->
+                <div class="col-xl-6 ">
+                    <div class="shop-details__content">
+                        <div class="title pt-5">
+                            <h2>
+                                {{ item.title }}
+                            </h2>
+                            <br>
+                            <p>
+                                کد کالا  : {{ item.product_code }}
+                            </p>
+                        </div>
+
+                        <div class="shop-details__content-text1 d-flex align-items-center gap-3">
+                            <img src="{% static 'images/poosam/iran.jpg' %}" alt="" class="sizeimg">
+                            <h3>
+                                {{ item.price|default:"تماس بگیرید" }} {% if item.price %}تومان{% endif %}
+                            </h3>
+                        </div>
+                        <div class="shop-details__content-text1 d-flex align-items-center gap-3">
+                            <img src="{% static 'images/poosam/us.png' %}" alt="" class="sizeimg">
+                            <h3>
+                                1,888 دلار
+                            </h3>
+                        </div>
+                        <div class="shop-details__content-text1 d-flex align-items-center gap-3">
+                            <img src="{% static 'images/poosam/Iraq.png' %}" alt="" class="sizeimg">
+                            <h3>
+                                2,454,375 دینار عراق
+                            </h3>
+                        </div>
+                        <div class="shop-details__content-text1 d-flex align-items-center gap-3">
+                            <img src="{% static 'images/poosam/afghan.jpg' %}" alt="" class="sizeimg">
+                            <h3>
+                                163,625 افغان افغانستان
+                            </h3>
+                        </div>
+                        <div class="shop-details__content-text1 d-flex align-items-center gap-3">
+                            <img src="{% static 'images/poosam/bitcoin.png' %}" alt="" class="sizeimg">
+                            <h3>
+                                0.058928571428571 بیت کوین
+                            </h3>
+                        </div>
+
+                        <div class="shop-details__review pt-3">
+                            <ul class="d-flex gap-2">
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="fa fa-star"></span></li>
+                                <li><span class="icon-star2"></span></li>
+                                <li>
+                                    <p>(بررسی مشتری)</p>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <!--End Shop Details Content-->
+            </div>
+
+            <!--Start Shop Details Tab-->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="shop-details__tab tabs-box">
+                        <div class="shop-details__tab-button">
+                            <ul class="tab-buttons clearfix">
+                                <li data-tab="#description" class="tab-btn active-btn">
+                                    <h4>
+                                        توضیحات
+                                    </h4>
+                                </li>
+                                <li data-tab="#specifications " class="tab-btn">
+                                    <h4>
+                                        مشخصات
+                                    </h4>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="tabs-content">
+                            <!--Start Tab-->
+                            <div class="tab active-tab" id="description">
+                                <div class="shop-details__tab-content-item">
+                                    <div class="shop-details__tab-description text-center">
+                                        <div class="text-box1">
+                                            {{ item.description|safe }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End Tab-->
+
+                            <!--Start Tab-->
+                            <div class="tab" id="specifications">
+                                <div class="shop-details__tab-content-item">
+                                    <div class="shop-details__tab-specifications text-center">
+                                        <div class="text-box1">
+                                            {% if item.option.all %}
+                                                <table>
+                                                    {% for option in item.option.all %}
+                                                    <tr>
+                                                        <td class="my-table">
+                                                            {{ option.name_option }}
+                                                        </td>
+                                                        <td class="biarast">
+                                                            {{ option.detail_option }}
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </table>
+                                            {% endif %}
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End Tab-->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End Shop Details Tab-->
+        </div>
+    </section>
+        <!--End Shop Details-->
+{% endfor %}
+
+
+
+
+
+    <!--Start Shop Page -->
+    <section class="shop-page shop-page--shop-details">
+        <div class="container">
+            <div class="title-box">
+                <h2>
+                    محصولات مرتبط
+                </h2>
+            </div>
+            <div class="row">
+                {% for related in related_products %}
+                <!--Start Shop Page Single-->
+                <div class="col-xl-4 col-lg-6 col-md-6 wow animated fadeInUp" data-wow-delay="0.1s">
+                    <div class="shop-page__single">
+                        <div class="shop-page__single-img">
+                            {% if related.image %}
+                            {% thumbnail related.image "370x370" crop="center" upscale=True as im %}
+                                <img src="{{ im.url }}" style="width: {{ im.width }}px !important; height: {{ im.height }}px !important;" alt="{{ related.title }}">
+                            {% endthumbnail %}
+                            {% endif %}
+                        </div>
+                        <div class="shop-page__single-content">
+                            <div class="btn-box text-center">
+                                <a href="{% url 'product_view' related.show_id %}">
+                                    ورود به صفحه مرتبط
+                                </a>
+                            </div>
+                            <div class="bottom-text">
+                                <div class="text-box">
+                                    <h4>
+                                        <a href="{% url 'product_view' related.show_id %}">
+                                            {{ related.title }}
+                                        </a>
+                                    </h4>
+                                    <p>
+                                        {{ related.price|default:"تماس بگیرید" }}
+                                    </p>
+                                </div>
+
+                                <div class="rating-box">
+                                    <ul>
+                                        <li>
+                                            <span class="icon-star"></span>
+                                        </li>
+                                        <li>
+                                            <span class="icon-star"></span>
+                                        </li>
+                                        <li>
+                                            <span class="icon-star"></span>
+                                        </li>
+                                        <li>
+                                            <span class="icon-star"></span>
+                                        </li>
+                                        <li>
+                                            <span class="icon-star2"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End Shop Page Single-->
+                {% empty %}
+                <div class="col-12 text-center">
+                    <p>محصول مرتبطی یافت نشد.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!--End Shop Page -->
+
+{% endblock body %}
+
+
+{% block js %}
+      <!-- shop js -->
+    <script src="{% static 'assets/vendors/jquery/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jarallax/jarallax.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jquery-ajaxchimp/jquery.ajaxchimp.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jquery-appear/jquery.appear.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jquery-circle-progress/jquery.circle-progress.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jquery-magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jquery-validate/jquery.validate.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/nouislider/nouislider.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/odometer/odometer.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/swiper/swiper.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/tiny-slider/tiny-slider.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/wnumb/wNumb.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/wow/wow.js' %}"></script>
+    <script src="{% static 'assets/vendors/isotope/isotope.js' %}"></script>
+    <script src="{% static 'assets/vendors/countdown/countdown.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/owl-carousel/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bxslider/jquery.bxslider.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/bootstrap-select/js/bootstrap-select.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/vegas/vegas.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/jquery-ui/jquery-ui.js' %}"></script>
+    <script src="{% static 'assets/vendors/timepicker/timePicker.js' %}"></script>
+    <script src="{% static 'assets/vendors/circleType/jquery.circleType.js' %}"></script>
+    <script src="{% static 'assets/vendors/circleType/jquery.lettering.min.js' %}"></script>
+    <script src="{% static 'assets/vendors/polyglot-language-switcher/jquery.polyglot.language.switcher.js' %}"></script>
+    <script src="{% static 'assets/vendors/progress-bar/knob.js' %}"></script>
+    <script src="{% static 'assets/vendors/touch-spin/jquery.bootstrap-touchspin.js' %}"></script>
+
+
+    <!-- template js -->
+    <script src="{% static "assets/js/ontech.js" %}"></script>
+{% endblock js %}

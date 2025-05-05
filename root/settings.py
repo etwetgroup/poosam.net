@@ -112,6 +112,18 @@ DATABASES = {
     }
 }
 
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
@@ -248,7 +260,6 @@ LOGOUT_REDIRECT_URL = '/'
 # خروجی WebP به صورت پیش‌فرض
 THUMBNAIL_FORMAT = 'WEBP'
 
-# مسیر ذخیره‌ی thumbnailها
 THUMBNAIL_PREFIX = 'cache/'
 
 # موتور کش: می‌تونی redis یا memcached بذاری، یا همون فایل‌سیستم
@@ -260,20 +271,7 @@ THUMBNAIL_CACHE_TIMEOUT = 60 * 60 * 24 * 30  # 30 روز
 # سطح فشرده‌سازی
 THUMBNAIL_QUALITY = 85
 
-# THUMBNAIL_FORCE_OVERWRITE = True
+THUMBNAIL_FORCE_OVERWRITE = True
 
 
-
-# مشخص کردن پسوند به صورت دستی (در صورت نیاز)
-# THUMBNAIL_EXTENSION = 'webp'
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
 # end sorl thumbnail config
