@@ -1,6 +1,6 @@
 from django.db import models
 from django_jalali.db import models as jmodels
-from menu.models import Main
+from menu.models import Main, UrlCatergory
 # Create your models here.
 class DetailsTitle(models.Model):
     title = models.CharField(max_length=200, verbose_name="عنوان")
@@ -21,6 +21,8 @@ class Products(models.Model):
     product = models.IntegerField(verbose_name="زیر مجموعه")
     price = models.CharField(max_length=20, verbose_name="قیمت")
     position = models.PositiveIntegerField(default=0, verbose_name="موقعیت")
+    url_category = models.ForeignKey(UrlCatergory, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="دسته بندی لینک")
+    show_id = models.CharField(max_length=200, unique=True,verbose_name='شناسه نمایش')
     active = models.BooleanField(default=True, verbose_name="فعالیت")
     m_created_date = models.DateField(auto_now_add=True, verbose_name="تاریخ افزودن میلادی")
     sh_created_at = jmodels.jDateTimeField(auto_now_add=True, verbose_name="تاریخ افزودن شمسی")

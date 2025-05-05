@@ -1,0 +1,108 @@
+@font-face {
+  font-family: 'ontech-icons-two';
+  src:  url('fonts/ontech-icons-two.eot?6yk7g3');
+  src:  url('fonts/ontech-icons-two.eot?6yk7g3#iefix') format('embedded-opentype'),
+    url('fonts/ontech-icons-two.ttf?6yk7g3') format('truetype'),
+    url('fonts/ontech-icons-two.woff?6yk7g3') format('woff'),
+    url('fonts/ontech-icons-two.svg?6yk7g3#ontech-icons-two') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="ontech-icons-two-"], [class*=" ontech-icons-two-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'ontech-icons-two' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.ontech-icons-two-internet:before {
+  content: "\e900";
+}
+.ontech-icons-two-analytics:before {
+  content: "\e901";
+}
+.ontech-icons-two-answer-call-question:before {
+  content: "\e902";
+}
+.ontech-icons-two-arrow-long:before {
+  content: "\e903";
+}
+.ontech-icons-two-buoy-help:before {
+  content: "\e904";
+}
+.ontech-icons-two-calendar:before {
+  content: "\e905";
+}
+.ontech-icons-two-check-circle:before {
+  content: "\e906";
+}
+.ontech-icons-two-computer:before {
+  content: "\e907";
+}
+.ontech-icons-two-cyber-security:before {
+  content: "\e908";
+}
+.ontech-icons-two-email:before {
+  content: "\e909";
+}
+.ontech-icons-two-hard-drive:before {
+  content: "\e90a";
+}
+.ontech-icons-two-interview:before {
+  content: "\e90b";
+}
+.ontech-icons-two-laptop:before {
+  content: "\e90c";
+}
+.ontech-icons-two-leadership:before {
+  content: "\e90d";
+}
+.ontech-icons-two-location:before {
+  content: "\e90e";
+}
+.ontech-icons-two-marketing-analysis:before {
+  content: "\e90f";
+}
+.ontech-icons-two-phone:before {
+  content: "\e910";
+}
+.ontech-icons-two-play:before {
+  content: "\e911";
+}
+.ontech-icons-two-process:before {
+  content: "\e912";
+}
+.ontech-icons-two-quote:before {
+  content: "\e913";
+}
+.ontech-icons-two-right-arrow-two:before {
+  content: "\e914";
+}
+.ontech-icons-two-left-arrow-two:before {
+  content: "\e915";
+}
+.ontech-icons-two-search:before {
+  content: "\e916";
+}
+.ontech-icons-two-server-data:before {
+  content: "\e917";
+}
+.ontech-icons-two-star:before {
+  content: "\e918";
+}
+.ontech-icons-two-up-right-arrow:before {
+  content: "\e919";
+}
+.ontech-icons-two-user-regular:before {
+  content: "\e91a";
+}

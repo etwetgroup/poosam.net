@@ -64,6 +64,14 @@ $( document ).ready(function() {
                     caption: 'عنوان محصول',
                   },
                   {
+                    dataField: 'url_category',
+                    caption: 'دسته بندی لینک',
+                  },
+                  {
+                    dataField: 'show_id',
+                    caption: 'شناسه نمایش',
+                  },
+                  {
                     type: 'buttons',
                     width: 150,
                     buttons: [{

@@ -1,9 +1,26 @@
 {% extends "fa/base.html" %}
 {% load static %}
+{% load thumbnail %}
 
 {% block css %}
     <link href="{% static 'plugins/fancy-file-uploader/fancy_fileupload.css' %}" rel="stylesheet" />
 	<link href="{% static 'plugins/Drag-And-Drop/dist/imageuploadify.min.css' %}" rel="stylesheet" />
+    <style>
+        /* استایل سفارشی برای کارت اسلایدرها */
+        .slider-item-form {
+            transition: all 0.3s ease;
+        }
+        .slider-item-form:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .image-preview img, .image-preview video {
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .btn-step {
+            min-width: 120px;
+        }
+    </style>
 {% endblock css %}
 
 {% block body %}
@@ -16,7 +33,7 @@
 <main class="page-content">
     <!--breadcrumb-->
     <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
-        <div class="breadcrumb-title pe-3">تصاویر محترک</div>
+        <div class="breadcrumb-title pe-3">تصاویر متحرک</div>
         <div class="ps-3">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0 p-0">
@@ -28,18 +45,17 @@
         </div>
     </div>
     <!--end breadcrumb-->
-    <div class="card">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <h5>نمونه ای از اسلایدرهای زیر را انتخاب نمایید.</h5>
-            </div>
-        </div>
-    </div>
+
     <div class="card">
         <div class="card-header py-3">
             <div class="row g-3 align-items-center">
                 <div class="col-lg-3 col-md-6 me-auto">
                     <h6>تنظیمات اسلایدر انتخابی</h6>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <button type="button" id="addSliderBtn" class="btn btn-primary px-4 radius-30">
+                        <i class="bi bi-plus-circle me-2"></i>افزودن اسلایدر جدید
+                    </button>
                 </div>
             </div>
         </div>
@@ -56,7 +72,9 @@
                                           <source src="{{ slider.image.url }}" type="video/mp4">
                                         </video>
                                         {% else %}
-                                            <img src="{{ slider.image.url }}" class="img-fluid mb-3" alt="{{ slider.title }}" style="width: 240px;height: 160px;"/>
+                                            {% thumbnail slider.image "300x300" crop="center" as im %}
+                                                <img src="{{ im.url }}" class="img-fluid mb-3" alt="{{ slider.title }}" width="{{ im.width }}" height="{{ im.height }}"/>
+                                            {% endthumbnail %}
                                         {% endif %}
                                         <h6 class="product-title title">{{ slider.title|default_if_none:"بدون عنوان" }}</h6>
                                         <hr>
@@ -85,260 +103,15 @@
                     <!--end row-->
                 </div>
             {% else %}
-                <div id="nothing_slider" class="text-center mt-3 mb-3">
-                    <h6>هیچ اسلایدری انتخاب نشده است.</h6>
+                <div id="nothing_slider" class="text-center my-5">
+                    <i class="bi bi-images display-1 text-secondary mb-3"></i>
+                    <h4 class="text-secondary mb-3">هیچ اسلایدری موجود نیست</h4>
+                    <p class="text-muted mb-4">برای شروع، روی دکمه «افزودن اسلایدر جدید» کلیک کنید</p>
+                    <button type="button" id="addSliderBtnEmpty" class="btn btn-primary btn-lg px-5 radius-30">
+                        <i class="bi bi-plus-circle me-2"></i>افزودن اسلایدر جدید
+                    </button>
                 </div>
             {% endif %}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col col-lg-9 mx-auto">
-            <div class="form-check">
-                <input class="form-check-input checkbox" type="checkbox" value="" id="just_slide">
-                <label class="form-check-label" for="just_slide">
-                  فقط اسلاید
-                </label>
-            </div>
-            <hr/>
-            <div class="card">
-                <div class="card-body">
-                    <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{% static 'images/gallery/carousels/example/17.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/18.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/19.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input checkbox" type="checkbox" value="" id="with_controls">
-                <label class="form-check-label" for="with_controls">
-                  با کنترل
-                </label>
-            </div>
-            <hr/>
-            <div class="card">
-                <div class="card-body">
-                    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{% static 'images/gallery/carousels/example/26.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/27.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/28.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                           data-bs-slide="prev"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                           data-bs-slide="next"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <input class="form-check-input checkbox" type="checkbox" value="" id="with_indicators">
-            <label class="form-check-label" for="with_indicators">
-              با اندیکاتورها
-            </label>
-            <hr/>
-            <div class="card">
-                <div class="card-body">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
-                            <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{% static 'images/gallery/carousels/example/23.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/24.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/25.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                           data-bs-slide="prev"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                           data-bs-slide="next"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <input class="form-check-input checkbox" type="checkbox" value="" id="with_captions">
-            <label class="form-check-label" for="with_captions">
-              با زیرنویس
-            </label>
-            <hr/>
-            <div class="card">
-                <div class="card-body">
-                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
-                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
-                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{% static 'images/gallery/carousels/example/26.png' %}" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>First slide label</h5>
-                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/27.png' %}" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>Second slide label</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/28.png' %}" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>Third slide label</h5>
-                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button"
-                           data-bs-slide="prev"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button"
-                           data-bs-slide="next"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <input class="form-check-input checkbox" type="checkbox" value="" id="with_fade">
-            <label class="form-check-label" for="with_fade">
-              با افکت
-            </label>
-            <hr/>
-            <div class="card">
-                <div class="card-body">
-                    <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <img src="{% static 'images/gallery/carousels/example/29.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/30.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/31.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-bs-slide="prev">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-bs-slide="next">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <input class="form-check-input checkbox" type="checkbox" value="" id="with_interval">
-            <label class="form-check-label" for="with_interval">
-              فاصله فردی
-            </label>
-            <hr/>
-            <div class="card">
-                <div class="card-body">
-                    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            <div class="carousel-item active" data-bs-interval="10000">
-                                <img src="{% static 'images/gallery/carousels/example/17.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item" data-bs-interval="2000">
-                                <img src="{% static 'images/gallery/carousels/example/18.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/19.png' %}" class="d-block w-100" alt="...">
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleInterval" role="button"
-                           data-bs-slide="prev"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleInterval" role="button"
-                           data-bs-slide="next"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <h6 class="mb-0 text-uppercase"></h6>
-            <input class="form-check-input checkbox" type="checkbox" value="" id="with_dark">
-            <label class="form-check-label" for="with_dark">
-              نوع تاریک
-            </label>
-            <hr/>
-            <div class="card">
-                <div class="card-body">
-                    <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"></li>
-                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="1"></li>
-                            <li data-bs-target="#carouselExampleDark" data-bs-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="carousel-item active" data-bs-interval="10000">
-                                <img src="{% static 'images/gallery/carousels/example/26.png' %}" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>First slide label</h5>
-                                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item" data-bs-interval="2000">
-                                <img src="{% static 'images/gallery/carousels/example/25.png' %}" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>Second slide label</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                                </div>
-                            </div>
-                            <div class="carousel-item">
-                                <img src="{% static 'images/gallery/carousels/example/24.png' %}" class="d-block w-100" alt="...">
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h5>Third slide label</h5>
-                                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <a class="carousel-control-prev" href="#carouselExampleDark" role="button" data-bs-slide="prev">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carouselExampleDark" role="button" data-bs-slide="next">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </main>
@@ -349,44 +122,37 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">افزودن اطلاعات اسلایدر</h5>
+                    <h5 class="modal-title">افزودن اسلایدر جدید</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/carouselsInsert/" class="needs-validation" method="post" enctype="multipart/form-data" novalidate>
-                    {% csrf_token %}
-                    <input type="hidden" id="slider_type" name="slider_type">
                     <div class="modal-body">
-                        <div class="col-12 mb-3">
-                            <label class="form-label">تصاویر اسلایدر</label>
-                            <input id="image-uploadify" name="files" type="file" accept=".jpg, .jpeg, .mp4" multiple>
+                    <!-- مرحله اول: انتخاب تصاویر -->
+                    <div id="step1">
+                        <h6 class="mb-3">گام اول: انتخاب تصاویر اسلایدر</h6>
+                        <div class="col-12">
+                            <div id="fileUploadContainer"></div>
                         </div>
-<!--                        <div class="col-12 mb-3">-->
-<!--                            <label class="form-label">عنوان</label>-->
-<!--                            <input type="text" name="title" class="form-control" placeholder="عنوان ...">-->
-<!--                        </div>-->
-<!--                        <div class="col-12 mb-3">-->
-<!--                            <label class="form-label">توضیحات</label>-->
-<!--                            <textarea name="desc" class="form-control" rows="3" cols="3" placeholder="توضیحات"></textarea>-->
-<!--                        </div>-->
-<!--                        <div class="col-12 mb-3">-->
-<!--                            <label class="form-label">لینک</label>-->
-<!--                            <input type="text" style="direction: ltr" name="link" class="form-control" placeholder="https:\\www.google.com">-->
-<!--                        </div>-->
-                        <div class="col-12 mb-3">
-                            <label class="form-label">مشاهده در</label>
-                            <select name="view_in" class="form-select">
-                                <option value="0">همه صفحات</option>
-                                {% for page in pages %}
-                                    <option value="{{ page.pk }}">{{ page.title }}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" id="goToStep2" class="btn btn-primary btn-step">مرحله بعد <i class="bi bi-arrow-left"></i></button>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">ثبت</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">لغو</button>
+                    
+                    <!-- مرحله دوم: وارد کردن اطلاعات برای هر تصویر -->
+                    <div id="step2" style="display: none;">
+                        <h6 class="mb-3">گام دوم: وارد کردن اطلاعات برای هر تصویر</h6>
+                        <div id="imageDataContainer">
+                            <!-- اینجا فرم‌های مربوط به هر تصویر به صورت پویا اضافه می‌شوند -->
+                        </div>
+                        <form id="sliderDataForm" action="/carouselsInsert/" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" id="imageData" name="imageData">
+                            <div class="d-flex justify-content-between mt-4">
+                                <button type="button" id="backToStep1" class="btn btn-secondary btn-step"><i class="bi bi-arrow-right"></i> بازگشت</button>
+                                <button type="submit" class="btn btn-success btn-step">ذخیره همه <i class="bi bi-check-lg"></i></button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -424,7 +190,7 @@
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label">لینک</label>
-                            <input required type="text" id="link" style="direction: ltr" name="link" class="form-control" placeholder="https:\\www.google.com">
+                            <input required type="text" id="link" style="direction: ltr" name="link" class="form-control" placeholder="https://www.example.com">
                             <div class="invalid-feedback">
                                 لینک اجباری میباشد.
                             </div>
@@ -435,15 +201,6 @@
                             <input type="file" style="display:none;" id="image" name="image"/>
                             <input type="hidden" id="edit_image" name="edit_image"/>
                         </div>
-<!--                        <div class="col-12 mb-3">-->
-<!--                            <label class="form-label">مشاهده در</label>-->
-<!--                            <select name="view_in" class="form-select">-->
-<!--                                <option value="0">همه صفحات</option>-->
-<!--                                {% for page in pages %}-->
-<!--                                    <option value="{{ page.pk }}">{{ page.title }}</option>-->
-<!--                                {% endfor %}-->
-<!--                            </select>-->
-<!--                        </div>-->
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">ثبت</button>
@@ -468,7 +225,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-dark">بله</button>
-                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">خیر</button>
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">لغو</button>
                     </div>
                 </div>
             </div>
@@ -497,7 +254,195 @@
 	<script src="{% static 'plugins/fancy-file-uploader/jquery.iframe-transport.js' %}"></script>
     <script src="{% static 'plugins/fancy-file-uploader/jquery.fancy-fileupload.js' %}"></script>
 	<script src="{% static 'plugins/Drag-And-Drop/dist/imageuploadify.min.js' %}"></script>
-    <script src="{% static 'js/form-file-upload.js' %}"></script>
+    <script>
+        // مدیریت فرآیند اضافه کردن اسلایدرها
+        $(document).ready(function() {
+            let selectedFiles = [];
+            
+            // ایجاد کنترل آپلود فایل به صورت دستی
+            $('#fileUploadContainer').html('<input id="image-uploadify" type="file" accept=".jpg, .jpeg, .mp4" multiple>');
+            
+            // پیکربندی کنترل آپلود تصاویر
+            $('#image-uploadify').imageuploadify({
+                previewWidth: 180,
+                previewHeight: 120,
+                instantUpload: false,
+                multiple: true,
+                allowedFormats: ['jpg', 'jpeg', 'mp4'],
+                maxFiles: 10,
+                // در این حالت ما رویداد آپلود را کنترل می‌کنیم
+                customText: {
+                    browse: 'انتخاب تصاویر',
+                    text: 'تصاویر اسلایدر را برای آپلود بکشید و رها کنید یا کلیک کنید'
+                }
+            });
+            
+            // دریافت فایل‌های انتخاب شده
+            $(document).on('change', '#image-uploadify', function(event) {
+                selectedFiles = Array.from(event.target.files);
+                // فعال کردن دکمه مرحله بعد اگر فایلی انتخاب شده است
+                $('#goToStep2').prop('disabled', selectedFiles.length === 0);
+            });
+            
+            // غیرفعال کردن دکمه مرحله بعد در ابتدا
+            $('#goToStep2').prop('disabled', true);
+            
+            // رویداد کلیک روی دکمه مرحله بعد
+            $('#goToStep2').click(function() {
+                if (selectedFiles.length > 0) {
+                    // ساخت فرم برای هر تصویر
+                    createImageForms();
+                    // نمایش مرحله دوم
+                    $('#step1').hide();
+                    $('#step2').show();
+                }
+            });
+            
+            // رویداد کلیک روی دکمه بازگشت
+            $('#backToStep1').click(function() {
+                $('#step2').hide();
+                $('#step1').show();
+            });
+            
+            // ارسال فرم نهایی
+            $('#sliderDataForm').submit(function(e) {
+                e.preventDefault();
+                
+                // نمایش لودینگ
+                showSpinner('در حال آپلود و ذخیره اسلایدرها...');
+                
+                // جمع‌آوری اطلاعات از تمام فرم‌ها
+                let slidersData = [];
+                $('.slider-item-form').each(function(index) {
+                    const item = {
+                        title: $(this).find('.slider-title').val(),
+                        short_text: $(this).find('.slider-short-text').val(),
+                        description: $(this).find('.slider-description').val(),
+                        link: $(this).find('.slider-link').val(),
+                        fileIndex: $(this).data('file-index')
+                    };
+                    slidersData.push(item);
+                });
+                
+                // ایجاد FormData برای ارسال فایل‌ها و داده‌ها
+                const formData = new FormData();
+                formData.append('slidersData', JSON.stringify(slidersData));
+                
+                // اضافه کردن فایل‌ها
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    formData.append('files[]', selectedFiles[i]);
+                }
+                
+                // اضافه کردن CSRF token
+                formData.append('csrfmiddlewaretoken', $('input[name=csrfmiddlewaretoken]').val());
+                
+                // ارسال درخواست با استفاده از AJAX
+                $.ajax({
+                    url: '/carouselsInsert/',
+                    type: 'POST',
+                    data: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        // مخفی کردن لودینگ
+                        hideSpinner();
+                        // بارگذاری مجدد صفحه پس از موفقیت
+                        window.location.href = '/carousels/';
+                    },
+                    error: function(error) {
+                        // مخفی کردن لودینگ
+                        hideSpinner();
+                        console.error('Error:', error);
+                        alert('خطا در ذخیره اسلایدرها. لطفاً دوباره تلاش کنید.');
+                    }
+                });
+            });
+            
+            // تابع ساخت فرم برای هر تصویر
+            function createImageForms() {
+                const container = $('#imageDataContainer');
+                container.empty();
+                
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const file = selectedFiles[i];
+                    const filePreview = URL.createObjectURL(file);
+                    
+                    // ساخت کارت برای هر تصویر
+                    const card = $(`
+                        <div class="card mb-4 slider-item-form" data-file-index="${i}">
+                            <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                                <h6 class="mb-0">تصویر ${i+1}: ${file.name}</h6>
+                                <span class="badge bg-primary">${formatFileSize(file.size)}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="image-preview text-center">
+                                            ${file.type.includes('video') 
+                                                ? `<video controls style="max-width: 100%; max-height: 150px;"><source src="${filePreview}" type="${file.type}"></video>` 
+                                                : `<img src="${filePreview}" alt="Preview" style="max-width: 100%; max-height: 150px;">`
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="mb-3">
+                                            <label class="form-label">عنوان</label>
+                                            <input type="text" class="form-control slider-title" required placeholder="عنوان اسلایدر...">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">متن کوتاه</label>
+                                            <input type="text" class="form-control slider-short-text" placeholder="متن کوتاه...">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">توضیحات</label>
+                                            <textarea class="form-control slider-description" rows="2" placeholder="توضیحات..."></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">لینک</label>
+                                            <input type="text" class="form-control slider-link" required placeholder="https://example.com" style="direction: ltr;">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                    
+                    container.append(card);
+                }
+            }
+            
+            // تابع فرمت‌دهی سایز فایل
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            // توابع نمایش و مخفی کردن لودینگ
+            function showSpinner(message) {
+                const spinner = $(`
+                    <div id="uploadSpinner" class="position-fixed w-100 h-100" style="top: 0; left: 0; background: rgba(0,0,0,0.5); z-index: 9999; display: flex; justify-content: center; align-items: center;">
+                        <div class="bg-white p-4 rounded shadow text-center">
+                            <div class="spinner-border text-primary mb-3" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <div class="text-dark">${message}</div>
+                        </div>
+                    </div>
+                `);
+                $('body').append(spinner);
+            }
+            
+            function hideSpinner() {
+                $('#uploadSpinner').remove();
+            }
+        });
+    </script>
     <script>
         (function () {
             'use strict'
@@ -545,11 +490,26 @@
         });
     </script>
     <script>
-        $('.checkbox').click(function () {
-            $("input:checkbox").prop('checked', false);
-            $(this).prop('checked', true);
-            $("#slider_type").val($(this).attr('id'));
+        // Replace the checkbox click handler with a button click handler
+        $('#addSliderBtn, #addSliderBtnEmpty').click(function() {
             $('#modalAddSlider').modal('show');
+            // پاکسازی داده‌های قبلی
+            $('#fileUploadContainer').html('<input id="image-uploadify" type="file" accept=".jpg, .jpeg, .mp4" multiple>');
+            $('#image-uploadify').imageuploadify({
+                previewWidth: 180,
+                previewHeight: 120,
+                instantUpload: false,
+                multiple: true,
+                allowedFormats: ['jpg', 'jpeg', 'mp4'],
+                maxFiles: 10,
+                customText: {
+                    browse: 'انتخاب تصاویر',
+                    text: 'تصاویر اسلایدر را برای آپلود بکشید و رها کنید یا کلیک کنید'
+                }
+            });
+            $('#goToStep2').prop('disabled', true);
+            $('#step1').show();
+            $('#step2').hide();
         });
 
         function delete_slider(val)
@@ -600,14 +560,16 @@
            update: function (event, ui) {
                 ui.placeholder.height(ui.item.height());
                 if($(this).attr("id") =="mainSliderGrid"){
-                    var table = "main_slider";
+                    var table = "slider";
                 }
                 var data = $(this).sortable('serialize');
                 $.ajax({
                 type: "POST",
                 url:"/saveOrder/",
-                data: {order:data,table:table},
-                success: function(theResponse) {},
+                data: {order:data},
+                success: function(theResponse) {
+                    console.log("Order updated successfully");
+                },
                     complete: function(){
                     }
                 });

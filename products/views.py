@@ -116,8 +116,11 @@ def products_list(request):
 def products_add(request):
     product = Main.objects.filter(title='محصولات', sub_menu__isnull=True).order_by('position')
     pages = Main.objects.filter(sub_menu_id__in =[x.pk for x in product]).order_by('position')
+    url_categories = UrlCatergory.objects.filter(is_active=True).order_by('title')
+    
     context = {
         'pages': pages,
+        'url_categories': url_categories,
     }
 
     return render(request, 'fa/products/add.html', context)
@@ -154,6 +157,8 @@ def products_insert(request):
         price = request.POST.get('price')
         pages = request.POST.get('pages')
         product = request.POST.get('product')
+        url_category = request.POST.get('url_category')
+        show_id = request.POST.get('show_id')
         # input_details = request.POST.getlist('input_details')
 
         if bool(request.FILES.get('image', False)) == True:
@@ -161,7 +166,9 @@ def products_insert(request):
         else:
             image = 'uploads/products/nopic.jpg'
 
-        obj = Products.objects.create(image=image, title=title, price=price, pages_id=pages, product=product)
+        obj = Products.objects.create(image=image, title=title, price=price, pages_id=pages, product=product, show_id=show_id)
+        if url_category:
+            obj.url_category_id = url_category
         obj.save()
 
         details_pk = obj.pk
@@ -178,10 +185,13 @@ def products_insert(request):
 def products_datasource(request):
     objects = []
     for item in Products.objects.all().order_by('pages').order_by('position'):
+        url_category_name = item.url_category.title if item.url_category else "-"
         objects.append({
             'ID': item.id,
             'title': item.title,
             'pages': item.pages.title,
+            'url_category': url_category_name,
+            'show_id': item.show_id if item.show_id else "-",
             'active': item.active,
         })
     return HttpResponse(json.dumps(objects), content_type='application/json; charset=utf8')
@@ -214,11 +224,13 @@ def products_edit(request,id):
     product = Products.objects.get(id=id)
     pages = Main.objects.filter(sub_menu_id=6).order_by('position')
     products = Main.objects.filter(sub_menu_id=product.pages_id).order_by('position')
+    url_categories = UrlCatergory.objects.filter(is_active=True).order_by('title')
 
     context = {
         'product': product,
         'pages': pages,
         'products': products,
+        'url_categories': url_categories,
     }
 
     return render(request, 'fa/products/edit.html', context)
@@ -245,6 +257,8 @@ def products_edit_save(request):
         price = request.POST.get('price')
         title = request.POST.get('title')
         product = request.POST.get('product')
+        url_category = request.POST.get('url_category')
+        show_id = request.POST.get('show_id')
 
         if bool(request.FILES.get('image', False)) == True:
             image = request.FILES['image']
@@ -265,6 +279,11 @@ def products_edit_save(request):
         member.product = product
         member.price = price
         member.image = image
+        member.show_id = show_id
+        if url_category:
+            member.url_category_id = url_category
+        else:
+            member.url_category = None
         member.save()
 
         messages.info(request, 'اطاعات وارد شده با موفقیت بروزرسانی شد.')
