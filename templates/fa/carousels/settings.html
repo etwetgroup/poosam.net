@@ -72,7 +72,7 @@
                                           <source src="{{ slider.image.url }}" type="video/mp4">
                                         </video>
                                         {% else %}
-                                            {% thumbnail slider.image "240x160" crop="center" as im %}
+                                            {% thumbnail slider.image "300x300" crop="center" as im %}
                                                 <img src="{{ im.url }}" class="img-fluid mb-3" alt="{{ slider.title }}" width="{{ im.width }}" height="{{ im.height }}"/>
                                             {% endthumbnail %}
                                         {% endif %}

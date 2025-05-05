@@ -260,6 +260,10 @@ THUMBNAIL_CACHE_TIMEOUT = 60 * 60 * 24 * 30  # 30 روز
 # سطح فشرده‌سازی
 THUMBNAIL_QUALITY = 85
 
+# THUMBNAIL_FORCE_OVERWRITE = True
+
+
+
 # مشخص کردن پسوند به صورت دستی (در صورت نیاز)
 # THUMBNAIL_EXTENSION = 'webp'
 
