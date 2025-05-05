@@ -158,6 +158,7 @@ def products_insert(request):
         pages = request.POST.get('pages')
         product = request.POST.get('product')
         url_category = request.POST.get('url_category')
+        show_id = request.POST.get('show_id')
         # input_details = request.POST.getlist('input_details')
 
         if bool(request.FILES.get('image', False)) == True:
@@ -165,7 +166,7 @@ def products_insert(request):
         else:
             image = 'uploads/products/nopic.jpg'
 
-        obj = Products.objects.create(image=image, title=title, price=price, pages_id=pages, product=product)
+        obj = Products.objects.create(image=image, title=title, price=price, pages_id=pages, product=product, show_id=show_id)
         if url_category:
             obj.url_category_id = url_category
         obj.save()
@@ -190,6 +191,7 @@ def products_datasource(request):
             'title': item.title,
             'pages': item.pages.title,
             'url_category': url_category_name,
+            'show_id': item.show_id if item.show_id else "-",
             'active': item.active,
         })
     return HttpResponse(json.dumps(objects), content_type='application/json; charset=utf8')
@@ -256,6 +258,7 @@ def products_edit_save(request):
         title = request.POST.get('title')
         product = request.POST.get('product')
         url_category = request.POST.get('url_category')
+        show_id = request.POST.get('show_id')
 
         if bool(request.FILES.get('image', False)) == True:
             image = request.FILES['image']
@@ -276,6 +279,7 @@ def products_edit_save(request):
         member.product = product
         member.price = price
         member.image = image
+        member.show_id = show_id
         if url_category:
             member.url_category_id = url_category
         else:

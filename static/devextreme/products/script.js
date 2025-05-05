@@ -68,6 +68,10 @@ $( document ).ready(function() {
                     caption: 'دسته بندی لینک',
                   },
                   {
+                    dataField: 'show_id',
+                    caption: 'شناسه نمایش',
+                  },
+                  {
                     type: 'buttons',
                     width: 150,
                     buttons: [{
