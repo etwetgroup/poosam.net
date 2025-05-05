@@ -41,6 +41,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # extenalApps
+    'sorl.thumbnail',
+
+    # admin apps
     'persianfonts.apps.PersianfontsConfig',
     'userauth.apps.UserauthConfig',
     'membership.apps.MembershipConfig',
@@ -57,6 +62,9 @@ INSTALLED_APPS = [
     'portfolio.apps.PortfolioConfig',
     'faq.apps.FaqConfig',
     'products.apps.ProductsConfig',
+
+
+    
 ]
 
 MIDDLEWARE = [
@@ -233,3 +241,35 @@ AUTH_USER_MODEL = 'membership.Users'
 API_KEY = 'e6z6N1JbRmXdHrfIxWTBEJg9hFLahn2ag7Peoblc8Vs3VxpGnRN0IMcxjRnS2mJP'
 LINENUMBER = '3000463163'
 LOGOUT_REDIRECT_URL = '/'
+
+
+# start sorl thumbnail config
+
+# خروجی WebP به صورت پیش‌فرض
+THUMBNAIL_FORMAT = 'WEBP'
+
+# مسیر ذخیره‌ی thumbnailها
+THUMBNAIL_PREFIX = 'cache/'
+
+# موتور کش: می‌تونی redis یا memcached بذاری، یا همون فایل‌سیستم
+THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.cached_db_kvstore.KVStore'
+
+# زمان کش
+THUMBNAIL_CACHE_TIMEOUT = 60 * 60 * 24 * 30  # 30 روز
+
+# سطح فشرده‌سازی
+THUMBNAIL_QUALITY = 85
+
+# مشخص کردن پسوند به صورت دستی (در صورت نیاز)
+# THUMBNAIL_EXTENSION = 'webp'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+# end sorl thumbnail config
