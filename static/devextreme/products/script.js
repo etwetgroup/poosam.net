@@ -64,6 +64,10 @@ $( document ).ready(function() {
                     caption: 'عنوان محصول',
                   },
                   {
+                    dataField: 'url_category',
+                    caption: 'دسته بندی لینک',
+                  },
+                  {
                     type: 'buttons',
                     width: 150,
                     buttons: [{
